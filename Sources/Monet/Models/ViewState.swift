@@ -7,8 +7,12 @@
 
 import Combine
 import SwiftUI
+import OSLog
 
 class ViewState: ObservableObject {
+    @AppLog(category: "ViewState")
+    private var logger
+
     @Published var scale: Double = 1.0
     @Published var offset: CGSize = .zero
     @Published var anchor: UnitPoint = .center
@@ -71,6 +75,44 @@ class ViewState: ObservableObject {
         if newScale != scale {
             scale = newScale
         }
+    }
+
+    /// 以鼠标位置为中心进行缩放（Google Picasa 风格）
+    /// - Parameters:
+    ///   - factor: 缩放因子（>1 放大，<1 缩小）
+    ///   - mouseLocation: 鼠标在视图中的位置（坐标系：原点在左上角）
+    ///   - viewSize: 视图尺寸
+    ///   - logger: 日志记录器
+    func zoomAtMousePosition(factor: Double, mouseLocation: CGPoint, viewSize: CGSize, logger: Logger) {
+        let newScale = min(max(scale * factor, minScale), maxScale)
+        guard newScale != scale else {
+            logger.log("scale unchanged: \(self.scale)")
+            return
+        }
+
+        let scaleRatio = newScale / scale
+
+        logger.log("===== [zoomAtMousePosition] =====")
+        logger.log("  mouseLocation: (\(mouseLocation.x), \(mouseLocation.y))")
+        logger.log("  viewSize: \(viewSize.width) x \(viewSize.height)")
+        logger.log("  viewCenter: (\(viewSize.width / 2), \(viewSize.height / 2))")
+
+        // 将鼠标位置转换到以视图中心为原点的坐标系
+        // mouseLocation 原点在左上角，需要转换
+        let cursorX = mouseLocation.x - viewSize.width / 2
+        let cursorY = mouseLocation.y - viewSize.height / 2
+
+        // 计算新的 offset，使鼠标下的图像点保持不变
+        let newOffsetX = (offset.width - cursorX) * scaleRatio + cursorX
+        let newOffsetY = (offset.height - cursorY) * scaleRatio + cursorY
+
+        logger.log("  cursor (centered): (\(cursorX), \(cursorY))")
+        logger.log("  scale: \(self.scale) -> \(newScale) (ratio: \(scaleRatio))")
+        logger.log("  offset: (\(self.offset.width), \(self.offset.height)) -> (\(newOffsetX), \(newOffsetY))")
+        logger.log("======================================")
+
+        scale = newScale
+        offset = CGSize(width: newOffsetX, height: newOffsetY)
     }
 
     func pan(delta: CGSize) {
