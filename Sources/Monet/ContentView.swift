@@ -6,7 +6,6 @@
 //
 
 import AppKit
-import SDWebImageSwiftUI
 import SwiftUI
 
 struct ContentView: View {
@@ -19,16 +18,12 @@ struct ContentView: View {
     @State private var scale: CGSize = .init(width: 1, height: 1)
 
     @State private var isNavBarVisible: Bool = true
-    @State private var isCommandPressed: Bool = false
 
     @State private var window: NSWindow?
 
     @State private var showFileSelector = false
 
-    // ScrollView的偏移状态，用来实现拖动查看图片的不同部分
-    @State private var scrollViewOffset: CGSize = .zero
-    @State private var lastDragPosition: CGSize = .zero
-
+    @State private var monetImageView: MonetImageView? = nil
     @State private var scrollViewProxy: ScrollViewProxy? = nil
 
     var body: some View {
@@ -73,37 +68,14 @@ struct ContentView: View {
 
                 HStack {
                     if let currentImage = currentImage {
-                        ScrollView([.horizontal, .vertical], showsIndicators: true) {
-                            // 使用 Image 组件加载图片，并设置其大小大于 ScrollView 的视图大小
-                            Image(nsImage: currentImage)
-                                .resizable()
-                                .frame(width: currentImage.size.width * scale.width, height: currentImage.size.height * scale.height )
-                                .scaleEffect(scale, anchor: .center)
-                                .border(Color.red, width: 1)
-                                .offset(x: scrollViewOffset.width, y: scrollViewOffset.height) // 通过偏移来控制图片的位置
-                                .gesture(
-                                    DragGesture()
-                                        .onChanged { value in
-                                            // 计算拖动的偏移量，并更新状态
-                                            let newOffset = CGSize(
-                                                width: lastDragPosition.width + value.translation.width,
-                                                height: lastDragPosition.height + value.translation.height
-                                            )
-
-                                            // 将新的偏移值设置到视图中
-                                            scrollViewOffset = newOffset
-                                        }
-                                        .onEnded { _ in
-                                            // 保存拖动结束时的位置
-                                            lastDragPosition = scrollViewOffset
-                                        }
-                                )
-
-                                .onTapGesture {
-//                                    appState.appDelegate?.startShowWindowTitlebar()
-                                }
-                        }
-
+                        ZoomableImageView(image: currentImage,
+                            onScaleChanged: { newScale in
+                                scale = CGSize(width: newScale, height: newScale)
+                            },
+                            onViewCreated: { imageView in
+                                monetImageView = imageView
+                            }
+                        )
                     } else {
                         HStack {
                             Button("Select Image File") {
@@ -133,12 +105,10 @@ struct ContentView: View {
             isNavBarVisible.toggle()
 
         case .scaleMinis:
-            scale.width -= 0.1
-            scale.height -= 0.1
+            monetImageView?.zoomOut()
 
         case .scalePlus:
-            scale.width += 0.1
-            scale.height += 0.1
+            monetImageView?.zoomIn()
 
         case .showPrev:
             showPreviousImage()
@@ -154,17 +124,7 @@ struct ContentView: View {
     }
     
     func centerFillImage() {
-        guard let win = window, let image = currentImage else {
-            logger.warning("no window or no image")
-            return
-        }
-        let minScale = min( win.frame.width / image.size.width,  win.frame.height / image.size.height)
-        
-        self.scale = CGSize(width: minScale, height: minScale)
-        
-        self.scrollViewOffset.width = 0
-        self.scrollViewOffset.height = 0
-        
+        monetImageView?.fitToWindow()
     }
 
     func handleFileSelect(_ result: Result<URL, any Error>) {
@@ -191,13 +151,6 @@ struct ContentView: View {
             // handle error
             logger.error("error: \(error)")
         }
-    }
-
-    // 将全局坐标转换为局部坐标
-    func convertGlobalToLocal(_ globalPoint: NSPoint, in geometry: GeometryProxy) -> CGPoint {
-        let windowPoint = CGPoint(x: globalPoint.x, y: NSScreen.main?.frame.height ?? 0 - globalPoint.y) // 修正 Y 方向
-        let localPoint = geometry.frame(in: .global).origin
-        return CGPoint(x: windowPoint.x - localPoint.x, y: windowPoint.y - localPoint.y)
     }
 
     func appearHandler() {
@@ -230,34 +183,6 @@ struct ContentView: View {
     }
 
     private func setupKeyEvents() {
-        print("appear \(appState.selectedImageIndex)")
-
-        // 监听 Command 键的按下事件
-        NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) { event in
-            if event.modifierFlags.contains(.command) {
-                isCommandPressed = true
-            } else {
-                isCommandPressed = false
-            }
-            return event
-        }
-        NSEvent.addLocalMonitorForEvents(matching: .scrollWheel) { event in
-            if isCommandPressed { // 只有按下 Command 键时才缩放
-                let delta = event.scrollingDeltaY
-//                let localPos = event.locationInWindow
-//                if let window = NSApplication.shared.windows.first {
-//                    self.anchorPoint = UnitPoint(
-//                        x: localPos.x / window.frame.width,
-//                        y: 1 - localPos.y / window.frame.height
-//                    )
-//                }
-                scale.width += delta / 500
-                scale.height += delta / 500 // 根据滚轮的滚动量进行缩放
-                return nil // 防止滚动事件传递给其他组件
-            }
-            return event
-        }
-
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
             switch event.keyCode {
             case 124, 125: // Right Arrow

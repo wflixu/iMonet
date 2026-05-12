@@ -1,5 +1,5 @@
 {
-  "originHash" : "c77aa49e566e8dc474aafabd755e2e59c0502214d5db571aa2d6ad6fbfdecf1d",
+  "originHash" : "1c6b7d8df446e9a7b57429180c25e69f7a7d749993a45281a78c410bb45fa021",
   "pins" : [
     {
       "identity" : "launchatlogin-modern",
@@ -8,24 +8,6 @@
       "state" : {
         "revision" : "a04ec1c363be3627734f6dad757d82f5d4fa8fcc",
         "version" : "1.1.0"
-      }
-    },
-    {
-      "identity" : "sdwebimage",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImage.git",
-      "state" : {
-        "revision" : "2de3a496eaf6df9a1312862adcfd54acd73c39c0",
-        "version" : "5.21.7"
-      }
-    },
-    {
-      "identity" : "sdwebimageswiftui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
-      "state" : {
-        "revision" : "0e331457ca9af2f0b08bcaa138a91ffb907b004f",
-        "version" : "3.1.4"
       }
     },
     {
