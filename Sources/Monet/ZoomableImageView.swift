@@ -208,6 +208,6 @@ struct ZoomableImageView: View {
 }
 
 #Preview {
-    ZoomableImageView(image: Bundle.module.image(forResource: "sample"))
+    ZoomableImageView(image: NSImage(systemSymbolName: "photo", accessibilityDescription: nil))
         .background(Color.gray)
 }

@@ -149,30 +149,72 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func loadImages(from url: URL) {
-        logger.warning("loadImages ....")
+        logger.info("loadImages from: \(url.path)")
         guard let appState else {
             logger.warning("not have appState")
             return
         }
-        if appState.showCurDirImg == true {
-            let directory = url.deletingLastPathComponent()
 
-            do {
-                let fileURLs = try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)
-                appState.imageFiles = fileURLs.filter { ["png", "jpg", "jpeg", "gif", "webp"].contains($0.pathExtension.lowercased()) }
-                appState.selectedImageIndex = appState.imageFiles.firstIndex(where: { item in
-                    print("item \(item.path) --- url: \(url.path)")
-                    return item.path == url.path
-                }) ?? 0
-                appState.currentImageURL = url
-                logger.warning("loadimagesfiles ... \(appState.selectedImageIndex)")
-            } catch {
-                logger.error("Error reading contents of directory: \(error.localizedDescription)")
-            }
-        } else {
-            appState.imageFiles.append(url)
-            appState.selectedImageIndex = 0
-            appState.currentImageURL = url
+        // Always show the current image first
+        appState.imageFiles = [url]
+        appState.selectedImageIndex = 0
+        appState.currentImageURL = url
+
+        let directory = url.deletingLastPathComponent()
+
+        guard !appState.shouldSkipIndexing(directory) else { return }
+
+        guard appState.showCurDirImg else {
+            // Indexing not enabled — show generic banner
+            appState.pendingDirectoryURL = directory
+            appState.pendingDirectoryImageCount = 0 // 0 = unknown count
+            appState.showIndexBanner = true
+            return
         }
+
+        // Indexing enabled — try scanning with existing permissions
+        if !indexFolder(directory, currentURL: url) {
+            // No permission — show banner with unknown count
+            appState.pendingDirectoryURL = directory
+            appState.pendingDirectoryImageCount = 0
+            appState.showIndexBanner = true
+        }
+    }
+
+    /// Scan a directory for images with proper security-scoped access.
+    /// Synchronous so arrow-key navigation works immediately after loading.
+    /// When `keepAccess` is true (caller already started access), the access is not stopped.
+    @discardableResult
+    func indexFolder(_ directory: URL, currentURL: URL, keepAccess: Bool = false) -> Bool {
+        guard let appState else { return false }
+
+        let startedHere = !keepAccess && directory.startAccessingSecurityScopedResource()
+        if !keepAccess {
+            guard startedHere else {
+                logger.warning("Cannot access security-scoped resource: \(directory.path)")
+                return false
+            }
+        }
+        defer {
+            if startedHere { directory.stopAccessingSecurityScopedResource() }
+        }
+
+        guard let files = try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil) else {
+            logger.warning("Cannot read directory: \(directory.path)")
+            return false
+        }
+
+        let imageFiles = files
+            .filter { Constants.supportedImageExtensions.contains($0.pathExtension.lowercased()) }
+            .sorted { $0.lastPathComponent.localizedStandardCompare($1.lastPathComponent) == .orderedAscending }
+
+        guard !imageFiles.isEmpty else { return false }
+
+        appState.imageFiles = imageFiles
+        appState.selectedImageIndex = imageFiles.firstIndex(of: currentURL) ?? 0
+        appState.currentImageURL = imageFiles[appState.selectedImageIndex]
+        logger.info("Indexed \(imageFiles.count) images in folder")
+
+        return true
     }
 }

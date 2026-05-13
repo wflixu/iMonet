@@ -21,7 +21,12 @@ struct ContentView: View {
 
     @State private var window: NSWindow?
 
-    @State private var showFileSelector = false
+    private enum ImporterKind {
+        case imageFile
+        case folder
+    }
+    @State private var importerKind: ImporterKind?
+    @State private var showFileImporter = false
 
     @State private var monetImageView: MonetImageView? = nil
     @State private var scrollViewProxy: ScrollViewProxy? = nil
@@ -66,6 +71,53 @@ struct ContentView: View {
                 .zIndex(20)
                 .position(x: geometry.size.width / 2, y: geometry.size.height - 32)
 
+                // Index banner overlay (only when image is loaded, so fileImporter here
+                // doesn't conflict with the image file importer in the else branch below)
+                if appState.showIndexBanner,
+                   appState.pendingDirectoryURL != nil
+                {
+                    VStack {
+                        HStack(spacing: 12) {
+                            Image(systemName: "photo.stack")
+                                .font(.system(size: 16))
+                            if appState.pendingDirectoryImageCount > 0 {
+                                Text("此文件夹包含 \(appState.pendingDirectoryImageCount) 张图片")
+                                    .font(.system(size: 14))
+                            } else {
+                                Text("浏览此文件夹中的所有图片")
+                                    .font(.system(size: 14))
+                            }
+                            Button("浏览全部") {
+                                appState.showIndexBanner = false
+                                importerKind = .folder
+                                showFileImporter = true
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .controlSize(.small)
+                            Button(action: {
+                                if let dir = appState.pendingDirectoryURL {
+                                    appState.dismissedBannerFolders.insert(dir)
+                                }
+                                appState.showIndexBanner = false
+                            }) {
+                                Image(systemName: "xmark")
+                                    .font(.system(size: 12))
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(8)
+                        .shadow(radius: 4)
+                        .padding(.top, 8)
+
+                        Spacer()
+                    }
+                    .zIndex(25)
+                    .transition(.move(edge: .top))
+                }
+
                 HStack {
                     if let currentImage = currentImage {
                         ZoomableImageView(image: currentImage,
@@ -79,10 +131,8 @@ struct ContentView: View {
                     } else {
                         HStack {
                             Button("Select Image File") {
-                                showFileSelector = true
-                            }
-                            .fileImporter(isPresented: $showFileSelector, allowedContentTypes: [.png, .jpeg, .gif, .webP]) { result in
-                                handleFileSelect(result)
+                                importerKind = .imageFile
+                                showFileImporter = true
                             }
                         }
                     }
@@ -91,6 +141,28 @@ struct ContentView: View {
             }
 
             .ignoresSafeArea(.container)
+            .fileImporter(
+                isPresented: $showFileImporter,
+                allowedContentTypes: importerKind == .imageFile
+                    ? [.png, .jpeg, .gif, .webP]
+                    : [.directory],
+                allowsMultipleSelection: true
+            ) { result in
+                let kind = importerKind
+                importerKind = nil
+                switch kind {
+                case .imageFile:
+                    if case .success(let urls) = result, let url = urls.first {
+                        handleFileSelect(url)
+                    }
+                case .folder:
+                    if case .success(let dirs) = result, let dir = dirs.first {
+                        handleFolderAccess(dir)
+                    }
+                case nil:
+                    break
+                }
+            }
             .onAppear(perform: appearHandler)
             .onReceive(NotificationCenter.default.publisher(for: Notification.Name("open-image"))) { _ in
                 loadImage(at: appState.selectedImageIndex)
@@ -127,29 +199,41 @@ struct ContentView: View {
         monetImageView?.fitToWindow()
     }
 
-    func handleFileSelect(_ result: Result<URL, any Error>) {
-        switch result {
-        case .success(let fileUrl):
-            // gain access to the directory
-            let gotAccess = fileUrl.startAccessingSecurityScopedResource()
-            if !gotAccess {
-                logger.warning("not got access")
-                return
-            }
-            // access the directory URL
+    func handleFileSelect(_ fileUrl: URL) {
+        let gotAccess = fileUrl.startAccessingSecurityScopedResource()
+        if !gotAccess {
+            logger.warning("not got access")
+            return
+        }
 
-            if let appDelegate = appState.appDelegate {
-                appDelegate.loadImages(from: fileUrl)
-                loadImage(at: appState.selectedImageIndex)
-            } else {
-                logger.warning("not appDelegate")
-            }
+        if let appDelegate = appState.appDelegate {
+            appDelegate.loadImages(from: fileUrl)
+            loadImage(at: appState.selectedImageIndex)
+        } else {
+            logger.warning("not appDelegate")
+        }
+    }
 
-        // release access
-//            fileUrl.stopAccessingSecurityScopedResource()
-        case .failure(let error):
-            // handle error
-            logger.error("error: \(error)")
+    func handleFolderAccess(_ dir: URL) {
+        guard let currentURL = appState.currentImageURL else {
+            logger.error("handleFolderAccess: currentImageURL is nil")
+            return
+        }
+        let gotAccess = dir.startAccessingSecurityScopedResource()
+        guard gotAccess else {
+            logger.warning("Failed to access folder: \(dir.path)")
+            return
+        }
+        // keep access alive for image loading; indexFolder manages lifecycle
+
+        if !appState.dirs.contains(dir) {
+            appState.dirs.append(dir)
+            appState.storeBookmarkData()
+        }
+
+        if let appDelegate = appState.appDelegate {
+            appDelegate.indexFolder(dir, currentURL: currentURL, keepAccess: true)
+            loadImage(at: appState.selectedImageIndex)
         }
     }
 
