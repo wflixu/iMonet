@@ -32,29 +32,15 @@ class AppState: ObservableObject {
     /// The window that contains the settings interface.
     private(set) weak var settingsWindow: NSWindow?
 
-    // MARK: - Folder Indexing
-
-    /// Whether to show the index banner over the image.
-    @Published var showIndexBanner: Bool = false
-
-    /// The directory pending for indexing authorization.
-    @Published var pendingDirectoryURL: URL?
-
-    /// Number of images found in the pending directory.
-    @Published var pendingDirectoryImageCount: Int = 0
-
-    /// Folders the user has dismissed the banner for this session.
-    var dismissedBannerFolders: Set<URL> = []
-
     init() {
         let defaults = UserDefaults.standard
         if let storedValue = defaults.object(forKey: "showCurDirImg") as? Bool {
             self.showCurDirImg = storedValue
-            if(self.showCurDirImg) {
+            if self.showCurDirImg {
                 self.restoreBookmarkData()
             }
         } else {
-            self.showCurDirImg = false
+            self.showCurDirImg = true
         }
     }
 
@@ -117,26 +103,6 @@ class AppState: ObservableObject {
             return
         }
         self.settingsWindow = settingsWindow
-    }
-
-    /// Whether the directory should skip indexing (temporary or system paths).
-    func shouldSkipIndexing(_ directory: URL) -> Bool {
-        let path = directory.path
-        // System-level temp directories
-        if path.hasPrefix("/private/var/folders/") { return true }
-        if path.hasPrefix("/tmp/") { return true }
-        // Sandbox temp
-        if path.hasPrefix(NSTemporaryDirectory()) { return true }
-        if path.hasPrefix(FileManager.default.temporaryDirectory.path) { return true }
-        // System directories
-        if path.hasPrefix("/System/") { return true }
-        // User caches
-        if let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
-            if path.hasPrefix(caches.path) { return true }
-        }
-        // Per-session dismissal
-        if dismissedBannerFolders.contains(directory) { return true }
-        return false
     }
 
     /// Activates the app and sets its activation policy to the given value.

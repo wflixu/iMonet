@@ -150,50 +150,64 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func loadImages(from url: URL) {
         logger.info("loadImages from: \(url.path)")
-        guard let appState else {
-            logger.warning("not have appState")
-            return
-        }
+        guard let appState else { return }
 
-        // Always show the current image first
+        // Always load the selected image first
         appState.imageFiles = [url]
         appState.selectedImageIndex = 0
         appState.currentImageURL = url
 
+        guard appState.showCurDirImg else { return }
+
         let directory = url.deletingLastPathComponent()
 
-        guard !appState.shouldSkipIndexing(directory) else { return }
+        // Try existing bookmark access first
+        if indexFolder(directory, currentURL: url) { return }
 
-        guard appState.showCurDirImg else {
-            // Indexing not enabled — show generic banner
-            appState.pendingDirectoryURL = directory
-            appState.pendingDirectoryImageCount = 0 // 0 = unknown count
-            appState.showIndexBanner = true
+        // No permission — request via NSOpenPanel sheet
+        promptFolderPermission(for: directory, currentURL: url)
+    }
+
+    /// Request folder access permission via NSOpenPanel presented as a sheet on the main window.
+    func promptFolderPermission(for directory: URL, currentURL: URL) {
+        guard let appState else { return }
+        guard let window = NSApplication.shared.windows.first(where: { $0.title == "Monet" }) else {
+            logger.warning("No Monet window found for sheet")
             return
         }
 
-        // Indexing enabled — try scanning with existing permissions
-        if !indexFolder(directory, currentURL: url) {
-            // No permission — show banner with unknown count
-            appState.pendingDirectoryURL = directory
-            appState.pendingDirectoryImageCount = 0
-            appState.showIndexBanner = true
+        let panel = NSOpenPanel()
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = false
+        panel.canCreateDirectories = false
+        panel.allowsMultipleSelection = false
+        panel.directoryURL = directory
+        panel.message = "允许 Monet 访问此文件夹以浏览所有图片"
+        panel.prompt = "允许"
+
+        panel.beginSheetModal(for: window) { response in
+            guard response == .OK, let selectedURL = panel.url else { return }
+
+            let gotAccess = selectedURL.startAccessingSecurityScopedResource()
+            guard gotAccess else { return }
+
+            if !appState.dirs.contains(selectedURL) {
+                appState.dirs.append(selectedURL)
+                appState.storeBookmarkData()
+            }
+
+            self.indexFolder(selectedURL, currentURL: currentURL, keepAccess: true)
         }
     }
 
     /// Scan a directory for images with proper security-scoped access.
-    /// Synchronous so arrow-key navigation works immediately after loading.
-    /// When `keepAccess` is true (caller already started access), the access is not stopped.
     @discardableResult
     func indexFolder(_ directory: URL, currentURL: URL, keepAccess: Bool = false) -> Bool {
         guard let appState else { return false }
 
         let startedHere = !keepAccess && directory.startAccessingSecurityScopedResource()
         if !keepAccess {
-            guard startedHere else {
-                logger.warning("Cannot access security-scoped resource: \(directory.path)")
-                return false
-            }
+            guard startedHere else { return false }
         }
         defer {
             if startedHere { directory.stopAccessingSecurityScopedResource() }

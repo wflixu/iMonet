@@ -1,243 +1,60 @@
-好，这次我给你一个可以直接粘进 Xcode 跑的完整 macOS SwiftUI 示例，包含：
-	•	✅ 从用户选择的 URL 加载图片
-	•	✅ command + 鼠标滚轮 → 鼠标点缩放（已修正坐标系）
-	•	✅ 拖拽平移
-	•	✅ 边界限制
-	•	✅ 双击缩放
-	•	✅ 修复我前面提到的所有关键坑
+我们开始实现另一个比较重要的功能
+实现的步骤还是 9步
 
-👉 这是一个最小但靠谱的完整工程级代码块
+步骤1: 设计
+步骤2: 让专家agent 审核设计
+步骤3: 修改设计
+步骤4: 等待我的同意
+步骤5: 实现设计
+步骤6: 让专家agent 审核实现
+步骤7: 修改实现
+步骤8: 等待我的手动测试
+步骤9: 测试通过提交代码
 
-⸻
 
-🧩 ✅ 完整代码（直接复制进一个 SwiftUI macOS App）
 
-:::writing{variant=“standard” id=“83921”}
+功能的点：
+1. 当用户打开一个图片时，monet 会提示是否索引当前图片所在文件夹下的所有图片。
+2. 用户同意后，monet 会索引当前文件夹下的所有图片，并且在侧边栏显示这些图片的缩略图。
+3. 用户可以点击缩略图来查看大图，用户按左右键的时候也可以切换图片，鼠标点击也可以切换图片，当前图片会被高亮显示。
+4. 用户可以在设置中选择是否开启这个功能，默认是开启的。
 
-import SwiftUI
-import AppKit
+实现难点：
+1. 如果获取到用户打开图片所在文件夹的读权限，我理解是不是可以引导用户设置全磁盘可访问权限，这样就不用每次打开图片时都进行权限检查。
 
-// MARK: - App Entry
+开始
 
-@main
-struct ImageZoomApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
-}
 
-// MARK: - Content View
+我们来梳理一下。
 
-struct ContentView: View {
-    @State private var image: NSImage?
+1. 已完成功能
+   核心图片预览，支持跟随鼠标位置作为缩放中心点。
 
-    var body: some View {
-        VStack {
-            if let image {
-                ZoomableImageView(image: image)
-            } else {
-                Text("Select an image")
-                    .foregroundColor(.gray)
-            }
+2. 待实现功能
+   打开文件所在文件夹的索引。
+   (a) 需要缩略图
+   (b) 需要左右提示
+   (c) 需要授权部分
 
-            Button("Open Image") {
-                openImage()
-            }
-            .padding()
-        }
-        .frame(minWidth: 800, minHeight: 600)
-    }
+3. 重构建议
+   目前所有文件都在 ContentView 里，有点臃肿。
+   (a) 将已完成的预览功能封装为组件
+   (b) 将索引功能拆分出来
+   (c) 把 ContentView 当作布局或组织组件，其他功能移到独立组件中
 
-    private func openImage() {
-        let panel = NSOpenPanel()
-        panel.allowedContentTypes = [.image]
-        panel.allowsMultipleSelection = false
+你可以先考虑一下怎么做，先不写代码。
 
-        if panel.runModal() == .OK {
-            if let url = panel.url,
-               let img = NSImage(contentsOf: url) {
-                self.image = img
-            }
-        }
-    }
-}
+用户在选择图片时，根据配置，有一个配置项叫“自动索引文件夹中的图片”。
 
-// MARK: - Zoomable View
+1. 如果用户打开该配置
+   在选择图片时，获取打开图片的文件夹权限，并自动索引文件夹中所有的图片。默认应该是开启状态。
 
-struct ZoomableImageView: View {
-    let image: NSImage
+2. 如果用户关闭该配置
+   不用提示，打开图片时只选择单张，不进行索引。
 
-    @State private var scale: CGFloat = 1.0
-    @State private var offset: CGPoint = .zero
-    @State private var lastDragOffset: CGPoint = .zero
+大概是这个逻辑。
 
-    var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                Color.black
 
-                Image(nsImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .scaleEffect(scale)
-                    .offset(x: offset.x, y: offset.y)
-                    .gesture(dragGesture(viewSize: geo.size))
-                    .gesture(doubleClickGesture())
 
-                ScrollWheelView { delta, location in
-                    let cursor = convertToCentered(location, size: geo.size)
-
-                    handleZoom(
-                        delta: delta,
-                        cursor: cursor,
-                        viewSize: geo.size
-                    )
-                }
-            }
-            .clipped()
-        }
-    }
-
-    // MARK: - Zoom Logic
-
-    private func handleZoom(delta: CGFloat, cursor: CGPoint, viewSize: CGSize) {
-        let zoom = 1 + delta * 0.001
-        let newScale = min(max(scale * zoom, 0.2), 20)
-
-        let scaleRatio = newScale / scale
-
-        var newOffset = CGPoint(
-            x: (offset.x - cursor.x) * scaleRatio + cursor.x,
-            y: (offset.y - cursor.y) * scaleRatio + cursor.y
-        )
-
-        newOffset = clampOffset(newOffset, scale: newScale, viewSize: viewSize)
-
-        scale = newScale
-        offset = newOffset
-        lastDragOffset = newOffset
-    }
-
-    // MARK: - Drag
-
-    private func dragGesture(viewSize: CGSize) -> some Gesture {
-        DragGesture()
-            .onChanged { value in
-                offset = CGPoint(
-                    x: lastDragOffset.x + value.translation.width,
-                    y: lastDragOffset.y + value.translation.height
-                )
-            }
-            .onEnded { _ in
-                offset = clampOffset(offset, scale: scale, viewSize: viewSize)
-                lastDragOffset = offset
-            }
-    }
-
-    // MARK: - Double Click
-
-    private func doubleClickGesture() -> some Gesture {
-        TapGesture(count: 2)
-            .onEnded {
-                withAnimation(.spring()) {
-                    if scale > 1 {
-                        scale = 1
-                        offset = .zero
-                        lastDragOffset = .zero
-                    } else {
-                        scale = 2.5
-                    }
-                }
-            }
-    }
-
-    // MARK: - Clamp
-
-    private func clampOffset(_ offset: CGPoint, scale: CGFloat, viewSize: CGSize) -> CGPoint {
-        let imageAspect = image.size.width / image.size.height
-        let viewAspect = viewSize.width / viewSize.height
-
-        var baseSize: CGSize
-
-        if imageAspect > viewAspect {
-            baseSize = CGSize(width: viewSize.width, height: viewSize.width / imageAspect)
-        } else {
-            baseSize = CGSize(height: viewSize.height, width: viewSize.height * imageAspect)
-        }
-
-        let scaledWidth = baseSize.width * scale
-        let scaledHeight = baseSize.height * scale
-
-        var newOffset = offset
-
-        let maxX = max(0, (scaledWidth - viewSize.width) / 2)
-        let maxY = max(0, (scaledHeight - viewSize.height) / 2)
-
-        if scaledWidth <= viewSize.width {
-            newOffset.x = 0
-        } else {
-            newOffset.x = min(max(offset.x, -maxX), maxX)
-        }
-
-        if scaledHeight <= viewSize.height {
-            newOffset.y = 0
-        } else {
-            newOffset.y = min(max(offset.y, -maxY), maxY)
-        }
-
-        return newOffset
-    }
-
-    // MARK: - Coordinate Fix
-
-    private func convertToCentered(_ point: CGPoint, size: CGSize) -> CGPoint {
-        CGPoint(
-            x: point.x - size.width / 2,
-            y: (size.height - point.y) - size.height / 2
-        )
-    }
-}
-
-// MARK: - Scroll Wheel (Command + Wheel)
-
-struct ScrollWheelView: NSViewRepresentable {
-    var onScroll: (CGFloat, CGPoint) -> Void
-
-    func makeNSView(context: Context) -> NSView {
-        let view = CustomScrollView()
-        view.onScroll = onScroll
-        return view
-    }
-
-    func updateNSView(_ nsView: NSView, context: Context) {}
-}
-
-class CustomScrollView: NSView {
-    var onScroll: ((CGFloat, CGPoint) -> Void)?
-
-    override func scrollWheel(with event: NSEvent) {
-        guard event.modifierFlags.contains(.command) else { return }
-
-        let location = convert(event.locationInWindow, from: nil)
-        onScroll?(event.deltaY, location)
-    }
-}
-
-:::
-
-⸻
-
-✅ 你可以这样验证
-	1.	运行 App
-	2.	点 Open Image
-	3.	选一张图
-	4.	按住 ⌘ Command + 滚轮
-
-👉 观察：
-	•	鼠标指哪放哪缩（不会漂）
-	•	拖拽不会跳
-	•	不会拖出黑边
-
-⸻
+当前方式不符合预期且不方便。参考其他 App 的做法，当需要访问特定文件夹时，会弹出访问权限授权请求。建议采用这种方式实现。
+有没有一种办法直接获取文件夹的权限请求，而不是让用户再选择一个文件夹？我感觉这样太不方便了

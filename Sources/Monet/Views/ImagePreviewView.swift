@@ -1,0 +1,103 @@
+//
+//  ImagePreviewView.swift
+//  Monet
+//
+
+import AppKit
+import SwiftUI
+
+struct ImagePreviewView: View {
+    @AppLog(category: "ImagePreview")
+    private var logger
+
+    @EnvironmentObject var appState: AppState
+
+    @Binding var scale: CGSize
+    @Binding var monetImageView: MonetImageView?
+
+    @State private var currentImage: NSImage?
+    @State private var showFileImporter = false
+
+    var body: some View {
+        Group {
+            if let currentImage = currentImage {
+                ZoomableImageView(image: currentImage,
+                    onScaleChanged: { newScale in
+                        scale = CGSize(width: newScale, height: newScale)
+                    },
+                    onViewCreated: { imageView in
+                        monetImageView = imageView
+                    }
+                )
+            } else {
+                Button("Select Image File") {
+                    showFileImporter = true
+                }
+            }
+        }
+        .fileImporter(
+            isPresented: $showFileImporter,
+            allowedContentTypes: [.png, .jpeg, .gif, .webP]
+        ) { result in
+            if case .success(let url) = result {
+                let gotAccess = url.startAccessingSecurityScopedResource()
+                if !gotAccess {
+                    logger.warning("Failed to access security-scoped resource")
+                    return
+                }
+                if let delegate = appState.appDelegate {
+                    delegate.loadImages(from: url)
+                    refreshImage()
+                }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("open-image"))) { _ in
+            refreshImage()
+        }
+        .onAppear {
+            setupKeyEvents()
+            refreshImage()
+        }
+    }
+
+    func setupKeyEvents() {
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+            switch event.keyCode {
+            case 124, 125: // Right / Down Arrow
+                showNextImage()
+                return nil
+            case 123, 126: // Left / Up Arrow
+                showPreviousImage()
+                return nil
+            default:
+                return event
+            }
+        }
+    }
+
+    func refreshImage() {
+        guard appState.imageFiles.indices.contains(appState.selectedImageIndex) else {
+            return
+        }
+        let url = appState.imageFiles[appState.selectedImageIndex]
+        if let image = NSImage(contentsOf: url) {
+            currentImage = image
+        }
+    }
+
+    private func showNextImage() {
+        if appState.selectedImageIndex < appState.imageFiles.count - 1 {
+            appState.selectedImageIndex += 1
+            appState.currentImageURL = appState.imageFiles[appState.selectedImageIndex]
+            refreshImage()
+        }
+    }
+
+    private func showPreviousImage() {
+        if appState.selectedImageIndex > 0 {
+            appState.selectedImageIndex -= 1
+            appState.currentImageURL = appState.imageFiles[appState.selectedImageIndex]
+            refreshImage()
+        }
+    }
+}
