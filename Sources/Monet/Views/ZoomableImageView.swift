@@ -9,6 +9,7 @@ final class MonetImageView: NSView {
     }
 
     var onStateChanged: ((CGFloat) -> Void)?
+    var onClick: (() -> Void)?
 
     private(set) var magnification: CGFloat = 1.0
     private var offset: CGPoint = .zero
@@ -20,6 +21,7 @@ final class MonetImageView: NSView {
     // Pan state
     private var dragStartPoint: CGPoint = .zero
     private var dragStartOffset: CGPoint = .zero
+    private var isPotentialClick = false
 
     // MARK: - Lifecycle
 
@@ -105,12 +107,17 @@ final class MonetImageView: NSView {
         let point = convert(event.locationInWindow, from: nil)
         dragStartPoint = point
         dragStartOffset = offset
+        isPotentialClick = true
     }
 
     override func mouseDragged(with event: NSEvent) {
         let point = convert(event.locationInWindow, from: nil)
         let dx = point.x - dragStartPoint.x
         let dy = point.y - dragStartPoint.y
+
+        if abs(dx) > 3 || abs(dy) > 3 {
+            isPotentialClick = false
+        }
 
         let newOffsetX = dragStartOffset.x + dx
         let newOffsetY = dragStartOffset.y + dy
@@ -119,6 +126,13 @@ final class MonetImageView: NSView {
 
         offset = CGPoint(x: newOffsetX, y: newOffsetY)
         needsDisplay = true
+    }
+
+    override func mouseUp(with event: NSEvent) {
+        if isPotentialClick {
+            onClick?()
+        }
+        isPotentialClick = false
     }
 
     // MARK: - Fit to Window
@@ -174,11 +188,13 @@ struct MonetImageRepresentable: NSViewRepresentable {
     let image: NSImage?
     var onStateChanged: ((CGFloat) -> Void)?
     var onViewCreated: ((MonetImageView) -> Void)?
+    var onClick: (() -> Void)?
 
     func makeNSView(context: Context) -> MonetImageView {
         let view = MonetImageView()
         view.image = image
         view.onStateChanged = onStateChanged
+        view.onClick = onClick
         DispatchQueue.main.async {
             onViewCreated?(view)
         }
@@ -188,6 +204,7 @@ struct MonetImageRepresentable: NSViewRepresentable {
     func updateNSView(_ nsView: MonetImageView, context: Context) {
         nsView.image = image
         nsView.onStateChanged = onStateChanged
+        nsView.onClick = onClick
     }
 }
 
@@ -197,12 +214,14 @@ struct ZoomableImageView: View {
     let image: NSImage?
     var onScaleChanged: ((CGFloat) -> Void)?
     var onViewCreated: ((MonetImageView) -> Void)?
+    var onClick: (() -> Void)?
 
     var body: some View {
         MonetImageRepresentable(
             image: image,
             onStateChanged: onScaleChanged,
-            onViewCreated: onViewCreated
+            onViewCreated: onViewCreated,
+            onClick: onClick
         )
     }
 }

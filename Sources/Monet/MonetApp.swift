@@ -35,6 +35,7 @@ struct MonetApp: App {
                     }
                 }
         }
+        .windowStyle(.hiddenTitleBar)
         .defaultPosition(.center)
         .environmentObject(appState)
 
@@ -56,9 +57,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var appState: AppState?
 
-    private var isTitleBarVisible = false
-    private var hideTitleBarTimer: Timer?
-
     func applicationWillFinishLaunching(_ notification: Notification) {
         logger.info("---- app will finish launch")
         guard let appState else {
@@ -72,13 +70,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         logger.info("applicationDidFinishLaunching  .......")
-        for window in NSApplication.shared.windows {
-            // 检查窗口的标题是否匹配
-            if window.title == "Monet" {
-                window.titlebarAppearsTransparent = true // 标题栏透明
-                window.styleMask.insert(.fullSizeContentView)
-            }
-        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -100,27 +91,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         print("applicationShouldTerminate")
         return .terminateNow
-    }
-
-    @MainActor
-    func updateWindowTitleBarVisibility() {
-        for window in NSApplication.shared.windows {
-            // 检查窗口的标题是否匹配
-            if window.title == "Monet" {
-                if isTitleBarVisible {
-                    window.titleVisibility = .visible
-                    window.styleMask.insert(.titled)
-
-                } else {
-                    window.titleVisibility = .hidden
-                    window.titlebarAppearsTransparent = true
-                    // 移除标题栏的 style mask
-                    window.styleMask.remove(.titled)
-                }
-
-                break
-            }
-        }
     }
 
     /// Opens the settings window and activates the app.

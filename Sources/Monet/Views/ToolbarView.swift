@@ -16,6 +16,8 @@ struct ToolBarView: View {
     let scale: CGSize
     
     let onTap: (_ actionID: ToolbarActionIdentifier) -> Void
+    var onHoverEnter: (() -> Void)?
+    var onHoverExit: (() -> Void)?
     
     var scaleFormated: String {
         let formatter = NumberFormatter()
@@ -114,6 +116,13 @@ struct ToolBarView: View {
         .background(Color.gray.opacity(0.6))
         .cornerRadius(4)
         .shadow(radius: 2)
+        .onHover { hovering in
+            if hovering {
+                onHoverEnter?()
+            } else {
+                onHoverExit?()
+            }
+        }
     }
 }
 

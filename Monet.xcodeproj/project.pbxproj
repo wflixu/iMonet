@@ -185,6 +185,8 @@
 			isa = PBXGroup;
 			children = (
 				D2B3B8C180F1E2E4D470C972 /* AboutSettingsPane.swift */,
+				3DA973327AD76E954FF58D2B /* SettingsView.swift */,
+				749F147AE3A78DD084B2D2A1 /* SettingsWindow.swift */,
 				CB03945F9D317E0EF1D53B68 /* GeneralSettingsPane.swift */,
 			);
 			path = Settings;
@@ -202,8 +204,6 @@
 				C3BDE8FE655124F5B59CB2F7 /* Monet.entitlements */,
 				E898E7574C9CBDE3DCC12F83 /* MonetApp.swift */,
 				30257FFCC7246713B5032D6A /* NavigationIdentifier.swift */,
-				3DA973327AD76E954FF58D2B /* SettingsView.swift */,
-				749F147AE3A78DD084B2D2A1 /* SettingsWindow.swift */,
 				FA59E2BDC9E997B42EA42BA9 /* Models */,
 				15B938530CEBA338F8B41E18 /* Permission */,
 				E59CC19889204AB9A3F92EB5 /* Settings */,

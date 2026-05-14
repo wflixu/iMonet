@@ -15,6 +15,8 @@ struct ContentView: View {
     @State private var isNavBarVisible = true
     @State private var window: NSWindow?
     @State private var monetImageView: MonetImageView?
+    @State private var isChromeVisible = true
+    @State private var chromeTimer: Timer?
 
     var body: some View {
         GeometryReader { geometry in
@@ -33,17 +35,29 @@ struct ContentView: View {
                     .zIndex(20)
                 }
 
-                ImagePreviewView(scale: $scale, monetImageView: $monetImageView)
+                ImagePreviewView(scale: $scale, monetImageView: $monetImageView, onClick: showChrome)
                     .frame(width: geometry.size.width, height: geometry.size.height + 28)
                     .zIndex(10)
 
+                Text("Monet")
+                    .foregroundColor(.white.opacity(0.7))
+                    .font(.system(size: 13, weight: .semibold))
+                    .opacity(isChromeVisible ? 1 : 0)
+                    .animation(.easeInOut(duration: 0.3), value: isChromeVisible)
+                    .zIndex(20)
+                    .position(x: geometry.size.width / 2, y: 16)
+
                 ToolBarView(scale: scale, onTap: { actionID in
                     handleToolbarTap(actionID)
-                })
+                }, onHoverEnter: cancelChromeTimer, onHoverExit: resetChromeTimer)
+                .opacity(isChromeVisible ? 1 : 0)
+                .allowsHitTesting(isChromeVisible)
+                .animation(.easeInOut(duration: 0.3), value: isChromeVisible)
                 .zIndex(20)
                 .position(x: geometry.size.width / 2, y: geometry.size.height - 32)
             }
             .ignoresSafeArea(.container)
+            .background(Color.black)
             .onAppear(perform: appearHandler)
         }
     }
@@ -85,6 +99,34 @@ struct ContentView: View {
         if let window = NSApplication.shared.windows.first {
             self.window = window
         }
+        showChrome()
+    }
+
+    func showChrome() {
+        isChromeVisible = true
+        resetChromeTimer()
+    }
+
+    func hideChrome() {
+        isChromeVisible = false
+        chromeTimer?.invalidate()
+        chromeTimer = nil
+    }
+
+    func resetChromeTimer() {
+        chromeTimer?.invalidate()
+        let timer = Timer(timeInterval: 5, repeats: false) { _ in
+            DispatchQueue.main.async {
+                self.hideChrome()
+            }
+        }
+        RunLoop.main.add(timer, forMode: .common)
+        chromeTimer = timer
+    }
+
+    func cancelChromeTimer() {
+        chromeTimer?.invalidate()
+        chromeTimer = nil
     }
 }
 

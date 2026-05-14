@@ -15,6 +15,8 @@ struct ImagePreviewView: View {
     @Binding var scale: CGSize
     @Binding var monetImageView: MonetImageView?
 
+    var onClick: (() -> Void)?
+
     @State private var currentImage: NSImage?
     @State private var showFileImporter = false
 
@@ -27,12 +29,14 @@ struct ImagePreviewView: View {
                     },
                     onViewCreated: { imageView in
                         monetImageView = imageView
-                    }
+                    },
+                    onClick: onClick
                 )
             } else {
                 Button("Select Image File") {
                     showFileImporter = true
                 }
+                .buttonStyle(.borderedProminent)
             }
         }
         .fileImporter(

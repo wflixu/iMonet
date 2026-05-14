@@ -20,7 +20,9 @@
       "Bash(ls:*)",
       "Bash(cp:*)",
       "WebFetch(domain:chat.deepseek.com)",
-      "Bash(grep -v '/$')"
+      "Bash(grep -v '/$')",
+      "Bash(git rm *)",
+      "Bash(git reset *)"
     ]
   }
 }
