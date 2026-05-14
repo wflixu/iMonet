@@ -14,7 +14,6 @@ struct GeneralSettingsPane: View {
 
     @EnvironmentObject var appState: AppState
 
-    @State private var exploreDir = false
     @State private var showDirImporter = false
 
     @AppStorage("showCurDirImg")
@@ -32,17 +31,23 @@ struct GeneralSettingsPane: View {
                 launchAtLogin
             }
             SectionPermission
-//            Section {
-//                iceBarOptions
-//            }
-//            Section {
-//                showOnClick
-//                showOnHover
-//                showOnScroll
-//            }
-//            Section {
-//                autoRehideOptions
-//            }
+
+            Section {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("高级：全磁盘访问")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Text("如果希望打开任意文件夹都无需单独授权，可在系统设置中为 Monet 开启全磁盘访问权限。")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                    Button("打开系统设置...") {
+                        if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles") {
+                            NSWorkspace.shared.open(url)
+                        }
+                    }
+                    .font(.caption)
+                }
+            }
         }
         .formStyle(.grouped)
         .scrollBounceBehavior(.basedOnSize)
@@ -57,7 +62,8 @@ struct GeneralSettingsPane: View {
     private var SectionPermission: some View {
         Section {
             Toggle(isOn: $showCurDirImg) {
-                Text("Explore dir")
+                Text("自动索引文件夹中的图片")
+                Text("打开图片时自动加载同一文件夹下的所有图片")
             }
 
             if showCurDirImg {

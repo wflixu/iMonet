@@ -22,4 +22,7 @@ enum Constants {
     static let permissionsWindowID = "PermissionsWindow"
 
     static let dirBookmarkDataKey = "PICASA_DIRS"
+
+    /// Supported image file extensions.
+    static let supportedImageExtensions = ["png", "jpg", "jpeg", "gif", "webp"]
 }

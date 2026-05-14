@@ -36,11 +36,11 @@ class AppState: ObservableObject {
         let defaults = UserDefaults.standard
         if let storedValue = defaults.object(forKey: "showCurDirImg") as? Bool {
             self.showCurDirImg = storedValue
-            if(self.showCurDirImg) {
+            if self.showCurDirImg {
                 self.restoreBookmarkData()
             }
         } else {
-            self.showCurDirImg = false
+            self.showCurDirImg = true
         }
     }
 
