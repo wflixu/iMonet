@@ -10,6 +10,7 @@ final class MonetImageView: NSView {
 
     var onStateChanged: ((CGFloat) -> Void)?
     var onClick: (() -> Void)?
+    var isDarkMode = false
 
     private(set) var magnification: CGFloat = 1.0
     private var offset: CGPoint = .zero
@@ -44,7 +45,10 @@ final class MonetImageView: NSView {
     // MARK: - Drawing
 
     override func draw(_ dirtyRect: NSRect) {
-        NSColor.black.setFill()
+        let fillColor: NSColor = isDarkMode
+            ? NSColor(white: 0.15, alpha: 1.0)
+            : NSColor(white: 0.8, alpha: 1.0)
+        fillColor.setFill()
         bounds.fill()
 
         guard let image, let context = NSGraphicsContext.current?.cgContext else { return }
@@ -186,6 +190,7 @@ extension CGFloat {
 
 struct MonetImageRepresentable: NSViewRepresentable {
     let image: NSImage?
+    let isDarkMode: Bool
     var onStateChanged: ((CGFloat) -> Void)?
     var onViewCreated: ((MonetImageView) -> Void)?
     var onClick: (() -> Void)?
@@ -193,6 +198,7 @@ struct MonetImageRepresentable: NSViewRepresentable {
     func makeNSView(context: Context) -> MonetImageView {
         let view = MonetImageView()
         view.image = image
+        view.isDarkMode = isDarkMode
         view.onStateChanged = onStateChanged
         view.onClick = onClick
         DispatchQueue.main.async {
@@ -203,6 +209,7 @@ struct MonetImageRepresentable: NSViewRepresentable {
 
     func updateNSView(_ nsView: MonetImageView, context: Context) {
         nsView.image = image
+        nsView.isDarkMode = isDarkMode
         nsView.onStateChanged = onStateChanged
         nsView.onClick = onClick
     }
@@ -211,6 +218,8 @@ struct MonetImageRepresentable: NSViewRepresentable {
 // MARK: - SwiftUI Wrapper
 
 struct ZoomableImageView: View {
+    @Environment(\.colorScheme) private var colorScheme
+
     let image: NSImage?
     var onScaleChanged: ((CGFloat) -> Void)?
     var onViewCreated: ((MonetImageView) -> Void)?
@@ -219,6 +228,7 @@ struct ZoomableImageView: View {
     var body: some View {
         MonetImageRepresentable(
             image: image,
+            isDarkMode: colorScheme == .dark,
             onStateChanged: onScaleChanged,
             onViewCreated: onViewCreated,
             onClick: onClick

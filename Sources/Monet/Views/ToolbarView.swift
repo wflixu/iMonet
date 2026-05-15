@@ -9,12 +9,11 @@ import AppKit
 import SwiftUI
 
 struct ToolBarView: View {
-    @State private var showShortcut = false
-    
+    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject var appState: AppState
-    
+
     let scale: CGSize
-    
+
     let onTap: (_ actionID: ToolbarActionIdentifier) -> Void
     var onHoverEnter: (() -> Void)?
     var onHoverExit: (() -> Void)?
@@ -44,76 +43,73 @@ struct ToolBarView: View {
             }) {
                 Image(systemName: "minus.circle")
                     .font(.system(size: 20))
-                    .foregroundColor(.white)
+                    .foregroundStyle(.primary)
             }.buttonStyle(PlainButtonStyle())
                 .help("Magnify the picture")
-            
-            Text(scaleFormated).foregroundStyle(.white)
-                
+
+            Text(scaleFormated).foregroundStyle(.primary)
+
             Button(action: {
                 self.onTap(.scalePlus)
             }) {
                 Image(systemName: "plus.circle")
                     .font(.system(size: 20))
-                    .foregroundColor(.white)
+                    .foregroundStyle(.primary)
             }.buttonStyle(PlainButtonStyle())
                 .help("Shrink the picture")
-            
-            // 浏览
+
             Button(action: {
                 self.onTap(.showPrev)
             }) {
                 Image(systemName: "chevron.left.circle")
                     .font(.system(size: 20))
-                    .foregroundColor(.white)
+                    .foregroundStyle(.primary)
             }.buttonStyle(PlainButtonStyle())
                 .help("Previous picture")
-               
-            Text(indexFormated).foregroundStyle(.white)
-            
+
+            Text(indexFormated).foregroundStyle(.primary)
+
             Button(action: {
                 self.onTap(.showNext)
             }) {
                 Image(systemName: "chevron.right.circle")
                     .font(.system(size: 20))
-                    .foregroundColor(.white)
+                    .foregroundStyle(.primary)
             }.buttonStyle(PlainButtonStyle())
                 .help("Next picture")
-            
+
             Button(action: {
                 self.onTap(.centerFill)
             }) {
                 Image(systemName: "rectangle.center.inset.filled")
                     .font(.system(size: 20))
-                    .foregroundColor(.white)
+                    .foregroundStyle(.primary)
             }.buttonStyle(PlainButtonStyle())
                 .help("Center Picture")
-          
+
             Divider()
-            // toggle sidebar
             Button(action: {
                 self.onTap(.toggleNav)
             }) {
                 Image(systemName: "square.leadingthird.inset.filled")
                     .font(.system(size: 20))
-                    .foregroundColor(.white)
+                    .foregroundStyle(.primary)
             }.buttonStyle(PlainButtonStyle())
                 .help("Toggle navigation")
-            
-            // 第一个图标按钮
+
             Button(action: {
                 self.onTap(.toggleInfo)
             }) {
                 Image(systemName: "info.circle")
                     .font(.system(size: 20))
-                    .foregroundColor(.white)
+                    .foregroundStyle(.primary)
             }.buttonStyle(PlainButtonStyle())
                 .help("Toggle the picture info")
         }
         .padding([.leading, .trailing], 10)
         .padding([.top, .bottom], 8)
         .frame(height: 42)
-        .background(Color.gray.opacity(0.6))
+        .background(colorScheme == .dark ? Color.gray.opacity(0.6) : Color.white.opacity(1))
         .cornerRadius(4)
         .shadow(radius: 2)
         .onHover { hovering in

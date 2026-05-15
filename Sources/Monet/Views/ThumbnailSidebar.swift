@@ -6,6 +6,8 @@
 import SwiftUI
 
 struct ThumbnailSidebar: View {
+    @Environment(\.colorScheme) private var colorScheme
+
     let imageFiles: [URL]
     let selectedIndex: Int
     let windowHeight: CGFloat
@@ -29,6 +31,11 @@ struct ThumbnailSidebar: View {
         }
         .padding([.top], 28)
         .frame(width: 128, height: windowHeight)
-        .background(Color.gray.opacity(0.6))
+        .background(colorScheme == .dark ? Color(white: 0.15) : Color(white: 0.8))
+        .overlay(alignment: .trailing) {
+            Rectangle()
+                .fill(colorScheme == .dark ? Color.white.opacity(0.15) : Color.gray.opacity(0.3))
+                .frame(width: 1)
+        }
     }
 }
