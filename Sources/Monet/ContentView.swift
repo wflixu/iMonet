@@ -18,6 +18,7 @@ struct ContentView: View {
     @State private var monetImageView: MonetImageView?
     @State private var isChromeVisible = true
     @State private var chromeTimer: Timer?
+    @State private var isInfoPanelVisible = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -34,6 +35,16 @@ struct ContentView: View {
                         }
                     )
                     .zIndex(20)
+                }
+
+                if isInfoPanelVisible {
+                    ImageInfoPanel(
+                        imageURL: appState.currentImageURL,
+                        windowHeight: window?.frame.size.height ?? 720,
+                        onClose: { isInfoPanelVisible = false }
+                    )
+                    .zIndex(20)
+                    .position(x: geometry.size.width - 130, y: (window?.frame.size.height ?? 720) / 2)
                 }
 
                 ImagePreviewView(scale: $scale, monetImageView: $monetImageView, onClick: showChrome)
@@ -91,8 +102,8 @@ struct ContentView: View {
         case .centerFill:
             monetImageView?.fitToWindow()
 
-        default:
-            logger.warning("no action after tap toolbar")
+        case .toggleInfo:
+            isInfoPanelVisible.toggle()
         }
     }
 
