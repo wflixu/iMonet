@@ -68,10 +68,10 @@ struct ImagePreviewView: View {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
             switch event.keyCode {
             case 124, 125: // Right / Down Arrow
-                showNextImage()
+                Task { @MainActor in showNextImage() }
                 return nil
             case 123, 126: // Left / Up Arrow
-                showPreviousImage()
+                Task { @MainActor in showPreviousImage() }
                 return nil
             default:
                 return event

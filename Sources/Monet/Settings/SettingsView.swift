@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var appState: AppState
+    @State private var selectedTab: SettingsNavigationIdentifier = .general
 
     var body: some View {
         NavigationSplitView {
@@ -18,11 +19,16 @@ struct SettingsView: View {
         }
         .navigationTitle(appState.settingsNavigationIdentifier.localized)
         .background(Color(NSColor.windowBackgroundColor))
+        .onChange(of: selectedTab) { _, newValue in
+            Task { @MainActor in
+                appState.settingsNavigationIdentifier = newValue
+            }
+        }
     }
 
     @ViewBuilder
     private var sidebar: some View {
-        List(selection: $appState.settingsNavigationIdentifier) {
+        List(selection: $selectedTab) {
             Section {
                 ForEach(SettingsNavigationIdentifier.allCases, id: \.self) { identifier in
                     sidebarItem(for: identifier)

@@ -21,7 +21,6 @@ class AppState: ObservableObject {
     @Published var settingsNavigationIdentifier: SettingsNavigationIdentifier = .general
     // Permission
     @Published var dirs: [URL] = []
-    @Published var showCurDirImg: Bool = false
 
     /// Manager for app permissions.
     private(set) lazy var permissionsManager = PermissionsManager(appState: self)
@@ -30,14 +29,8 @@ class AppState: ObservableObject {
     private(set) weak var appDelegate: AppDelegate?
 
     init() {
-        let defaults = UserDefaults.standard
-        if let storedValue = defaults.object(forKey: "showCurDirImg") as? Bool {
-            self.showCurDirImg = storedValue
-            if self.showCurDirImg {
-                self.restoreBookmarkData()
-            }
-        } else {
-            self.showCurDirImg = true
+        if UserDefaults.standard.object(forKey: "showCurDirImg") as? Bool ?? true {
+            restoreBookmarkData()
         }
     }
 

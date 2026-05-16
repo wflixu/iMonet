@@ -114,7 +114,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         appState.selectedImageIndex = 0
         appState.currentImageURL = url
 
-        guard appState.showCurDirImg else { return }
+        guard UserDefaults.standard.object(forKey: "showCurDirImg") as? Bool ?? true else { return }
 
         let directory = url.deletingLastPathComponent()
 
