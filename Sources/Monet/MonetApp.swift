@@ -13,8 +13,6 @@ struct MonetApp: App {
     @AppLog(category: "MonetApp")
     private var logger
 
-    @Environment(\.openWindow) private var openWindow
-
     @AppStorage("showMenuBarExtra") private var showMenuBarExtra = true
 
     // 设置 App Delegate 以响应 open file 请求
@@ -29,12 +27,7 @@ struct MonetApp: App {
     var body: some Scene {
         Window("Monet", id: "main") {
             ContentView()
-                .onAppear {
-                    if appState.showCurDirImg && appState.dirs.isEmpty {
-                        openWindow(id: Constants.settingsWindowID)
-                    }
-                }
-        }
+}
         .windowStyle(.hiddenTitleBar)
         .defaultPosition(.center)
         .environmentObject(appState)
