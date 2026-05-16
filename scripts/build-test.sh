@@ -10,14 +10,15 @@ cd "$PROJECT_ROOT"
 echo "=== 1. 构建 App (使用 xcodebuild) ==="
 xcodebuild -scheme Monet \
   -configuration Release \
-  -derivedDataPath build \
-  -destination "generic/platform=macOS" \
+  -derivedDataPath .build/xcodebuild \
+  -destination "platform=macOS,arch=arm64" \
+  ARCHS=arm64 \
   ENABLE_HARDENED_RUNTIME=YES \
   build
 
 echo "=== 2. 查找构建产物 ==="
 # 使用 find 查找 App（兼容不同路径结构）
-APP_PATH=$(find build -name "Monet.app" -type d -path "*/Products/Release/*" | head -n 1)
+APP_PATH=$(find .build/xcodebuild -name "Monet.app" -type d -path "*/Products/Release/*" | head -n 1)
 
 if [ -z "$APP_PATH" ]; then
   echo "Error: App 未找到"

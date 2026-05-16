@@ -17,7 +17,7 @@ final class MonetImageView: NSView {
     private var hasPerformedInitialFit = false
 
     private let minMag: CGFloat = 0.1
-    private let maxMag: CGFloat = 10.0
+    private let maxMag: CGFloat = 16.0
 
     // Pan state
     private var dragStartPoint: CGPoint = .zero
@@ -47,7 +47,7 @@ final class MonetImageView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         let fillColor: NSColor = isDarkMode
             ? NSColor(white: 0.15, alpha: 1.0)
-            : NSColor(white: 0.8, alpha: 1.0)
+            : NSColor(white: 0.9, alpha: 1.0)
         fillColor.setFill()
         bounds.fill()
 

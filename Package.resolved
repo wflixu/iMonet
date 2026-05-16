@@ -1,15 +1,6 @@
 {
-  "originHash" : "1c6b7d8df446e9a7b57429180c25e69f7a7d749993a45281a78c410bb45fa021",
+  "originHash" : "30e6190af822c1ec02d87aff1724e248371fdc0927e5ec4e720a4b935768cf54",
   "pins" : [
-    {
-      "identity" : "launchatlogin-modern",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/sindresorhus/LaunchAtLogin-Modern.git",
-      "state" : {
-        "revision" : "a04ec1c363be3627734f6dad757d82f5d4fa8fcc",
-        "version" : "1.1.0"
-      }
-    },
     {
       "identity" : "swiftui-tooltip",
       "kind" : "remoteSourceControl",

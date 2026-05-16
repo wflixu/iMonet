@@ -12,7 +12,6 @@
 		2B843D84A3D9EF07466802EB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA973327AD76E954FF58D2B /* SettingsView.swift */; };
 		358DDD72E9EAFE6E8979D8E1 /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749F147AE3A78DD084B2D2A1 /* SettingsWindow.swift */; };
 		475E88C5D4E4B4344DC9D53E /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D0DF118447932929A20905 /* Util.swift */; };
-		4C2394DF230E3690F1EC3D8F /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2015514A3582DFD16537D3 /* MenuBarView.swift */; };
 		4F4B2A1ACD7EFDC09359FEA6 /* AboutSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B3B8C180F1E2E4D470C972 /* AboutSettingsPane.swift */; };
 		5B73AB6DBF88E154024C9D58 /* SwiftUITooltip in Frameworks */ = {isa = PBXBuildFile; productRef = 4B5952D1F75CEB03554A2917 /* SwiftUITooltip */; };
 		5CA538152FB6076A0071F06A /* command-scroll-zoom-design.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA538102FB6076A0071F06A /* command-scroll-zoom-design.md */; };
@@ -67,7 +66,6 @@
 		CB03945F9D317E0EF1D53B68 /* GeneralSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsPane.swift; sourceTree = "<group>"; };
 		D2B3B8C180F1E2E4D470C972 /* AboutSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsPane.swift; sourceTree = "<group>"; };
 		E898E7574C9CBDE3DCC12F83 /* MonetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonetApp.swift; sourceTree = "<group>"; };
-		EF2015514A3582DFD16537D3 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		FFA628FAEF8752BE102B3AD0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +81,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		5C5261DE2FB83B1100B66DBA /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		5CA538252FB611C30071F06A /* Views */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -195,12 +198,12 @@
 		E720594DBD3879C6E191245D /* Monet */ = {
 			isa = PBXGroup;
 			children = (
+				5C5261DE2FB83B1100B66DBA /* Resources */,
 				5CA538252FB611C30071F06A /* Views */,
 				442E22A06002EDE0AB884C1E /* AppState.swift */,
 				199212F3989A5E4D1123A851 /* Assets.xcassets */,
 				FFA628FAEF8752BE102B3AD0 /* ContentView.swift */,
 				7D03FCF0C5257B8613BD016F /* Info.plist */,
-				EF2015514A3582DFD16537D3 /* MenuBarView.swift */,
 				C3BDE8FE655124F5B59CB2F7 /* Monet.entitlements */,
 				E898E7574C9CBDE3DCC12F83 /* MonetApp.swift */,
 				30257FFCC7246713B5032D6A /* NavigationIdentifier.swift */,
@@ -235,6 +238,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				5C5261DE2FB83B1100B66DBA /* Resources */,
 				5CA538252FB611C30071F06A /* Views */,
 			);
 			name = Monet;
@@ -257,6 +261,9 @@
 			);
 			dependencies = (
 				B69CF0332B8B26286148ECF2 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5C5261DE2FB83B1100B66DBA /* Resources */,
 			);
 			name = MonetTests;
 			packageProductDependencies = (
@@ -328,7 +335,6 @@
 				D404C2E9D7D2AA6FE9500342 /* Constants.swift in Sources */,
 				8D847B53187F25D84C4E3161 /* ContentView.swift in Sources */,
 				D2E1D45C9F138B305A132766 /* GeneralSettingsPane.swift in Sources */,
-				4C2394DF230E3690F1EC3D8F /* MenuBarView.swift in Sources */,
 				B8EDC138A57B9B0AABE8BD24 /* MonetApp.swift in Sources */,
 				CD08727BAEEFA57EFEFAA7C2 /* NavigationIdentifier.swift in Sources */,
 				03126D63C76FB7E54C665D55 /* PermissionsManager.swift in Sources */,
@@ -439,6 +445,7 @@
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 6.0;
@@ -503,6 +510,7 @@
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 6.0;
@@ -525,7 +533,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.6;
-				MARKETING_VERSION = 0.1.4;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.wflixu.Monet;
 				SDKROOT = macosx;
 			};
@@ -547,7 +555,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.6;
-				MARKETING_VERSION = 0.1.4;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.wflixu.Monet;
 				SDKROOT = macosx;
 			};

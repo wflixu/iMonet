@@ -24,9 +24,6 @@ extension NavigationIdentifier where RawValue == String {
 /// An identifier used for navigation in the settings interface.
 enum SettingsNavigationIdentifier: String, NavigationIdentifier {
     case general = "General"
-    case hotkeys = "Hotkeys"
-    case advanced = "Advanced"
-    case updates = "Updates"
     case about = "About"
 }
 

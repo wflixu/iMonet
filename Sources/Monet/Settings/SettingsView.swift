@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var appState: AppState
+    @State private var selectedTab: SettingsNavigationIdentifier = .general
 
     var body: some View {
         NavigationSplitView {
@@ -16,13 +17,18 @@ struct SettingsView: View {
         } detail: {
             detailView
         }
-        .navigationTitle("settings")
+        .navigationTitle(appState.settingsNavigationIdentifier.localized)
         .background(Color(NSColor.windowBackgroundColor))
+        .onChange(of: selectedTab) { _, newValue in
+            Task { @MainActor in
+                appState.settingsNavigationIdentifier = newValue
+            }
+        }
     }
 
     @ViewBuilder
     private var sidebar: some View {
-        List(selection: $appState.settingsNavigationIdentifier) {
+        List(selection: $selectedTab) {
             Section {
                 ForEach(SettingsNavigationIdentifier.allCases, id: \.self) { identifier in
                     sidebarItem(for: identifier)
@@ -37,7 +43,8 @@ struct SettingsView: View {
                         .font(.system(size: 30, weight: .medium))
                 }
                 .foregroundStyle(.primary)
-                .padding(.vertical, 8)
+                .padding(.top, 8)
+                .padding(.bottom, 32)
             }
             .collapsible(false)
         }
@@ -49,42 +56,28 @@ struct SettingsView: View {
         switch appState.settingsNavigationIdentifier {
         case .general:
             GeneralSettingsPane()
-//        case .hotkeys:
-//            HotkeysSettingsPane()
-//        case .advanced:
-//            AdvancedSettingsPane()
-//        case .updates:
-//            UpdatesSettingsPane()
         case .about:
             AboutSettingsPane()
-        default:
-            HStack {
-                Text("detailView")
-            }
         }
     }
 
     @ViewBuilder
     private func sidebarItem(for identifier: SettingsNavigationIdentifier) -> some View {
-        Label {
+        HStack(spacing: 6) {
+            icon(for: identifier).view
+                .font(.system(size: 16))
+                .frame(width: 20)
             Text(identifier.localized)
                 .font(.title3)
-                .padding(.leading, 2)
-        } icon: {
-            icon(for: identifier).view
-                .foregroundStyle(.primary)
-                .imageScale(.small)
         }
-        .frame(height: 32)
+        .padding(.vertical, 8)
+        .padding(.leading, 4)
     }
 
     private func icon(for identifier: SettingsNavigationIdentifier) -> IconResource {
         switch identifier {
         case .general: .systemSymbol("gearshape")
-        case .hotkeys: .systemSymbol("keyboard")
-        case .advanced: .systemSymbol("gearshape.2")
-        case .updates: .systemSymbol("arrow.triangle.2.circlepath.circle")
-        case .about: .systemSymbol("gearshape")
+        case .about: .systemSymbol("info.circle")
         }
     }
 }

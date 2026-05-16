@@ -8,14 +8,22 @@
 import AppKit
 import SwiftUI
 
+/// A button that opens the app's Settings window via the app menu.
+struct OpenSettingsButton: View {
+    @Environment(\.openWindow) private var openWindow
+
+    var body: some View {
+        Button("Preferences...") {
+            openWindow(id: Constants.settingsWindowID)
+        }
+        .keyboardShortcut(",", modifiers: .command)
+    }
+}
+
 @main
 struct MonetApp: App {
     @AppLog(category: "MonetApp")
     private var logger
-
-    @Environment(\.openWindow) private var openWindow
-
-    @AppStorage("showMenuBarExtra") private var showMenuBarExtra = true
 
     // 设置 App Delegate 以响应 open file 请求
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -29,23 +37,18 @@ struct MonetApp: App {
     var body: some Scene {
         Window("Monet", id: "main") {
             ContentView()
-                .onAppear {
-                    if appState.showCurDirImg && appState.dirs.isEmpty {
-                        openWindow(id: Constants.settingsWindowID)
-                    }
-                }
-        }
+}
         .windowStyle(.hiddenTitleBar)
         .defaultPosition(.center)
+        .commands {
+            CommandGroup(replacing: .appSettings) {
+                OpenSettingsButton()
+            }
+        }
         .environmentObject(appState)
 
         SettingsWindow(appState: appState, onAppear: {})
-
-        MenuBarExtra(
-            "Monet", image: "menubar", isInserted: $showMenuBarExtra
-        ) {
-            MenuBarView()
-        }.environmentObject(appState)
+            .restorationBehavior(.disabled)
     }
 }
 
@@ -93,22 +96,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return .terminateNow
     }
 
-    /// Opens the settings window and activates the app.
-    @objc func openSettingsWindow() {
-        guard
-            let appState,
-            let settingsWindow = appState.settingsWindow
-        else {
-            logger.warning("Failed to open settings window")
-            return
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            appState.activate(withPolicy: .regular)
-            settingsWindow.center()
-            settingsWindow.makeKeyAndOrderFront(self)
-        }
-    }
-
     /// Assigns the app state to the delegate.
     func assignAppState(_ appState: AppState) {
         guard self.appState == nil else {
@@ -127,14 +114,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         appState.selectedImageIndex = 0
         appState.currentImageURL = url
 
-        guard appState.showCurDirImg else { return }
+        guard UserDefaults.standard.object(forKey: "showCurDirImg") as? Bool ?? true else { return }
 
         let directory = url.deletingLastPathComponent()
 
-        // Try existing bookmark access first
-        if indexFolder(directory, currentURL: url) { return }
+        // Try existing bookmark access
+        if indexFolder(directory, currentURL: url) {
+            logger.info("Indexed via bookmark: \(directory.path)")
+            return
+        }
 
-        // No permission — request via NSOpenPanel sheet
+        // No permission — request via NSOpenPanel
+        logger.info("No access to \(directory.path), prompting user...")
         promptFolderPermission(for: directory, currentURL: url)
     }
 
@@ -170,7 +161,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    /// Scan a directory for images with proper security-scoped access.
+    /// Scan a directory for images.
+    /// - Parameter keepAccess: If `false` (default), the method calls `startAccessingSecurityScopedResource()`
+    ///   and manages the scope lifecycle internally. If `true`, the caller already has access established
+    ///   (via NSOpenPanel or Full Disk Access) and the security-scope check is skipped.
     @discardableResult
     func indexFolder(_ directory: URL, currentURL: URL, keepAccess: Bool = false) -> Bool {
         guard let appState else { return false }

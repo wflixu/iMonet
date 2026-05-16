@@ -21,7 +21,6 @@ class AppState: ObservableObject {
     @Published var settingsNavigationIdentifier: SettingsNavigationIdentifier = .general
     // Permission
     @Published var dirs: [URL] = []
-    @Published var showCurDirImg: Bool = false
 
     /// Manager for app permissions.
     private(set) lazy var permissionsManager = PermissionsManager(appState: self)
@@ -29,18 +28,9 @@ class AppState: ObservableObject {
     /// The app's delegate.
     private(set) weak var appDelegate: AppDelegate?
 
-    /// The window that contains the settings interface.
-    private(set) weak var settingsWindow: NSWindow?
-
     init() {
-        let defaults = UserDefaults.standard
-        if let storedValue = defaults.object(forKey: "showCurDirImg") as? Bool {
-            self.showCurDirImg = storedValue
-            if self.showCurDirImg {
-                self.restoreBookmarkData()
-            }
-        } else {
-            self.showCurDirImg = true
+        if UserDefaults.standard.object(forKey: "showCurDirImg") as? Bool ?? true {
+            restoreBookmarkData()
         }
     }
 
@@ -94,15 +84,6 @@ class AppState: ObservableObject {
             return
         }
         self.appDelegate = appDelegate
-    }
-
-    /// Assigns the settings window to the app state.
-    func assignSettingsWindow(_ settingsWindow: NSWindow) {
-        guard self.settingsWindow == nil else {
-            logger.warning("Multiple attempts made to assign settings window")
-            return
-        }
-        self.settingsWindow = settingsWindow
     }
 
     /// Activates the app and sets its activation policy to the given value.

@@ -52,7 +52,7 @@ struct ContentView: View {
                     .zIndex(10)
 
                 Text("Monet")
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
                     .font(.system(size: 13, weight: .semibold))
                     .opacity(isChromeVisible ? 1 : 0)
                     .animation(.easeInOut(duration: 0.3), value: isChromeVisible)
@@ -69,7 +69,7 @@ struct ContentView: View {
                 .position(x: geometry.size.width / 2, y: geometry.size.height - 32)
             }
             .ignoresSafeArea(.container)
-            .background(colorScheme == .dark ? Color(white: 0.15) : Color(white: 0.8))
+            .background(colorScheme == .dark ? Color(white: 0.15) : Color(white: 0.9))
             .onAppear(perform: appearHandler)
         }
     }
