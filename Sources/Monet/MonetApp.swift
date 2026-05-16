@@ -8,12 +8,22 @@
 import AppKit
 import SwiftUI
 
+/// A button that opens the app's Settings window via the app menu.
+struct OpenSettingsButton: View {
+    @Environment(\.openWindow) private var openWindow
+
+    var body: some View {
+        Button("Preferences...") {
+            openWindow(id: Constants.settingsWindowID)
+        }
+        .keyboardShortcut(",", modifiers: .command)
+    }
+}
+
 @main
 struct MonetApp: App {
     @AppLog(category: "MonetApp")
     private var logger
-
-    @AppStorage("showMenuBarExtra") private var showMenuBarExtra = true
 
     // 设置 App Delegate 以响应 open file 请求
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -30,15 +40,15 @@ struct MonetApp: App {
 }
         .windowStyle(.hiddenTitleBar)
         .defaultPosition(.center)
+        .commands {
+            CommandGroup(replacing: .appSettings) {
+                OpenSettingsButton()
+            }
+        }
         .environmentObject(appState)
 
         SettingsWindow(appState: appState, onAppear: {})
-
-        MenuBarExtra(
-            "Monet", image: "menubar", isInserted: $showMenuBarExtra
-        ) {
-            MenuBarView()
-        }.environmentObject(appState)
+            .restorationBehavior(.disabled)
     }
 }
 
@@ -84,22 +94,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         print("applicationShouldTerminate")
         return .terminateNow
-    }
-
-    /// Opens the settings window and activates the app.
-    @objc func openSettingsWindow() {
-        guard
-            let appState,
-            let settingsWindow = appState.settingsWindow
-        else {
-            logger.warning("Failed to open settings window")
-            return
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            appState.activate(withPolicy: .regular)
-            settingsWindow.center()
-            settingsWindow.makeKeyAndOrderFront(self)
-        }
     }
 
     /// Assigns the app state to the delegate.

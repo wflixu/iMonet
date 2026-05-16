@@ -29,9 +29,6 @@ class AppState: ObservableObject {
     /// The app's delegate.
     private(set) weak var appDelegate: AppDelegate?
 
-    /// The window that contains the settings interface.
-    private(set) weak var settingsWindow: NSWindow?
-
     init() {
         let defaults = UserDefaults.standard
         if let storedValue = defaults.object(forKey: "showCurDirImg") as? Bool {
@@ -94,15 +91,6 @@ class AppState: ObservableObject {
             return
         }
         self.appDelegate = appDelegate
-    }
-
-    /// Assigns the settings window to the app state.
-    func assignSettingsWindow(_ settingsWindow: NSWindow) {
-        guard self.settingsWindow == nil else {
-            logger.warning("Multiple attempts made to assign settings window")
-            return
-        }
-        self.settingsWindow = settingsWindow
     }
 
     /// Activates the app and sets its activation policy to the given value.
