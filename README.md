@@ -13,105 +13,83 @@ An elegant image viewer for macOS, powered by SwiftUI.
 ## Features
 
 ### Image Browsing
-- **Folder Access**: Request folder access on startup to browse your images
-- **Auto-Indexing**: Automatically scans and indexes all supported image formats
+- **Folder Indexing**: Automatically scans and indexes all images in the same folder
+- **Persistent Permissions**: Uses security-scoped bookmarks so you only grant folder access once
 - **Supported Formats**: PNG, JPEG, GIF, WebP
+- **Sidebar**: Thumbnail strip for quick navigation, auto-hides with single image
 
-### Keyboard Navigation
-- **Arrow Keys**: Navigate through images with arrow keys (←/→/↑/↓)
-- **Quick Switch**: Browse all images without touching the mouse
-
-### Zoom & Pan
-- **Command + Scroll**: Zoom in/out centered on mouse position
+### Keyboard & Mouse
+- **Arrow Keys**: ←/→/↑/↓ to navigate images
+- **Cmd + Scroll**: Zoom in/out centered at mouse position
 - **Mouse Drag**: Pan around zoomed images
-- **Zoom Range**: Supports 0.1x to 10x zoom levels
+- **Click to Reveal**: Click image area to show controls, auto-hide after 5s
 
 ### Floating UI
-- **Info Bar** (top): Shows current zoom level and file name
-- **Navigation Panel** (left): Thumbnail strip for quick navigation
-- **Toolbar** (bottom): Image counter and navigation controls
+- **Title & Toolbar**: Appear on click, auto-hide after 5 seconds; hover toolbar to keep visible
+- **Image Info Panel** (right): Pixel size, file size, format, modification date
+- **Dark / Light Mode**: Full adaptive theme support
+- **Menu Bar Extra**: Quick access from the menu bar
 
 ## Requirements
 
 - macOS 15.0 or later
-- Xcode 16.0 or later
 - Swift 6.0+
 
-## Installation
-
-### Build from Source
+## Build & Run
 
 ```bash
-# Clone the repository
 git clone https://github.com/yourusername/Monet.git
 cd Monet
-
-# Generate Xcode project (requires xcodegen)
-brew install xcodegen
-xcodegen generate
-
-# Open in Xcode
-open Monet.xcodeproj
-
-# Or build from command line
-xcodebuild -project Monet.xcodeproj -scheme Monet build
+swift run
 ```
 
 ## Project Structure
 
 ```
 Monet/
-├── Sources/
-│   └── Monet/
-│       ├── MonetApp.swift              # App entry point
-│       ├── AppState.swift               # Global app state
-│       ├── LayoutView.swift             # Main layout view
-│       ├── ZoomableImageView.swift      # Zoomable image view
-│       ├── Views/
-│       │   ├── ToolBarView.swift        # Bottom toolbar
-│       │   ├── InfoBarView.swift        # Top info bar
-│       │   └── NavigationFloatView.swift # Left navigation panel
-│       ├── Models/
-│       │   └── ViewState.swift          # Image transformation state
-│       ├── Permission/
-│       │   └── PermissionsManager.swift # File system permissions
-│       ├── Settings/
-│       │   ├── GeneralSettingsPane.swift
-│       │   └── AboutSettingsPane.swift
-│       ├── Shared/
-│       │   ├── AppLogger.swift          # Logging utilities
-│       │   ├── Constants.swift
-│       │   └── Util.swift
-│       ├── Assets.xcassets/             # App resources
-│       ├── Info.plist                   # App configuration
-│       └── Monet.entitlements           # Sandbox entitlements
+├── Sources/Monet/
+│   ├── MonetApp.swift                  # App entry point, scenes, AppDelegate
+│   ├── AppState.swift                  # Global app state
+│   ├── ContentView.swift               # Main layout, chrome auto-hide logic
+│   ├── MenuBarView.swift               # Menu bar extra view
+│   ├── NavigationIdentifier.swift      # Settings navigation
+│   ├── Views/
+│   │   ├── ImagePreviewView.swift      # Image display with keyboard events
+│   │   ├── ImageThumbnailView.swift    # Single thumbnail
+│   │   ├── ThumbnailSidebar.swift      # Left thumbnail strip
+│   │   ├── ImageInfoPanel.swift        # Right info panel (pixels, size, format)
+│   │   ├── ToolBarView.swift           # Bottom floating toolbar
+│   │   └── ZoomableImageView.swift     # Zoom & pan image view (AppKit)
+│   ├── Settings/
+│   │   ├── GeneralSettingsPane.swift
+│   │   ├── AboutSettingsPane.swift
+│   │   ├── SettingsView.swift
+│   │   └── SettingsWindow.swift
+│   ├── Permission/
+│   │   └── PermissionsManager.swift    # File system permissions & bookmarks
+│   └── Shared/
+│       ├── AppLogger.swift             # @AppLog property wrapper
+│       ├── Constants.swift             # App constants
+│       └── Util.swift                  # ObjectAssociation
 ├── Tests/
-│   └── MonetTests/
-├── project.yml                          # XcodeGen project spec
-└── Monet.xcodeproj/                     # Generated Xcode project
+└── Package.swift
 ```
 
-## Development
+## Dependencies
 
-Monet is built with:
-- **SwiftUI** for the user interface
-- **SDWebImageSwiftUI** for image loading
-- **LaunchAtLogin** for login item management
-- **SwiftUI-Tooltip** for tooltips
+- **SDWebImageSwiftUI** — image loading
+- **LaunchAtLogin-Modern** — launch at login
+- **SwiftUITooltip** — tooltips
 
-### Keyboard Shortcuts
+## Keyboard Shortcuts
 
 | Key | Action |
 |-----|--------|
 | ← / → | Previous / Next image |
 | ↑ / ↓ | Previous / Next image |
-| Cmd + Scroll | Zoom in/out |
+| Cmd + Scroll | Zoom in/out at mouse position |
 | Mouse Drag | Pan zoomed image |
 
 ## License
 
 MIT License - see LICENSE file for details.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
