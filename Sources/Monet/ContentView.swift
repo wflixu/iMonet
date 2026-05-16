@@ -52,7 +52,7 @@ struct ContentView: View {
                     .zIndex(10)
 
                 Text("Monet")
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
                     .font(.system(size: 13, weight: .semibold))
                     .opacity(isChromeVisible ? 1 : 0)
                     .animation(.easeInOut(duration: 0.3), value: isChromeVisible)

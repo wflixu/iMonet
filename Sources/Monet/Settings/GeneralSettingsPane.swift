@@ -17,7 +17,7 @@ struct GeneralSettingsPane: View {
     @State private var showDirImporter = false
 
     @AppStorage("showCurDirImg")
-    private var showCurDirImg: Bool = false
+    private var showCurDirImg = true
 
     private var permissionDirs: [PermissionDir] {
         return appState.dirs.map { url in
@@ -36,10 +36,10 @@ struct GeneralSettingsPane: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("高级：全磁盘访问")
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                     Text("如果希望打开任意文件夹都无需单独授权，可在系统设置中为 Monet 开启全磁盘访问权限。")
                         .font(.caption2)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                     Button("打开系统设置...") {
                         if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles") {
                             NSWorkspace.shared.open(url)
@@ -75,7 +75,7 @@ struct GeneralSettingsPane: View {
                     }) {
                         Image(systemName: "folder.badge.plus")
                             .font(.system(size: 20))
-                            .foregroundColor(.primary)
+                            .foregroundStyle(.primary)
                     }.buttonStyle(PlainButtonStyle())
                 }.padding([.leading, .trailing], 16)
 
@@ -98,9 +98,9 @@ struct GeneralSettingsPane: View {
                 }
             }
         }
-        .onChange(of: showCurDirImg, {
+        .onChange(of: showCurDirImg) { _, _ in
             appearAction()
-        })
+        }
 
         .fileImporter(
             isPresented: $showDirImporter,

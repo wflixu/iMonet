@@ -110,7 +110,7 @@ struct ToolBarView: View {
         .padding([.top, .bottom], 8)
         .frame(height: 42)
         .background(colorScheme == .dark ? Color.gray.opacity(0.6) : Color.white.opacity(1))
-        .cornerRadius(4)
+        .clipShape(.rect(cornerRadius: 4))
         .shadow(radius: 2)
         .onHover { hovering in
             if hovering {
