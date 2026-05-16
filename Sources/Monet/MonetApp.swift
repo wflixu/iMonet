@@ -124,10 +124,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let directory = url.deletingLastPathComponent()
 
-        // Try existing bookmark access first
-        if indexFolder(directory, currentURL: url) { return }
+        // Try existing bookmark access
+        if indexFolder(directory, currentURL: url) {
+            logger.info("Indexed via bookmark: \(directory.path)")
+            return
+        }
 
-        // No permission — request via NSOpenPanel sheet
+        // No permission — request via NSOpenPanel
+        logger.info("No access to \(directory.path), prompting user...")
         promptFolderPermission(for: directory, currentURL: url)
     }
 
@@ -163,7 +167,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    /// Scan a directory for images with proper security-scoped access.
+    /// Scan a directory for images.
+    /// - Parameter keepAccess: If `false` (default), the method calls `startAccessingSecurityScopedResource()`
+    ///   and manages the scope lifecycle internally. If `true`, the caller already has access established
+    ///   (via NSOpenPanel or Full Disk Access) and the security-scope check is skipped.
     @discardableResult
     func indexFolder(_ directory: URL, currentURL: URL, keepAccess: Bool = false) -> Bool {
         guard let appState else { return false }

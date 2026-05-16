@@ -49,18 +49,8 @@ struct SettingsView: View {
         switch appState.settingsNavigationIdentifier {
         case .general:
             GeneralSettingsPane()
-//        case .hotkeys:
-//            HotkeysSettingsPane()
-//        case .advanced:
-//            AdvancedSettingsPane()
-//        case .updates:
-//            UpdatesSettingsPane()
         case .about:
             AboutSettingsPane()
-        default:
-            HStack {
-                Text("detailView")
-            }
         }
     }
 
@@ -81,10 +71,7 @@ struct SettingsView: View {
     private func icon(for identifier: SettingsNavigationIdentifier) -> IconResource {
         switch identifier {
         case .general: .systemSymbol("gearshape")
-        case .hotkeys: .systemSymbol("keyboard")
-        case .advanced: .systemSymbol("gearshape.2")
-        case .updates: .systemSymbol("arrow.triangle.2.circlepath.circle")
-        case .about: .systemSymbol("gearshape")
+        case .about: .systemSymbol("info.circle")
         }
     }
 }

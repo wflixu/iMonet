@@ -5,7 +5,6 @@
 //  Created by 李旭 on 2024/9/12.
 //
 
-import LaunchAtLogin
 import SwiftUI
 
 struct GeneralSettingsPane: View {
@@ -20,46 +19,21 @@ struct GeneralSettingsPane: View {
     private var showCurDirImg = true
 
     private var permissionDirs: [PermissionDir] {
-        return appState.dirs.map { url in
-            PermissionDir(url: url)
-        }
+        appState.dirs.map { PermissionDir(url: $0) }
     }
 
     var body: some View {
         Form {
-            Section {
-                launchAtLogin
-            }
-            SectionPermission
-
-            Section {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("高级：全磁盘访问")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Text("如果希望打开任意文件夹都无需单独授权，可在系统设置中为 Monet 开启全磁盘访问权限。")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-                    Button("打开系统设置...") {
-                        if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles") {
-                            NSWorkspace.shared.open(url)
-                        }
-                    }
-                    .font(.caption)
-                }
-            }
+            imageBrowsingSection
         }
         .formStyle(.grouped)
         .scrollBounceBehavior(.basedOnSize)
     }
 
-    @ViewBuilder
-    private var launchAtLogin: some View {
-        LaunchAtLogin.Toggle()
-    }
+    // MARK: - Section 1: 图片浏览
 
     @ViewBuilder
-    private var SectionPermission: some View {
+    private var imageBrowsingSection: some View {
         Section {
             Toggle(isOn: $showCurDirImg) {
                 Text("自动索引文件夹中的图片")
@@ -69,66 +43,67 @@ struct GeneralSettingsPane: View {
             if showCurDirImg {
                 HStack {
                     Spacer()
-                  
                     Button(action: {
                         showDirImporter = true
                     }) {
                         Image(systemName: "folder.badge.plus")
                             .font(.system(size: 20))
                             .foregroundStyle(.primary)
-                    }.buttonStyle(PlainButtonStyle())
-                }.padding([.leading, .trailing], 16)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+                .padding([.leading, .trailing], 16)
 
-                List {
-                    ForEach(Array(permissionDirs.enumerated()), id: \.element.path) { index, dir in
-                        HStack {
-                            Text(dir.path)
-                                .font(.title3)
-                            Spacer()
-                            Button(action: {
-                                // 按钮点击
-                                appState.dirs.remove(at: index)
-                                appState.storeBookmarkData();
-                            }) {
-                                Image(systemName: "delete.left")
+                if permissionDirs.isEmpty {
+                    Text("点击 + 添加授权文件夹，添加后打开该文件夹内的图片无需再次授权。")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .padding([.leading, .trailing], 16)
+                } else {
+                    List {
+                        ForEach(Array(permissionDirs.enumerated()), id: \.element.path) { index, dir in
+                            HStack {
+                                Text(dir.path)
+                                    .font(.title3)
+                                Spacer()
+                                Button(action: {
+                                    appState.dirs.remove(at: index)
+                                    appState.storeBookmarkData()
+                                }) {
+                                    Image(systemName: "delete.left")
+                                }
                             }
-
-                        }.buttonStyle(.borderless)
+                            .buttonStyle(.borderless)
+                        }
                     }
                 }
             }
         }
-        .onChange(of: showCurDirImg) { _, _ in
-            appearAction()
-        }
-
         .fileImporter(
             isPresented: $showDirImporter,
             allowedContentTypes: [.directory],
             allowsMultipleSelection: false
         ) { result in
             switch result {
-                case .success(let dirs):
-                    if let dir = dirs.first {
-                        let gotaccess = dir.startAccessingSecurityScopedResource()
-                        if gotaccess {
-                            appState.dirs.append(dir)
-                            appState.storeBookmarkData()
-                        } else {
-                            logger.warning("not get access dir: \(dir.path)")
-                        }
+            case .success(let dirs):
+                if let dir = dirs.first {
+                    let gotAccess = dir.startAccessingSecurityScopedResource()
+                    if gotAccess {
+                        appState.dirs.append(dir)
+                        appState.storeBookmarkData()
+                    } else {
+                        logger.warning("Failed to access directory: \(dir.path)")
                     }
-                case .failure(let error):
-                    // handle error
-                    print(error)
+                }
+            case .failure(let error):
+                logger.error("File importer failed: \(error.localizedDescription)")
             }
         }
-    }
-
-    func appearAction() {
-        appState.showCurDirImg = showCurDirImg
-        if showCurDirImg {
-            appState.restoreBookmarkData()
+        .onChange(of: showCurDirImg) { _, _ in
+            appState.showCurDirImg = showCurDirImg
+            if showCurDirImg {
+                appState.restoreBookmarkData()
+            }
         }
     }
 }
