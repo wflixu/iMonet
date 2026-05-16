@@ -22,7 +22,10 @@
       "WebFetch(domain:chat.deepseek.com)",
       "Bash(grep -v '/$')",
       "Bash(git rm *)",
-      "Bash(git reset *)"
+      "Bash(git reset *)",
+      "Bash(plutil -p .build/arm64-apple-macosx/debug/Monet.app/Contents/Info.plist)",
+      "Bash(xcodebuild -scheme Monet -configuration Release -derivedDataPath build -destination \"generic/platform=macOS\" ENABLE_HARDENED_RUNTIME=YES build)",
+      "Bash(xcodebuild -scheme Monet -configuration Release -derivedDataPath .build/xcodebuild -destination \"platform=macOS,arch=arm64\" ARCHS=arm64 ENABLE_HARDENED_RUNTIME=YES build)"
     ]
   }
 }

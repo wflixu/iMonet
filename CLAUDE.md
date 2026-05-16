@@ -9,8 +9,9 @@ Monet is a macOS image viewer application built with SwiftUI, focused on efficie
 ## Build and Run
 
 ```bash
-swift run                    # Build and run the app
+swift run                    # Build and run the app (debug, no .app bundle)
 swift test                   # Run tests
+xcodebuild -scheme Monet -configuration Release -derivedDataPath build -destination "platform=macOS,arch=arm64" ARCHS=arm64 ENABLE_HARDENED_RUNTIME=YES build  # Release build with .app bundle (for "Open With" testing)
 ```
 
 ## Project Structure

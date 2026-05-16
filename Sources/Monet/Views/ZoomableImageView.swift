@@ -47,7 +47,7 @@ final class MonetImageView: NSView {
     override func draw(_ dirtyRect: NSRect) {
         let fillColor: NSColor = isDarkMode
             ? NSColor(white: 0.15, alpha: 1.0)
-            : NSColor(white: 0.8, alpha: 1.0)
+            : NSColor(white: 0.9, alpha: 1.0)
         fillColor.setFill()
         bounds.fill()
 

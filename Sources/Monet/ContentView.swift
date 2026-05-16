@@ -69,7 +69,7 @@ struct ContentView: View {
                 .position(x: geometry.size.width / 2, y: geometry.size.height - 32)
             }
             .ignoresSafeArea(.container)
-            .background(colorScheme == .dark ? Color(white: 0.15) : Color(white: 0.8))
+            .background(colorScheme == .dark ? Color(white: 0.15) : Color(white: 0.9))
             .onAppear(perform: appearHandler)
         }
     }
