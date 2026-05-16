@@ -17,7 +17,7 @@ final class MonetImageView: NSView {
     private var hasPerformedInitialFit = false
 
     private let minMag: CGFloat = 0.1
-    private let maxMag: CGFloat = 10.0
+    private let maxMag: CGFloat = 16.0
 
     // Pan state
     private var dragStartPoint: CGPoint = .zero

@@ -36,7 +36,7 @@ struct ToolBarView: View {
     }
     
     var body: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 6) {
             // 缩放
             Button(action: {
                 self.onTap(ToolbarActionIdentifier.scaleMinis)
@@ -48,6 +48,8 @@ struct ToolBarView: View {
                 .help("Magnify the picture")
 
             Text(scaleFormated).foregroundStyle(.primary)
+                .monospacedDigit()
+                .frame(minWidth: 44)
 
             Button(action: {
                 self.onTap(.scalePlus)
