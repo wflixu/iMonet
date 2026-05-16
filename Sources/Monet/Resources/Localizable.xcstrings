@@ -161,6 +161,23 @@
     "Toggle the picture info" : {
 
     },
+    "一款专注于高效浏览图片的查看器。支持鼠标焦点缩放，精准放大你关注的细节；打开图片时自动索引同文件夹所有图片，浏览无需重复操作。" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A focused image viewer for efficient browsing. Mouse-centric zoom lets you magnify details precisely where you look. Auto-indexes all images in the same folder for seamless navigation."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一款专注于高效浏览图片的查看器。支持鼠标焦点缩放，精准放大你关注的细节；打开图片时自动索引同文件夹所有图片，浏览无需重复操作。"
+          }
+        }
+      }
+    },
     "Version" : {
       "extractionState" : "manual",
       "localizations" : {

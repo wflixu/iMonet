@@ -99,10 +99,12 @@ struct GeneralSettingsPane: View {
                 logger.error("File importer failed: \(error.localizedDescription)")
             }
         }
-        .onChange(of: showCurDirImg) { _, _ in
-            appState.showCurDirImg = showCurDirImg
-            if showCurDirImg {
-                appState.restoreBookmarkData()
+        .onChange(of: showCurDirImg) { _, newValue in
+            DispatchQueue.main.async {
+                appState.showCurDirImg = newValue
+                if newValue {
+                    appState.restoreBookmarkData()
+                }
             }
         }
     }

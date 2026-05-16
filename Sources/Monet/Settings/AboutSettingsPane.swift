@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AboutSettingsPane: View {
     @Environment(\.openURL) private var openURL
-    @State private var frame = CGRect.zero
 
     private var contributeURL: URL {
         // swiftlint:disable:next force_unwrapping
@@ -20,66 +19,68 @@ struct AboutSettingsPane: View {
         contributeURL.appendingPathComponent("issues")
     }
 
-    private var minFrameDimension: CGFloat {
-        min(frame.width, frame.height)
-    }
-
     var body: some View {
-        HStack {
+        VStack {
             Spacer()
+
             Image("Monet")
                 .resizable()
-                .frame(width: 200, height: 200)
-           
-            VStack(alignment: .leading) {
-                Text("Monet")
-                    .font(.largeTitle)
-                    .foregroundStyle(.primary)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 96, height: 96)
 
-                HStack(spacing: 4) {
-                    Text("Version")
-                    Text(Constants.appVersion)
-                }
-                .font(.system(size: minFrameDimension / 30))
+            Text("Monet")
+                .font(.largeTitle)
+                .bold()
+
+            HStack(spacing: 4) {
+                Text("Version")
+                Text(Constants.appVersion)
+            }
+            .font(.callout)
+            .foregroundStyle(.secondary)
+
+            Text("一款专注于高效浏览图片的查看器。支持鼠标焦点缩放，精准放大你关注的细节；打开图片时自动索引同文件夹所有图片，浏览无需重复操作。")
+                .font(.body)
                 .foregroundStyle(.secondary)
-            }
-            .fontWeight(.medium)
-            .padding([.vertical, .trailing])
-            Spacer()
-        }
-        .frame(
-            maxWidth: .infinity,
-            maxHeight: .infinity
-        )
-        .bottomBar {
-            HStack {
-                Button("Quit Monet") {
-                    NSApp.terminate(nil)
-                }
-                Spacer()
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 48)
+                .padding(.top, 8)
 
-                Button("Contribute") {
-                    openURL(contributeURL)
-                }
-                Button("Report a Bug") {
-                    openURL(issuesURL)
-                }
-            }
-            .padding()
+            Spacer()
+
+            bottomBar
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(NSColor.windowBackgroundColor))
+    }
+
+    // MARK: - Actions
+
+    private func quitApp() {
+        NSApp.terminate(nil)
+    }
+
+    private func openContribute() {
+        openURL(contributeURL)
+    }
+
+    private func openIssues() {
+        openURL(issuesURL)
+    }
+
+    // MARK: - Subviews
+
+    private var bottomBar: some View {
+        HStack {
+            Button("Quit Monet", action: quitApp)
+            Spacer()
+            Button("Contribute", action: openContribute)
+            Button("Report a Bug", action: openIssues)
+        }
+        .padding()
     }
 }
 
-extension View {
-    /// Adds the given view as a bottom bar to the current view.
-    ///
-    /// - Parameter content: A view to be added as a bottom bar to the current view.
-    func bottomBar<Content: View>(@ViewBuilder content: () -> Content) -> some View {
-        safeAreaInset(edge: .bottom) {
-            VStack(spacing: 0) {
-                Divider()
-                content()
-            }
-        }
-    }
+#Preview {
+    AboutSettingsPane()
 }
