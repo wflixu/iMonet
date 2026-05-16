@@ -81,6 +81,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		5C5261DE2FB83B1100B66DBA /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		5CA538252FB611C30071F06A /* Views */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -193,6 +198,7 @@
 		E720594DBD3879C6E191245D /* Monet */ = {
 			isa = PBXGroup;
 			children = (
+				5C5261DE2FB83B1100B66DBA /* Resources */,
 				5CA538252FB611C30071F06A /* Views */,
 				442E22A06002EDE0AB884C1E /* AppState.swift */,
 				199212F3989A5E4D1123A851 /* Assets.xcassets */,
@@ -232,6 +238,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				5C5261DE2FB83B1100B66DBA /* Resources */,
 				5CA538252FB611C30071F06A /* Views */,
 			);
 			name = Monet;
@@ -254,6 +261,9 @@
 			);
 			dependencies = (
 				B69CF0332B8B26286148ECF2 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5C5261DE2FB83B1100B66DBA /* Resources */,
 			);
 			name = MonetTests;
 			packageProductDependencies = (
@@ -435,6 +445,7 @@
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 6.0;
@@ -499,6 +510,7 @@
 				SDKROOT = macosx;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 6.0;

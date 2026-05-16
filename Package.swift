@@ -21,6 +21,7 @@ let package = Package(
             ],
             resources: [
                 .process("Assets.xcassets"),
+                .process("Resources"),
             ]
         ),
         .testTarget(

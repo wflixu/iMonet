@@ -16,7 +16,7 @@ struct SettingsView: View {
         } detail: {
             detailView
         }
-        .navigationTitle("settings")
+        .navigationTitle(appState.settingsNavigationIdentifier.localized)
         .background(Color(NSColor.windowBackgroundColor))
     }
 
@@ -37,7 +37,8 @@ struct SettingsView: View {
                         .font(.system(size: 30, weight: .medium))
                 }
                 .foregroundStyle(.primary)
-                .padding(.vertical, 8)
+                .padding(.top, 8)
+                .padding(.bottom, 32)
             }
             .collapsible(false)
         }
@@ -56,16 +57,15 @@ struct SettingsView: View {
 
     @ViewBuilder
     private func sidebarItem(for identifier: SettingsNavigationIdentifier) -> some View {
-        Label {
+        HStack(spacing: 6) {
+            icon(for: identifier).view
+                .font(.system(size: 16))
+                .frame(width: 20)
             Text(identifier.localized)
                 .font(.title3)
-                .padding(.leading, 2)
-        } icon: {
-            icon(for: identifier).view
-                .foregroundStyle(.primary)
-                .imageScale(.small)
         }
-        .frame(height: 32)
+        .padding(.vertical, 8)
+        .padding(.leading, 4)
     }
 
     private func icon(for identifier: SettingsNavigationIdentifier) -> IconResource {
