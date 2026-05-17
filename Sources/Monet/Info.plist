@@ -91,5 +91,7 @@
 	<string>1</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.graphics-design</string>
 </dict>
 </plist>
