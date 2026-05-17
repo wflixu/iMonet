@@ -28,7 +28,7 @@ struct AboutSettingsPane: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 96, height: 96)
 
-            Text("Monet")
+            Text("iMonet")
                 .font(.largeTitle)
                 .bold()
 
@@ -72,7 +72,7 @@ struct AboutSettingsPane: View {
 
     private var bottomBar: some View {
         HStack {
-            Button("Quit Monet", action: quitApp)
+            Button("Quit iMonet", action: quitApp)
             Spacer()
             Button("Contribute", action: openContribute)
             Button("Report a Bug", action: openIssues)

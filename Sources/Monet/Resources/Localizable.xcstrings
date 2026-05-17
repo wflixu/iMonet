@@ -58,19 +58,19 @@
     "Magnify the picture" : {
 
     },
-    "Monet" : {
+    "iMonet" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monet"
+            "value" : "iMonet"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Monet"
+            "value" : "iMonet"
           }
         }
       }
@@ -98,19 +98,19 @@
     "Previous picture" : {
 
     },
-    "Quit Monet" : {
+    "Quit iMonet" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Quit Monet"
+            "value" : "Quit iMonet"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "退出 Monet"
+            "value" : "退出 iMonet"
           }
         }
       }

@@ -51,7 +51,7 @@ struct ContentView: View {
                     .frame(width: geometry.size.width, height: geometry.size.height + 28)
                     .zIndex(10)
 
-                Text("Monet")
+                Text("iMonet")
                     .foregroundStyle(.secondary)
                     .font(.system(size: 13, weight: .semibold))
                     .opacity(isChromeVisible ? 1 : 0)

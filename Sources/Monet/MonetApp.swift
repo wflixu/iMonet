@@ -35,7 +35,7 @@ struct MonetApp: App {
     }
 
     var body: some Scene {
-        Window("Monet", id: "main") {
+        Window("iMonet", id: "main") {
             ContentView()
 }
         .windowStyle(.hiddenTitleBar)
@@ -132,8 +132,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Request folder access permission via NSOpenPanel presented as a sheet on the main window.
     func promptFolderPermission(for directory: URL, currentURL: URL) {
         guard let appState else { return }
-        guard let window = NSApplication.shared.windows.first(where: { $0.title == "Monet" }) else {
-            logger.warning("No Monet window found for sheet")
+        guard let window = NSApplication.shared.windows.first(where: { $0.title == "iMonet" }) else {
+            logger.warning("No iMonet window found for sheet")
             return
         }
 
@@ -143,7 +143,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panel.canCreateDirectories = false
         panel.allowsMultipleSelection = false
         panel.directoryURL = directory
-        panel.message = "允许 Monet 访问此文件夹以浏览所有图片"
+        panel.message = "允许 iMonet 访问此文件夹以浏览所有图片"
         panel.prompt = "允许"
 
         panel.beginSheetModal(for: window) { response in

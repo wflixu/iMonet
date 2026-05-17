@@ -58,8 +58,6 @@ The codebase follows a modular SwiftUI architecture:
 - They are handled by Xcode project configuration if using Xcode
 
 ### Dependencies
-- **SDWebImageSwiftUI** - Image loading (`import SDWebImageSwiftUI`)
-- **LaunchAtLogin-Modern** - Login launch (product: `LaunchAtLogin`)
 - **SwiftUITooltip** - Tooltips (product: `SwiftUITooltip` from `SwiftUI-Tooltip` package)
 
 ### Logging

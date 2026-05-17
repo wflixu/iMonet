@@ -526,7 +526,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 4L3563XCBN;
 				INFOPLIST_FILE = Sources/Monet/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Monet;
+				INFOPLIST_KEY_CFBundleDisplayName = iMonet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -548,7 +548,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 4L3563XCBN;
 				INFOPLIST_FILE = Sources/Monet/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Monet;
+				INFOPLIST_KEY_CFBundleDisplayName = iMonet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
