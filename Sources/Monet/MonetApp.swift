@@ -143,8 +143,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panel.canCreateDirectories = false
         panel.allowsMultipleSelection = false
         panel.directoryURL = directory
-        panel.message = "允许 iMonet 访问此文件夹以浏览所有图片"
-        panel.prompt = "允许"
+        panel.message = String(localized: "允许 iMonet 访问此文件夹以浏览所有图片")
+        panel.prompt = String(localized: "允许")
 
         panel.beginSheetModal(for: window) { response in
             guard response == .OK, let selectedURL = panel.url else { return }

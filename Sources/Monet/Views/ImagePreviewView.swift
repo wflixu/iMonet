@@ -16,6 +16,8 @@ struct ImagePreviewView: View {
     @Binding var monetImageView: MonetImageView?
 
     var onClick: (() -> Void)?
+    var onDelete: (() -> Void)?
+    var onNavigate: (() -> Void)?
 
     @State private var currentImage: NSImage?
     @State private var showFileImporter = false
@@ -68,10 +70,21 @@ struct ImagePreviewView: View {
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
             switch event.keyCode {
             case 124, 125: // Right / Down Arrow
-                Task { @MainActor in showNextImage() }
+                Task { @MainActor in
+                    showNextImage()
+                    onNavigate?()
+                }
                 return nil
             case 123, 126: // Left / Up Arrow
-                Task { @MainActor in showPreviousImage() }
+                Task { @MainActor in
+                    showPreviousImage()
+                    onNavigate?()
+                }
+                return nil
+            case 51, 117: // Backspace / Forward Delete
+                Task { @MainActor in
+                    onDelete?()
+                }
                 return nil
             default:
                 return event

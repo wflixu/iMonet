@@ -20,18 +20,18 @@ struct ImageInfoPanel: View {
         let format = url.pathExtension.uppercased()
 
         var items: [(String, String)] = [
-            ("名称", name),
-            ("格式", format),
+            (String(localized: "名称"), name),
+            (String(localized: "格式"), format),
         ]
 
         if let attrs = try? fileManager.attributesOfItem(atPath: url.path) {
             if let fileSize = attrs[.size] as? Int64 {
-                items.append(("大小", formatBytes(fileSize)))
+                items.append((String(localized: "大小"), formatBytes(fileSize)))
             }
             if let modDate = attrs[.modificationDate] as? Date {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy/MM/dd HH:mm"
-                items.append(("修改时间", formatter.string(from: modDate)))
+                items.append((String(localized: "修改时间"), formatter.string(from: modDate)))
             }
         }
 
@@ -39,7 +39,7 @@ struct ImageInfoPanel: View {
            let props = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any],
            let width = props[kCGImagePropertyPixelWidth] as? Int,
            let height = props[kCGImagePropertyPixelHeight] as? Int {
-            items.insert(("像素", "\(width) × \(height)"), at: 1)
+            items.insert((String(localized: "像素"), "\(width) × \(height)"), at: 1)
         }
 
         return items
