@@ -39,7 +39,7 @@ struct SettingsView: View {
                         .resizable()
                         .frame(width: 42, height: 42)
 
-                    Text("Monet")
+                    Text("iMonet")
                         .font(.system(size: 30, weight: .medium))
                 }
                 .foregroundStyle(.primary)

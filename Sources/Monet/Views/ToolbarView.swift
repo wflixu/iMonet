@@ -17,12 +17,12 @@ struct ToolBarView: View {
     let onTap: (_ actionID: ToolbarActionIdentifier) -> Void
     var onHoverEnter: (() -> Void)?
     var onHoverExit: (() -> Void)?
-    
+
     var scaleFormated: String {
         let formatter = NumberFormatter()
-        formatter.numberStyle = .percent // 设置百分比格式
-        formatter.maximumFractionDigits = 0 // 保留小数位数（可选）
-        formatter.minimumFractionDigits = 0 // 最少小数位数（可选）
+        formatter.numberStyle = .percent
+        formatter.maximumFractionDigits = 0
+        formatter.minimumFractionDigits = 0
 
         if let formattedString = formatter.string(from: NSNumber(value: scale.width)) {
             return formattedString
@@ -30,22 +30,21 @@ struct ToolBarView: View {
             return ""
         }
     }
-    
+
     var indexFormated: String {
         return "\(appState.selectedImageIndex + 1)/\(appState.imageFiles.count)"
     }
-    
+
     var body: some View {
         HStack(spacing: 6) {
-            // 缩放
             Button(action: {
-                self.onTap(ToolbarActionIdentifier.scaleMinis)
+                self.onTap(.scaleMinis)
             }) {
                 Image(systemName: "minus.circle")
                     .font(.system(size: 20))
                     .foregroundStyle(.primary)
             }.buttonStyle(PlainButtonStyle())
-                .help("Magnify the picture")
+                .help("Zoom out")
 
             Text(scaleFormated).foregroundStyle(.primary)
                 .monospacedDigit()
@@ -58,7 +57,7 @@ struct ToolBarView: View {
                     .font(.system(size: 20))
                     .foregroundStyle(.primary)
             }.buttonStyle(PlainButtonStyle())
-                .help("Shrink the picture")
+                .help("Zoom in")
 
             Button(action: {
                 self.onTap(.showPrev)
@@ -87,9 +86,39 @@ struct ToolBarView: View {
                     .font(.system(size: 20))
                     .foregroundStyle(.primary)
             }.buttonStyle(PlainButtonStyle())
-                .help("Center Picture")
+                .help("Fit to window")
 
             Divider()
+
+            Button(action: {
+                self.onTap(.rotateLeft)
+            }) {
+                Image(systemName: "arrow.counterclockwise.circle")
+                    .font(.system(size: 20))
+                    .foregroundStyle(.primary)
+            }.buttonStyle(PlainButtonStyle())
+                .help("Rotate left")
+
+            Button(action: {
+                self.onTap(.rotateRight)
+            }) {
+                Image(systemName: "arrow.clockwise.circle")
+                    .font(.system(size: 20))
+                    .foregroundStyle(.primary)
+            }.buttonStyle(PlainButtonStyle())
+                .help("Rotate right")
+
+            Button(action: {
+                self.onTap(.deleteImage)
+            }) {
+                Image(systemName: "trash.circle")
+                    .font(.system(size: 20))
+                    .foregroundStyle(.primary)
+            }.buttonStyle(PlainButtonStyle())
+                .help("Delete Picture")
+
+            Divider()
+
             Button(action: {
                 self.onTap(.toggleNav)
             }) {
@@ -106,7 +135,7 @@ struct ToolBarView: View {
                     .font(.system(size: 20))
                     .foregroundStyle(.primary)
             }.buttonStyle(PlainButtonStyle())
-                .help("Toggle the picture info")
+                .help("Picture info")
         }
         .padding([.leading, .trailing], 10)
         .padding([.top, .bottom], 8)
@@ -132,5 +161,7 @@ enum ToolbarActionIdentifier: String, Hashable {
     case toggleNav
     case toggleInfo
     case centerFill
+    case rotateLeft
+    case rotateRight
+    case deleteImage
 }
-
