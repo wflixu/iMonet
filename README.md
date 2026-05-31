@@ -8,7 +8,9 @@
 
 # Monet
 
-An elegant image viewer for macOS, powered by SwiftUI.
+An image viewer for macOS optimized for mouse users. Built with SwiftUI.
+
+[![Download on the App Store](https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg)](https://apps.apple.com/cn/app/imonet/id6770070921?mt=12)
 
 ## Demo
 
@@ -17,10 +19,12 @@ https://github.com/user-attachments/assets/f9faccb3-531e-4000-bc7f-e58fb922e6da
 ## Screenshots
 
 <div align="center">
-   <img src="assets/iMonet-viewer.png" width="720" alt="Monet Viewer"/>
-   <br/><br/>
-   <img src="assets/iMonet-setting.png" width="720" alt="Monet Settings"/>
-   <br/><br/>
+   <table>
+     <tr>
+       <td><img src="assets/iMonet-viewer.png" width="360" alt="Monet Viewer"/></td>
+       <td><img src="assets/iMonet-setting.png" width="360" alt="Monet Settings"/></td>
+     </tr>
+   </table>
    <img src="assets/iMonet-app-store.png" width="720" alt="Monet App Store"/>
 </div>
 
@@ -32,7 +36,7 @@ https://github.com/user-attachments/assets/f9faccb3-531e-4000-bc7f-e58fb922e6da
 - **Supported Formats**: PNG, JPEG, GIF, WebP
 - **Sidebar**: Thumbnail strip for quick navigation, auto-hides with single image
 
-### Keyboard & Mouse
+### Mouse & Keyboard
 - **Arrow Keys**: ←/→/↑/↓ to navigate images
 - **Cmd + Scroll**: Zoom in/out centered at mouse position
 - **Mouse Drag**: Pan around zoomed images

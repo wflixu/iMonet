@@ -8,7 +8,9 @@
 
 # Monet
 
-一款基于 SwiftUI 打造的 macOS 图片浏览工具。
+专为鼠标用户优化的 macOS 看图工具。基于 SwiftUI 构建。
+
+[![Download on the App Store](https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg)](https://apps.apple.com/cn/app/imonet/id6770070921?mt=12)
 
 > [English](README.md)
 
@@ -19,10 +21,12 @@ https://github.com/user-attachments/assets/f9faccb3-531e-4000-bc7f-e58fb922e6da
 ## 截屏
 
 <div align="center">
-   <img src="assets/iMonet-viewer.png" width="720" alt="Monet 浏览界面"/>
-   <br/><br/>
-   <img src="assets/iMonet-setting.png" width="720" alt="Monet 设置界面"/>
-   <br/><br/>
+   <table>
+     <tr>
+       <td><img src="assets/iMonet-viewer.png" width="360" alt="Monet 浏览界面"/></td>
+       <td><img src="assets/iMonet-setting.png" width="360" alt="Monet 设置界面"/></td>
+     </tr>
+   </table>
    <img src="assets/iMonet-app-store.png" width="720" alt="Monet App Store"/>
 </div>
 
@@ -34,7 +38,7 @@ https://github.com/user-attachments/assets/f9faccb3-531e-4000-bc7f-e58fb922e6da
 - **支持格式**：PNG、JPEG、GIF、WebP
 - **侧边栏**：缩略图快速导航，仅有一张图片时自动隐藏
 
-### 键盘 & 鼠标
+### 鼠标 & 键盘
 - **方向键**：←/→/↑/↓ 切换图片
 - **Cmd + 滚轮**：以鼠标位置为中心缩放
 - **鼠标拖拽**：平移已放大的图片
