@@ -2,13 +2,31 @@
 [![SwiftUI](https://img.shields.io/badge/SwiftUI-✓-orange)](https://developer.apple.com/xcode/swiftui/)
 [![macOS 15](https://img.shields.io/badge/macOS15-Compatible-green)](https://www.apple.com/macos/)
 
-<div align="start">
-   <img src="Sources/Monet/Assets.xcassets/Monet.imageset/picture@2x.png" width="256" height="256" alt="Monet Logo"/>
+<div align="center">
+   <img src="assets/iMonet-logo.png" width="128" height="128" alt="Monet Logo"/>
 </div>
 
 # Monet
 
-An elegant image viewer for macOS, powered by SwiftUI.
+An image viewer for macOS optimized for mouse users. Built with SwiftUI.
+
+[![Download on the App Store](https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg)](https://apps.apple.com/cn/app/imonet/id6770070921?mt=12)
+
+## Demo
+
+https://github.com/user-attachments/assets/f9faccb3-531e-4000-bc7f-e58fb922e6da
+
+## Screenshots
+
+<div align="center">
+   <table>
+     <tr>
+       <td><img src="assets/iMonet-viewer.png" width="360" alt="Monet Viewer"/></td>
+       <td><img src="assets/iMonet-setting.png" width="360" alt="Monet Settings"/></td>
+     </tr>
+   </table>
+   <img src="assets/iMonet-app-store.png" width="720" alt="Monet App Store"/>
+</div>
 
 ## Features
 
@@ -18,7 +36,7 @@ An elegant image viewer for macOS, powered by SwiftUI.
 - **Supported Formats**: PNG, JPEG, GIF, WebP
 - **Sidebar**: Thumbnail strip for quick navigation, auto-hides with single image
 
-### Keyboard & Mouse
+### Mouse & Keyboard
 - **Arrow Keys**: ←/→/↑/↓ to navigate images
 - **Cmd + Scroll**: Zoom in/out centered at mouse position
 - **Mouse Drag**: Pan around zoomed images
@@ -38,9 +56,15 @@ An elegant image viewer for macOS, powered by SwiftUI.
 ## Build & Run
 
 ```bash
-git clone https://github.com/yourusername/Monet.git
+git clone https://github.com/wflixu/Monet.git
 cd Monet
 swift run
+```
+
+For a Release `.app` bundle:
+
+```bash
+xcodebuild -scheme Monet -configuration Release -derivedDataPath build -destination "platform=macOS,arch=arm64" ARCHS=arm64 ENABLE_HARDENED_RUNTIME=YES build
 ```
 
 ## Project Structure
@@ -48,38 +72,35 @@ swift run
 ```
 Monet/
 ├── Sources/Monet/
-│   ├── MonetApp.swift                  # App entry point, scenes, AppDelegate
-│   ├── AppState.swift                  # Global app state
-│   ├── ContentView.swift               # Main layout, chrome auto-hide logic
-│   ├── MenuBarView.swift               # Menu bar extra view
-│   ├── NavigationIdentifier.swift      # Settings navigation
+│   ├── MonetApp.swift              # App entry point, scenes, AppDelegate
+│   ├── AppState.swift              # Global app state
+│   ├── ContentView.swift           # Main layout, chrome auto-hide logic
+│   ├── NavigationIdentifier.swift  # Settings navigation
 │   ├── Views/
-│   │   ├── ImagePreviewView.swift      # Image display with keyboard events
-│   │   ├── ImageThumbnailView.swift    # Single thumbnail
-│   │   ├── ThumbnailSidebar.swift      # Left thumbnail strip
-│   │   ├── ImageInfoPanel.swift        # Right info panel (pixels, size, format)
-│   │   ├── ToolBarView.swift           # Bottom floating toolbar
-│   │   └── ZoomableImageView.swift     # Zoom & pan image view (AppKit)
+│   │   ├── ImagePreviewView.swift  # Image display with keyboard events
+│   │   ├── ImageThumbnailView.swift
+│   │   ├── ThumbnailSidebar.swift  # Left thumbnail strip
+│   │   ├── ImageInfoPanel.swift    # Right info panel (pixels, size, format)
+│   │   ├── ToolbarView.swift       # Bottom floating toolbar
+│   │   └── ZoomableImageView.swift # Zoom & pan image view (AppKit)
 │   ├── Settings/
 │   │   ├── GeneralSettingsPane.swift
 │   │   ├── AboutSettingsPane.swift
 │   │   ├── SettingsView.swift
 │   │   └── SettingsWindow.swift
 │   ├── Permission/
-│   │   └── PermissionsManager.swift    # File system permissions & bookmarks
+│   │   └── PermissionsManager.swift
 │   └── Shared/
-│       ├── AppLogger.swift             # @AppLog property wrapper
-│       ├── Constants.swift             # App constants
-│       └── Util.swift                  # ObjectAssociation
+│       ├── AppLogger.swift         # @AppLog property wrapper
+│       ├── Constants.swift
+│       └── Util.swift              # ObjectAssociation
 ├── Tests/
 └── Package.swift
 ```
 
 ## Dependencies
 
-- **SDWebImageSwiftUI** — image loading
-- **LaunchAtLogin-Modern** — launch at login
-- **SwiftUITooltip** — tooltips
+- **[SwiftUITooltip](https://github.com/quassum/SwiftUI-Tooltip)** — tooltips
 
 ## Keyboard Shortcuts
 
@@ -92,4 +113,4 @@ Monet/
 
 ## License
 
-GNU General Public License v3.0 - see LICENSE file for details.
+GNU General Public License v3.0 — see [LICENSE](LICENSE) for details.
