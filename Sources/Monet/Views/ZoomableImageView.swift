@@ -105,6 +105,29 @@ final class MonetImageView: NSView {
         onStateChanged?(magnification)
     }
 
+    // MARK: - Magnify Gesture (trackpad pinch-to-zoom)
+
+    override func magnify(with event: NSEvent) {
+        // magnification is the delta since the last event, apply directly
+        let factor = 1 + event.magnification
+        let newMag = (magnification * factor).clamped(to: minMag...maxMag)
+        guard newMag != magnification else { return }
+
+        let scaleRatio = newMag / magnification
+
+        let mouseInView = convert(event.locationInWindow, from: nil)
+        let mouseCenteredX = mouseInView.x - bounds.width / 2
+        let mouseCenteredY = mouseInView.y - bounds.height / 2
+
+        let newOffsetX = (offset.x - mouseCenteredX) * scaleRatio + mouseCenteredX
+        let newOffsetY = (offset.y - mouseCenteredY) * scaleRatio + mouseCenteredY
+
+        magnification = newMag
+        offset = CGPoint(x: newOffsetX, y: newOffsetY)
+        needsDisplay = true
+        onStateChanged?(magnification)
+    }
+
     // MARK: - Mouse Drag (pan)
 
     override func mouseDown(with event: NSEvent) {
