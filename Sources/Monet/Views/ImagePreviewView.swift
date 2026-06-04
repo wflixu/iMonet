@@ -34,6 +34,17 @@ struct ImagePreviewView: View {
                     },
                     onClick: onClick
                 )
+                .contextMenu {
+                    Button("Copy Image Path") {
+                        let path = appState.currentImageURL?.path ?? ""
+                        NSPasteboard.general.clearContents()
+                        NSPasteboard.general.setString(path, forType: .string)
+                    }
+                    Button("Copy Image") {
+                        NSPasteboard.general.clearContents()
+                        NSPasteboard.general.writeObjects([currentImage])
+                    }
+                }
             } else {
                 Button("Select Image File") {
                     showFileImporter = true
