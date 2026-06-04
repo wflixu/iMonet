@@ -19,7 +19,6 @@ struct ContentView: View {
     @State private var isChromeVisible = true
     @State private var chromeTimer: Timer?
     @State private var isInfoPanelVisible = false
-    @State private var lastHoverPoint: CGPoint = .zero
 
     var body: some View {
         GeometryReader { geometry in
@@ -77,14 +76,6 @@ struct ContentView: View {
                     .position(x: geometry.size.width - 32, y: geometry.size.height / 2)
                 }
 
-                Text("iMonet")
-                    .foregroundStyle(.secondary)
-                    .font(.system(size: 13, weight: .semibold))
-                    .opacity(isChromeVisible ? 1 : 0)
-                    .animation(.easeInOut(duration: 0.3), value: isChromeVisible)
-                    .zIndex(20)
-                    .position(x: geometry.size.width / 2, y: 16)
-
                 ToolBarView(scale: scale, onTap: { actionID in
                     handleToolbarTap(actionID)
                 }, onHoverEnter: cancelChromeTimer, onHoverExit: resetChromeTimer)
@@ -100,12 +91,15 @@ struct ContentView: View {
             .onContinuousHover { phase in
                 switch phase {
                 case .active(let point):
-                    if point != lastHoverPoint {
-                        lastHoverPoint = point
+                    if point.y > geometry.size.height - 48 {
                         showChrome()
+                    } else if isChromeVisible {
+                        resetChromeTimer()
                     }
                 case .ended:
-                    resetChromeTimer()
+                    if isChromeVisible {
+                        resetChromeTimer()
+                    }
                 }
             }
         }
@@ -287,7 +281,7 @@ struct ContentView: View {
 
     func showChrome() {
         isChromeVisible = true
-        resetChromeTimer()
+        cancelChromeTimer()
     }
 
     func hideChrome() {
@@ -300,7 +294,7 @@ struct ContentView: View {
         chromeTimer?.invalidate()
         let timer = Timer(timeInterval: 5, repeats: false) { _ in
             DispatchQueue.main.async {
-                self.hideChrome()
+                self.isChromeVisible = false
             }
         }
         RunLoop.main.add(timer, forMode: .common)
