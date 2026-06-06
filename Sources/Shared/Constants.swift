@@ -8,8 +8,11 @@
 import Foundation
 
 enum Constants {
-    /// The version string in the app's bundle.
+    /// The marketing version (e.g. "1.1.1").
     static let appVersion = Bundle.main.versionString!
+
+    /// The build version (e.g. "20260606.1841").
+    static let buildVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "0"
 
     /// The bundle identifier of the app.
     static let bundleIdentifier = Bundle.main.bundleIdentifier!

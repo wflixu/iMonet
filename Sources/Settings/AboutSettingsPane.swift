@@ -39,6 +39,10 @@ struct AboutSettingsPane: View {
             .font(.callout)
             .foregroundStyle(.secondary)
 
+            Text("Build \(Constants.buildVersion)")
+                .font(.caption)
+                .foregroundStyle(.tertiary)
+
             Text("一款专注于高效浏览图片的查看器。支持鼠标焦点缩放，精准放大你关注的细节；打开图片时自动索引同文件夹所有图片，浏览无需重复操作。")
                 .font(.body)
                 .foregroundStyle(.secondary)

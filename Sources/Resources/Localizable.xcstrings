@@ -52,6 +52,23 @@
         }
       }
     },
+    "Build %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Build %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "构建 %@"
+          }
+        }
+      }
+    },
     "Buy Now" : {
       "extractionState" : "manual",
       "localizations" : {

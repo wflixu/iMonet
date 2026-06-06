@@ -18,7 +18,6 @@
 		5C3CE0002FD321B4006771AA /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3CDFFD2FD321B4006771AA /* StoreManager.swift */; };
 		5C3CE0022FD321B4006771AA /* UsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3CDFFE2FD321B4006771AA /* UsageTracker.swift */; };
 		5C3CE0032FD321B4006771AA /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3CDFFD2FD321B4006771AA /* StoreManager.swift */; };
-		5C5F55F22FD41D3000B8217D /* iMonet.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 5C5F55F12FD41D3000B8217D /* iMonet.storekit */; };
 		5CA538152FB6076A0071F06A /* command-scroll-zoom-design.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA538102FB6076A0071F06A /* command-scroll-zoom-design.md */; };
 		5CA538162FB6076A0071F06A /* folder-indexing-design.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA538112FB6076A0071F06A /* folder-indexing-design.md */; };
 		5CA538172FB6076A0071F06A /* github-action-release.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA538122FB6076A0071F06A /* github-action-release.md */; };
@@ -54,7 +53,6 @@
 		442E22A06002EDE0AB884C1E /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		5C3CDFFD2FD321B4006771AA /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		5C3CDFFE2FD321B4006771AA /* UsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTracker.swift; sourceTree = "<group>"; };
-		5C5F55F12FD41D3000B8217D /* iMonet.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = iMonet.storekit; sourceTree = "<group>"; };
 		5CA5380E2FB6076A0071F06A /* auto-update-design.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "auto-update-design.md"; sourceTree = "<group>"; };
 		5CA5380F2FB6076A0071F06A /* auto-update-implementation-plan.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "auto-update-implementation-plan.md"; sourceTree = "<group>"; };
 		5CA538102FB6076A0071F06A /* command-scroll-zoom-design.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "command-scroll-zoom-design.md"; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 		2EB8BA1296D61E00B40AD421 = {
 			isa = PBXGroup;
 			children = (
-				5C5F55F12FD41D3000B8217D /* iMonet.storekit */,
 				A06B8CA333C087B031EB7ABE /* Sources */,
 				3DC6582BB691E623053C28FE /* Tests */,
 				712B6B99F127A16709EE3061 /* Products */,
@@ -206,7 +203,6 @@
 				C3BDE8FE655124F5B59CB2F7 /* Monet.entitlements */,
 				E898E7574C9CBDE3DCC12F83 /* MonetApp.swift */,
 				30257FFCC7246713B5032D6A /* NavigationIdentifier.swift */,
-				FA59E2BDC9E997B42EA42BA9 /* Models */,
 				15B938530CEBA338F8B41E18 /* Permission */,
 				E59CC19889204AB9A3F92EB5 /* Settings */,
 				01403029AA352D15AA5CE1BA /* Shared */,
@@ -225,13 +221,6 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		FA59E2BDC9E997B42EA42BA9 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -239,6 +228,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AC09AAEB30EF3995C9269C5C /* Build configuration list for PBXNativeTarget "Monet" */;
 			buildPhases = (
+				5C3CE0102FD321B4006771BB /* Set Build Version */,
 				C48683827CBFB926017228BA /* Sources */,
 				3004A626BFC7ACE617A7FE1B /* Resources */,
 				30AE23F24FEC95F63A5769AA /* Frameworks */,
@@ -322,7 +312,6 @@
 				5CA538162FB6076A0071F06A /* folder-indexing-design.md in Resources */,
 				5CA538172FB6076A0071F06A /* github-action-release.md in Resources */,
 				5CA538182FB6076A0071F06A /* auto-update-implementation-plan.md in Resources */,
-				5C5F55F22FD41D3000B8217D /* iMonet.storekit in Resources */,
 				5CA538192FB6076A0071F06A /* temp.md in Resources */,
 				5CA5381A2FB6076A0071F06A /* auto-update-design.md in Resources */,
 				DBA979294C03C8C02E99DA73 /* Assets.xcassets in Resources */,
@@ -330,6 +319,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5C3CE0102FD321B4006771BB /* Set Build Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Version";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "VERSION=$(date +%Y%m%d.%H%M)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $VERSION\" \"${SRCROOT}/Sources/Info.plist\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C48683827CBFB926017228BA /* Sources */ = {
@@ -433,7 +443,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -505,7 +515,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -536,7 +546,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Sources/Monet.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260604001;
+				CURRENT_PROJECT_VERSION = 20260606001;
 				DEAD_CODE_STRIPPING = YES;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 4L3563XCBN;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -548,7 +558,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.6;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.wflixu.Monet;
 				SDKROOT = macosx;
 			};
@@ -561,7 +571,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Sources/Monet.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260604001;
+				CURRENT_PROJECT_VERSION = 20260606001;
 				DEAD_CODE_STRIPPING = YES;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 4L3563XCBN;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -573,7 +583,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.6;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cn.wflixu.Monet;
 				SDKROOT = macosx;
 			};

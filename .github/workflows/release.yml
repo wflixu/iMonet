@@ -1,9 +1,9 @@
 name: Build, Sign, Notarize and Release
 
+# DISABLED: IAP requires App Store distribution, not GitHub Release.
+# 保留此文件作为签名、公证、打包流程参考。
 on:
-  push:
-    tags:
-      - 'v*' # 仅在推送 v1.0.0 这样的标签时触发
+  workflow_dispatch: # 仅手动触发，不会自动执行
 
 permissions:
   contents: write # 允许创建 Release 和删除 tag
