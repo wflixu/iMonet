@@ -37,15 +37,32 @@ struct MonetApp: App {
     var body: some Scene {
         Window("iMonet", id: "main") {
             ContentView()
-}
+                .environmentObject(appState)
+                .environmentObject(appState.storeManager)
+        }
         .windowStyle(.hiddenTitleBar)
         .defaultPosition(.center)
         .commands {
             CommandGroup(replacing: .appSettings) {
                 OpenSettingsButton()
             }
+#if DEBUG
+            CommandMenu("Debug") {
+                Button("Force Show Purchase Prompt") {
+                    UsageTracker.forceReadyForPrompt()
+                    appState.storeManager.isPurchased = false
+                    NotificationCenter.default.post(name: .showPurchasePrompt, object: nil)
+                }
+                .keyboardShortcut("p", modifiers: [.command, .shift])
+
+                Button("Reset Purchase State") {
+                    UsageTracker.resetAll()
+                    appState.storeManager.isPurchased = false
+                }
+                .keyboardShortcut("r", modifiers: [.command, .shift])
+            }
+#endif
         }
-        .environmentObject(appState)
 
         SettingsWindow(appState: appState, onAppear: {})
             .restorationBehavior(.disabled)
@@ -73,6 +90,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         logger.info("applicationDidFinishLaunching  .......")
+        UsageTracker.recordLaunch()
+        Task {
+            await appState?.storeManager.loadProducts()
+            await appState?.storeManager.verifyEntitlement()
+        }
+        Task.detached { [appState] in
+            await appState?.storeManager.listenForTransactions()
+        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

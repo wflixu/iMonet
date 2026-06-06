@@ -22,6 +22,9 @@ class AppState: ObservableObject {
     // Permission
     @Published var dirs: [URL] = []
 
+    /// StoreKit manager.
+    @Published var storeManager = StoreManager()
+
     /// Manager for app permissions.
     private(set) lazy var permissionsManager = PermissionsManager(appState: self)
 

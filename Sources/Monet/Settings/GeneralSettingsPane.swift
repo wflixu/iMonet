@@ -12,6 +12,9 @@ struct GeneralSettingsPane: View {
     private var logger
 
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var storeManager: StoreManager
+
+    @Binding var showPurchasePrompt: Bool
 
     @State private var showDirImporter = false
 
@@ -25,12 +28,13 @@ struct GeneralSettingsPane: View {
     var body: some View {
         Form {
             imageBrowsingSection
+            supportSection
         }
         .formStyle(.grouped)
         .scrollBounceBehavior(.basedOnSize)
     }
 
-    // MARK: - Section 1: 图片浏览
+    // MARK: - 图片浏览
 
     @ViewBuilder
     private var imageBrowsingSection: some View {
@@ -41,43 +45,57 @@ struct GeneralSettingsPane: View {
             }
 
             if showCurDirImg {
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        showDirImporter = true
-                    }) {
-                        Image(systemName: "folder.badge.plus")
-                            .font(.system(size: 20))
-                            .foregroundStyle(.primary)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-                .padding([.leading, .trailing], 16)
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        Text("授权文件夹")
+                            .font(.headline)
 
-                if permissionDirs.isEmpty {
-                    Text("点击 + 添加授权文件夹，添加后打开该文件夹内的图片无需再次授权。")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .padding([.leading, .trailing], 16)
-                } else {
-                    List {
-                        ForEach(Array(permissionDirs.enumerated()), id: \.element.path) { index, dir in
-                            HStack {
-                                Text(dir.path)
-                                    .font(.title3)
-                                Spacer()
-                                Button(action: {
-                                    appState.dirs.remove(at: index)
-                                    appState.storeBookmarkData()
-                                }) {
-                                    Image(systemName: "delete.left")
+                        Spacer()
+
+                        Button {
+                            showDirImporter = true
+                        } label: {
+                            Label("添加文件夹", systemImage: "folder.badge.plus")
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.small)
+                    }
+
+                    if permissionDirs.isEmpty {
+                        Text("点击 + 添加授权文件夹，添加后打开该文件夹内的图片无需再次授权。")
+                            .font(.callout)
+                            .foregroundStyle(.tertiary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    } else {
+                        VStack(spacing: 6) {
+                            ForEach(Array(permissionDirs.enumerated()), id: \.element.path) { index, dir in
+                                HStack {
+                                    Image(systemName: "folder")
+                                        .foregroundStyle(.secondary)
+                                    Text(dir.path)
+                                        .font(.callout)
+                                        .lineLimit(1)
+                                        .truncationMode(.middle)
+                                    Spacer()
+                                    Button {
+                                        appState.dirs.remove(at: index)
+                                        appState.storeBookmarkData()
+                                    } label: {
+                                        Image(systemName: "xmark.circle.fill")
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    .buttonStyle(.plain)
                                 }
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 6)
+                                .background(RoundedRectangle(cornerRadius: 6).fill(.quaternary))
                             }
-                            .buttonStyle(.borderless)
                         }
                     }
                 }
             }
+        } header: {
+            Text("图片浏览")
         }
         .fileImporter(
             isPresented: $showDirImporter,
@@ -100,8 +118,58 @@ struct GeneralSettingsPane: View {
             }
         }
     }
+
+    // MARK: - 支持 iMonet
+
+    @ViewBuilder
+    private var supportSection: some View {
+        Section {
+            if storeManager.isPurchased {
+                HStack(spacing: 10) {
+                    Image(systemName: "heart.fill")
+                        .foregroundStyle(.red)
+                        .font(.title2)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Purchase Successful")
+                            .font(.headline)
+                        Text("Thank you for supporting iMonet!")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .padding(.vertical, 6)
+            } else {
+                VStack(spacing: 16) {
+                    VStack(spacing: 8) {
+                        Image(systemName: "heart")
+                            .font(.system(size: 32))
+                            .foregroundStyle(.tertiary)
+
+                        Text("Thank you for using iMonet to browse images! If you find it useful, please consider supporting us:")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+
+                    Button {
+                        showPurchasePrompt = true
+                    } label: {
+                        Text("View Support Options")
+                            .padding(.horizontal, 16)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 20)
+            }
+        } header: {
+            Text("Support iMonet")
+        }
+    }
 }
 
 #Preview {
-    GeneralSettingsPane()
+    GeneralSettingsPane(showPurchasePrompt: .constant(false))
 }

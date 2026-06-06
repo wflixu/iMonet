@@ -11,6 +11,7 @@ struct ContentView: View {
 
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var storeManager: StoreManager
 
     @State private var scale: CGSize = .init(width: 1, height: 1)
     @State private var isNavBarVisible = true
@@ -19,6 +20,7 @@ struct ContentView: View {
     @State private var isChromeVisible = true
     @State private var chromeTimer: Timer?
     @State private var isInfoPanelVisible = false
+    @State private var showPurchasePrompt = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -84,10 +86,19 @@ struct ContentView: View {
                 .animation(.easeInOut(duration: 0.3), value: isChromeVisible)
                 .zIndex(20)
                 .position(x: geometry.size.width / 2, y: geometry.size.height - 32)
+
+                if showPurchasePrompt {
+                    PurchasePromptView(isPresented: $showPurchasePrompt)
+                        .zIndex(100)
+                        .transition(.opacity)
+                }
             }
             .ignoresSafeArea(.container)
             .background(colorScheme == .dark ? Color(white: 0.15) : Color(white: 0.9))
             .onAppear(perform: appearHandler)
+            .onReceive(NotificationCenter.default.publisher(for: .showPurchasePrompt)) { _ in
+                checkPurchasePrompt()
+            }
             .onContinuousHover { phase in
                 switch phase {
                 case .active(let point):
@@ -269,6 +280,13 @@ struct ContentView: View {
             self.window = window
         }
         showChrome()
+        checkPurchasePrompt()
+    }
+
+    func checkPurchasePrompt() {
+        if UsageTracker.shouldShowPrompt() && !storeManager.isPurchased {
+            showPurchasePrompt = true
+        }
     }
 
     func toggleChrome() {

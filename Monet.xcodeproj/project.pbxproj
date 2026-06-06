@@ -14,12 +14,17 @@
 		475E88C5D4E4B4344DC9D53E /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D0DF118447932929A20905 /* Util.swift */; };
 		4F4B2A1ACD7EFDC09359FEA6 /* AboutSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B3B8C180F1E2E4D470C972 /* AboutSettingsPane.swift */; };
 		5B73AB6DBF88E154024C9D58 /* SwiftUITooltip in Frameworks */ = {isa = PBXBuildFile; productRef = 4B5952D1F75CEB03554A2917 /* SwiftUITooltip */; };
+		5C3CDFFF2FD321B4006771AA /* UsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3CDFFE2FD321B4006771AA /* UsageTracker.swift */; };
+		5C3CE0002FD321B4006771AA /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3CDFFD2FD321B4006771AA /* StoreManager.swift */; };
+		5C3CE0022FD321B4006771AA /* UsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3CDFFE2FD321B4006771AA /* UsageTracker.swift */; };
+		5C3CE0032FD321B4006771AA /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3CDFFD2FD321B4006771AA /* StoreManager.swift */; };
 		5CA538152FB6076A0071F06A /* command-scroll-zoom-design.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA538102FB6076A0071F06A /* command-scroll-zoom-design.md */; };
 		5CA538162FB6076A0071F06A /* folder-indexing-design.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA538112FB6076A0071F06A /* folder-indexing-design.md */; };
 		5CA538172FB6076A0071F06A /* github-action-release.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA538122FB6076A0071F06A /* github-action-release.md */; };
 		5CA538182FB6076A0071F06A /* auto-update-implementation-plan.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA5380F2FB6076A0071F06A /* auto-update-implementation-plan.md */; };
 		5CA538192FB6076A0071F06A /* temp.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA538132FB6076A0071F06A /* temp.md */; };
 		5CA5381A2FB6076A0071F06A /* auto-update-design.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA5380E2FB6076A0071F06A /* auto-update-design.md */; };
+		65158260689B45849E0DFB3F /* PurchasePromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB5C157A81B4413BEB7D243 /* PurchasePromptView.swift */; };
 		7545FEE61BC1A8BC57C2DB72 /* MonetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DF9160FE840AEDAEABC7B /* MonetTests.swift */; };
 		8D847B53187F25D84C4E3161 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA628FAEF8752BE102B3AD0 /* ContentView.swift */; };
 		B8EDC138A57B9B0AABE8BD24 /* MonetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E898E7574C9CBDE3DCC12F83 /* MonetApp.swift */; };
@@ -46,6 +51,8 @@
 		3DA973327AD76E954FF58D2B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3E0DF9160FE840AEDAEABC7B /* MonetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonetTests.swift; sourceTree = "<group>"; };
 		442E22A06002EDE0AB884C1E /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		5C3CDFFD2FD321B4006771AA /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		5C3CDFFE2FD321B4006771AA /* UsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTracker.swift; sourceTree = "<group>"; };
 		5CA5380E2FB6076A0071F06A /* auto-update-design.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "auto-update-design.md"; sourceTree = "<group>"; };
 		5CA5380F2FB6076A0071F06A /* auto-update-implementation-plan.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "auto-update-implementation-plan.md"; sourceTree = "<group>"; };
 		5CA538102FB6076A0071F06A /* command-scroll-zoom-design.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "command-scroll-zoom-design.md"; sourceTree = "<group>"; };
@@ -64,6 +71,7 @@
 		CB03945F9D317E0EF1D53B68 /* GeneralSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsPane.swift; sourceTree = "<group>"; };
 		D2B3B8C180F1E2E4D470C972 /* AboutSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsPane.swift; sourceTree = "<group>"; };
 		E898E7574C9CBDE3DCC12F83 /* MonetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonetApp.swift; sourceTree = "<group>"; };
+		EEB5C157A81B4413BEB7D243 /* PurchasePromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasePromptView.swift; sourceTree = "<group>"; };
 		FFA628FAEF8752BE102B3AD0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +150,16 @@
 			path = MonetTests;
 			sourceTree = "<group>";
 		};
+		3865B1246A0F41458A8409E1 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				EEB5C157A81B4413BEB7D243 /* PurchasePromptView.swift */,
+				5C3CDFFD2FD321B4006771AA /* StoreManager.swift */,
+				5C3CDFFE2FD321B4006771AA /* UsageTracker.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
 		3DC6582BB691E623053C28FE /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +215,7 @@
 				5C5261DE2FB83B1100B66DBA /* Resources */,
 				5CA538252FB611C30071F06A /* Views */,
 				442E22A06002EDE0AB884C1E /* AppState.swift */,
+				3865B1246A0F41458A8409E1 /* Store */,
 				199212F3989A5E4D1123A851 /* Assets.xcassets */,
 				FFA628FAEF8752BE102B3AD0 /* ContentView.swift */,
 				7D03FCF0C5257B8613BD016F /* Info.plist */,
@@ -325,6 +344,9 @@
 				F5271F8A240887FB0E0F734E /* AppLogger.swift in Sources */,
 				2825BADA7845FBFCD4EEDAA1 /* AppState.swift in Sources */,
 				D404C2E9D7D2AA6FE9500342 /* Constants.swift in Sources */,
+				5C3CE0022FD321B4006771AA /* UsageTracker.swift in Sources */,
+				5C3CE0032FD321B4006771AA /* StoreManager.swift in Sources */,
+				65158260689B45849E0DFB3F /* PurchasePromptView.swift in Sources */,
 				8D847B53187F25D84C4E3161 /* ContentView.swift in Sources */,
 				D2E1D45C9F138B305A132766 /* GeneralSettingsPane.swift in Sources */,
 				B8EDC138A57B9B0AABE8BD24 /* MonetApp.swift in Sources */,
@@ -340,6 +362,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C3CDFFF2FD321B4006771AA /* UsageTracker.swift in Sources */,
+				5C3CE0002FD321B4006771AA /* StoreManager.swift in Sources */,
 				7545FEE61BC1A8BC57C2DB72 /* MonetTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

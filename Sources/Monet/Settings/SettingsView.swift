@@ -10,15 +10,23 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var appState: AppState
     @State private var selectedTab: SettingsNavigationIdentifier = .general
+    @State private var showPurchasePrompt = false
 
     var body: some View {
-        NavigationSplitView {
-            sidebar
-        } detail: {
-            detailView
+        ZStack {
+            NavigationSplitView {
+                sidebar
+            } detail: {
+                detailView
+            }
+            .navigationTitle(appState.settingsNavigationIdentifier.localized)
+            .background(Color(NSColor.windowBackgroundColor))
+
+            if showPurchasePrompt {
+                PurchasePromptView(isPresented: $showPurchasePrompt)
+                    .zIndex(100)
+            }
         }
-        .navigationTitle(appState.settingsNavigationIdentifier.localized)
-        .background(Color(NSColor.windowBackgroundColor))
         .onChange(of: selectedTab) { _, newValue in
             Task { @MainActor in
                 appState.settingsNavigationIdentifier = newValue
@@ -55,7 +63,7 @@ struct SettingsView: View {
     private var detailView: some View {
         switch appState.settingsNavigationIdentifier {
         case .general:
-            GeneralSettingsPane()
+            GeneralSettingsPane(showPurchasePrompt: $showPurchasePrompt)
         case .about:
             AboutSettingsPane()
         }
