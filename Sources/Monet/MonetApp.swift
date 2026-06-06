@@ -43,6 +43,12 @@ struct MonetApp: App {
         .windowStyle(.hiddenTitleBar)
         .defaultPosition(.center)
         .commands {
+            CommandGroup(after: .newItem) {
+                Button("Open...") {
+                    appDelegate.openFolder()
+                }
+                .keyboardShortcut("o", modifiers: .command)
+            }
             CommandGroup(replacing: .appSettings) {
                 OpenSettingsButton()
             }
@@ -183,6 +189,46 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
 
             self.indexFolder(selectedURL, currentURL: currentURL, keepAccess: true)
+        }
+    }
+
+    /// Open a folder or image file via NSOpenPanel, replacing current window content.
+    func openFolder() {
+        guard let appState else { return }
+        guard let window = NSApplication.shared.windows.first(where: { $0.title == "iMonet" }) else {
+            logger.warning("No iMonet window found for open panel")
+            return
+        }
+
+        let panel = NSOpenPanel()
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = true
+        panel.canCreateDirectories = false
+        panel.allowsMultipleSelection = false
+        panel.message = String(localized: "选择文件夹或图片")
+        panel.prompt = String(localized: "打开")
+
+        panel.beginSheetModal(for: window) { response in
+            guard response == .OK, let selectedURL = panel.url else { return }
+
+            let isDirectory = (try? selectedURL.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) ?? false
+
+            if isDirectory {
+                let gotAccess = selectedURL.startAccessingSecurityScopedResource()
+                guard gotAccess else { return }
+
+                if !appState.dirs.contains(selectedURL) {
+                    appState.dirs.append(selectedURL)
+                    appState.storeBookmarkData()
+                }
+
+                self.indexFolder(selectedURL, currentURL: selectedURL, keepAccess: true)
+                selectedURL.stopAccessingSecurityScopedResource()
+                NotificationCenter.default.post(name: Notification.Name("open-image"), object: nil)
+            } else {
+                self.loadImages(from: selectedURL)
+                NotificationCenter.default.post(name: Notification.Name("open-image"), object: nil)
+            }
         }
     }
 
