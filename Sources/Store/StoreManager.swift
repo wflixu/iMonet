@@ -13,6 +13,7 @@ final class StoreManager: ObservableObject {
 
     @Published var products: [Product] = []
     @Published var isPurchased = false
+    @Published var purchasedProductID: ProductID?
     @Published var isPurchasing = false
     @Published var purchaseError: String?
 
@@ -47,11 +48,19 @@ final class StoreManager: ObservableObject {
 
             switch result {
             case .success(let verification):
-                if case .verified(let transaction) = verification {
+                switch verification {
+                case .verified(let transaction):
                     logger.info("Purchase successful: \(transaction.productID)")
                     isPurchased = true
+                    if let productID = ProductID(rawValue: transaction.productID) {
+                        purchasedProductID = productID
+                        UsageTracker.purchasedProductID = productID.rawValue
+                    }
                     UsageTracker.hasPurchased = true
                     await transaction.finish()
+                case .unverified(let transaction, let error):
+                    logger.warning("Purchase unverified: \(transaction.productID), error: \(error.localizedDescription)")
+                    purchaseError = String(localized: "Purchase verification failed") + ": \(error.localizedDescription)"
                 }
             case .userCancelled:
                 logger.info("User cancelled purchase")
@@ -70,15 +79,34 @@ final class StoreManager: ObservableObject {
     // MARK: - Entitlement Verification
 
     func verifyEntitlement() async {
+        // Fallback: restore from UserDefaults in case StoreKit verification is unavailable
+        if UsageTracker.hasPurchased {
+            isPurchased = true
+            if let productIDString = UsageTracker.purchasedProductID,
+               let productID = ProductID(rawValue: productIDString) {
+                purchasedProductID = productID
+            }
+            logger.info("Purchased state restored from local flag")
+        }
+
+        var entitlementCount = 0
         for await result in Transaction.currentEntitlements {
-            if case .verified(let transaction) = result {
-                if ProductID.allCases.map(\.rawValue).contains(transaction.productID) {
+            entitlementCount += 1
+            switch result {
+            case .verified(let transaction):
+                logger.info("Entitlement found: \(transaction.productID), expires: \(String(describing: transaction.expirationDate))")
+                if let productID = ProductID(rawValue: transaction.productID) {
                     isPurchased = true
+                    purchasedProductID = productID
                     UsageTracker.hasPurchased = true
+                    UsageTracker.purchasedProductID = productID.rawValue
                     logger.info("Entitlement verified: \(transaction.productID)")
                 }
+            case .unverified(let transaction, let error):
+                logger.warning("Unverified entitlement: \(transaction.productID), error: \(error.localizedDescription)")
             }
         }
+        logger.info("verifyEntitlement complete, found \(entitlementCount) entitlement(s), isPurchased=\(self.isPurchased)")
     }
 
     func listenForTransactions() {
@@ -87,6 +115,10 @@ final class StoreManager: ObservableObject {
                 if case .verified(let transaction) = result {
                     await MainActor.run {
                         self.isPurchased = true
+                        if let productID = ProductID(rawValue: transaction.productID) {
+                            self.purchasedProductID = productID
+                            UsageTracker.purchasedProductID = productID.rawValue
+                        }
                         UsageTracker.hasPurchased = true
                     }
                     await transaction.finish()
@@ -109,7 +141,9 @@ final class StoreManager: ObservableObject {
 #if DEBUG
     func debugMarkAsPurchased() {
         isPurchased = true
+        purchasedProductID = .lifetime
         UsageTracker.hasPurchased = true
+        UsageTracker.purchasedProductID = ProductID.lifetime.rawValue
     }
 #endif
 }

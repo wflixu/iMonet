@@ -137,6 +137,10 @@ struct PurchasePromptView: View {
         guard let product = selectedProduct else { return }
         Task {
             await storeManager.purchase(product)
+            // Re-verify entitlement in case the inline verification didn't catch it
+            if !storeManager.isPurchased {
+                await storeManager.verifyEntitlement()
+            }
             if storeManager.isPurchased && storeManager.purchaseError == nil {
                 dismiss()
             }

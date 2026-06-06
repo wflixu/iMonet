@@ -125,19 +125,7 @@ struct GeneralSettingsPane: View {
     private var supportSection: some View {
         Section {
             if storeManager.isPurchased {
-                HStack(spacing: 10) {
-                    Image(systemName: "heart.fill")
-                        .foregroundStyle(.red)
-                        .font(.title2)
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Purchase Successful")
-                            .font(.headline)
-                        Text("Thank you for supporting iMonet!")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-                .padding(.vertical, 6)
+                purchasedBadge
             } else {
                 VStack(spacing: 16) {
                     VStack(spacing: 8) {
@@ -166,6 +154,76 @@ struct GeneralSettingsPane: View {
             }
         } header: {
             Text("Support iMonet")
+        }
+    }
+
+    // MARK: - Purchased State
+
+    @ViewBuilder
+    private var purchasedBadge: some View {
+        VStack(spacing: 0) {
+            // Top ornament: heart icon with glow
+            ZStack {
+                Image(systemName: "heart.fill")
+                    .font(.system(size: 44))
+                    .foregroundStyle(.red)
+                    .shadow(color: .red.opacity(0.3), radius: 12, y: 2)
+
+                Image(systemName: "sparkle")
+                    .font(.system(size: 14))
+                    .foregroundStyle(.yellow)
+                    .offset(x: 24, y: -18)
+            }
+            .padding(.top, 20)
+            .padding(.bottom, 10)
+
+            // Plan badge pill
+            Text(planBadgeText)
+                .font(.caption)
+                .fontWeight(.semibold)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 4)
+                .background(
+                    Capsule()
+                        .fill(planBadgeColor.opacity(0.15))
+                )
+                .overlay(
+                    Capsule()
+                        .strokeBorder(planBadgeColor.opacity(0.3), lineWidth: 1)
+                )
+                .foregroundStyle(planBadgeColor)
+
+            // Message
+            Text(String(localized: "Thank you for supporting iMonet!"))
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .padding(.top, 8)
+                .padding(.bottom, 20)
+        }
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(planBadgeColor.opacity(0.06))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(planBadgeColor.opacity(0.12), lineWidth: 1)
+        )
+    }
+
+    private var planBadgeText: String {
+        switch storeManager.purchasedProductID {
+        case .yearly:  String(localized: "Yearly Support")
+        case .lifetime: String(localized: "Lifetime Purchase")
+        case nil: ""
+        }
+    }
+
+    private var planBadgeColor: Color {
+        switch storeManager.purchasedProductID {
+        case .yearly:  .orange
+        case .lifetime: .purple
+        case nil: .accentColor
         }
     }
 }

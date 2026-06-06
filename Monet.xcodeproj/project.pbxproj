@@ -196,25 +196,6 @@
 		A06B8CA333C087B031EB7ABE /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E720594DBD3879C6E191245D /* Monet */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		E59CC19889204AB9A3F92EB5 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				D2B3B8C180F1E2E4D470C972 /* AboutSettingsPane.swift */,
-				3DA973327AD76E954FF58D2B /* SettingsView.swift */,
-				749F147AE3A78DD084B2D2A1 /* SettingsWindow.swift */,
-				CB03945F9D317E0EF1D53B68 /* GeneralSettingsPane.swift */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
-		E720594DBD3879C6E191245D /* Monet */ = {
-			isa = PBXGroup;
-			children = (
 				5C5261DE2FB83B1100B66DBA /* Resources */,
 				5CA538252FB611C30071F06A /* Views */,
 				442E22A06002EDE0AB884C1E /* AppState.swift */,
@@ -230,7 +211,18 @@
 				E59CC19889204AB9A3F92EB5 /* Settings */,
 				01403029AA352D15AA5CE1BA /* Shared */,
 			);
-			path = Monet;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		E59CC19889204AB9A3F92EB5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				D2B3B8C180F1E2E4D470C972 /* AboutSettingsPane.swift */,
+				3DA973327AD76E954FF58D2B /* SettingsView.swift */,
+				749F147AE3A78DD084B2D2A1 /* SettingsWindow.swift */,
+				CB03945F9D317E0EF1D53B68 /* GeneralSettingsPane.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		FA59E2BDC9E997B42EA42BA9 /* Models */ = {
@@ -542,13 +534,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Sources/Monet/Monet.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sources/Monet.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 20260604001;
 				DEAD_CODE_STRIPPING = YES;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 4L3563XCBN;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = Sources/Monet/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = iMonet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -567,13 +559,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Sources/Monet/Monet.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Sources/Monet.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 20260604001;
 				DEAD_CODE_STRIPPING = YES;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 4L3563XCBN;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = Sources/Monet/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = iMonet;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (

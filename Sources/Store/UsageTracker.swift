@@ -7,6 +7,7 @@ enum UsageTracker {
         static let lastPromptDate = "usage_lastPromptDate"
         static let lastPromptOpenCount = "usage_lastPromptOpenCount"
         static let hasPurchased = "usage_hasPurchased"
+        static let purchasedProductID = "usage_purchasedProductID"
     }
 
     private static var defaults: UserDefaults { .standard }
@@ -34,6 +35,11 @@ enum UsageTracker {
     static var hasPurchased: Bool {
         get { defaults.bool(forKey: Key.hasPurchased) }
         set { defaults.set(newValue, forKey: Key.hasPurchased) }
+    }
+
+    static var purchasedProductID: String? {
+        get { defaults.string(forKey: Key.purchasedProductID) }
+        set { defaults.set(newValue, forKey: Key.purchasedProductID) }
     }
 
     // MARK: - Actions
@@ -81,6 +87,7 @@ enum UsageTracker {
         defaults.removeObject(forKey: Key.lastPromptDate)
         defaults.removeObject(forKey: Key.lastPromptOpenCount)
         defaults.removeObject(forKey: Key.hasPurchased)
+        defaults.removeObject(forKey: Key.purchasedProductID)
     }
 
     static func forceReadyForPrompt() {
