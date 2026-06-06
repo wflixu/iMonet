@@ -18,6 +18,7 @@
 		5C3CE0002FD321B4006771AA /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3CDFFD2FD321B4006771AA /* StoreManager.swift */; };
 		5C3CE0022FD321B4006771AA /* UsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3CDFFE2FD321B4006771AA /* UsageTracker.swift */; };
 		5C3CE0032FD321B4006771AA /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3CDFFD2FD321B4006771AA /* StoreManager.swift */; };
+		5C5F55F22FD41D3000B8217D /* iMonet.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 5C5F55F12FD41D3000B8217D /* iMonet.storekit */; };
 		5CA538152FB6076A0071F06A /* command-scroll-zoom-design.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA538102FB6076A0071F06A /* command-scroll-zoom-design.md */; };
 		5CA538162FB6076A0071F06A /* folder-indexing-design.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA538112FB6076A0071F06A /* folder-indexing-design.md */; };
 		5CA538172FB6076A0071F06A /* github-action-release.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CA538122FB6076A0071F06A /* github-action-release.md */; };
@@ -53,6 +54,7 @@
 		442E22A06002EDE0AB884C1E /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		5C3CDFFD2FD321B4006771AA /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		5C3CDFFE2FD321B4006771AA /* UsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTracker.swift; sourceTree = "<group>"; };
+		5C5F55F12FD41D3000B8217D /* iMonet.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = iMonet.storekit; sourceTree = "<group>"; };
 		5CA5380E2FB6076A0071F06A /* auto-update-design.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "auto-update-design.md"; sourceTree = "<group>"; };
 		5CA5380F2FB6076A0071F06A /* auto-update-implementation-plan.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "auto-update-implementation-plan.md"; sourceTree = "<group>"; };
 		5CA538102FB6076A0071F06A /* command-scroll-zoom-design.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "command-scroll-zoom-design.md"; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 		2EB8BA1296D61E00B40AD421 = {
 			isa = PBXGroup;
 			children = (
+				5C5F55F12FD41D3000B8217D /* iMonet.storekit */,
 				A06B8CA333C087B031EB7ABE /* Sources */,
 				3DC6582BB691E623053C28FE /* Tests */,
 				712B6B99F127A16709EE3061 /* Products */,
@@ -327,6 +330,7 @@
 				5CA538162FB6076A0071F06A /* folder-indexing-design.md in Resources */,
 				5CA538172FB6076A0071F06A /* github-action-release.md in Resources */,
 				5CA538182FB6076A0071F06A /* auto-update-implementation-plan.md in Resources */,
+				5C5F55F22FD41D3000B8217D /* iMonet.storekit in Resources */,
 				5CA538192FB6076A0071F06A /* temp.md in Resources */,
 				5CA5381A2FB6076A0071F06A /* auto-update-design.md in Resources */,
 				DBA979294C03C8C02E99DA73 /* Assets.xcassets in Resources */,

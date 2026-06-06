@@ -23,9 +23,13 @@ final class StoreManager: ObservableObject {
     func loadProducts() async {
         do {
             let ids = ProductID.allCases.map(\.rawValue)
+            logger.info("Requesting products for IDs: \(ids.joined(separator: ", "))")
             let fetched = try await Product.products(for: ids)
             products = fetched.sorted { $0.price < $1.price }
             logger.info("Loaded \(self.products.count) product(s)")
+            for p in products {
+                logger.info("  Product: id=\(p.id), name=\(p.displayName), price=\(p.displayPrice)")
+            }
         } catch {
             logger.error("Failed to load products: \(error.localizedDescription)")
         }
