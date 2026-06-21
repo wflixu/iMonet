@@ -1,6 +1,6 @@
 //
 //  ThumbnailSidebar.swift
-//  Monet
+//  iMonet
 //
 
 import SwiftUI

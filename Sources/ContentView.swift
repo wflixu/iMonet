@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Monet
+//  iMonet
 //
 
 import SwiftUI
@@ -16,7 +16,7 @@ struct ContentView: View {
     @State private var scale: CGSize = .init(width: 1, height: 1)
     @State private var isNavBarVisible = true
     @State private var window: NSWindow?
-    @State private var monetImageView: MonetImageView?
+    @State private var monetImageView: iMonetImageView?
     @State private var isChromeVisible = true
     @State private var chromeTimer: Timer?
     @State private var isInfoPanelVisible = false

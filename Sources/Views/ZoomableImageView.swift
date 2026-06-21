@@ -3,7 +3,7 @@ import SwiftUI
 
 // MARK: - NSView: Image display with zoom & pan
 
-final class MonetImageView: NSView {
+final class iMonetImageView: NSView {
     var image: NSImage? {
         didSet { needsDisplay = true }
     }
@@ -211,15 +211,15 @@ extension CGFloat {
 
 // MARK: - NSViewRepresentable bridge
 
-struct MonetImageRepresentable: NSViewRepresentable {
+struct iMonetImageRepresentable: NSViewRepresentable {
     let image: NSImage?
     let isDarkMode: Bool
     var onStateChanged: ((CGFloat) -> Void)?
-    var onViewCreated: ((MonetImageView) -> Void)?
+    var onViewCreated: ((iMonetImageView) -> Void)?
     var onClick: (() -> Void)?
 
-    func makeNSView(context: Context) -> MonetImageView {
-        let view = MonetImageView()
+    func makeNSView(context: Context) -> iMonetImageView {
+        let view = iMonetImageView()
         view.image = image
         view.isDarkMode = isDarkMode
         view.onStateChanged = onStateChanged
@@ -230,7 +230,7 @@ struct MonetImageRepresentable: NSViewRepresentable {
         return view
     }
 
-    func updateNSView(_ nsView: MonetImageView, context: Context) {
+    func updateNSView(_ nsView: iMonetImageView, context: Context) {
         nsView.image = image
         nsView.isDarkMode = isDarkMode
         nsView.onStateChanged = onStateChanged
@@ -245,11 +245,11 @@ struct ZoomableImageView: View {
 
     let image: NSImage?
     var onScaleChanged: ((CGFloat) -> Void)?
-    var onViewCreated: ((MonetImageView) -> Void)?
+    var onViewCreated: ((iMonetImageView) -> Void)?
     var onClick: (() -> Void)?
 
     var body: some View {
-        MonetImageRepresentable(
+        iMonetImageRepresentable(
             image: image,
             isDarkMode: colorScheme == .dark,
             onStateChanged: onScaleChanged,

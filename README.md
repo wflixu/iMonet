@@ -3,10 +3,10 @@
 [![macOS 15](https://img.shields.io/badge/macOS15-Compatible-green)](https://www.apple.com/macos/)
 
 <div align="center">
-   <img src="assets/iMonet-logo.png" width="128" height="128" alt="Monet Logo"/>
+   <img src="assets/iMonet-logo.png" width="128" height="128" alt="iMonet Logo"/>
 </div>
 
-# Monet
+# iMonet
 
 An image viewer for macOS optimized for mouse users. Built with SwiftUI.
 
@@ -21,11 +21,11 @@ https://github.com/user-attachments/assets/f9faccb3-531e-4000-bc7f-e58fb922e6da
 <div align="center">
    <table>
      <tr>
-       <td><img src="assets/iMonet-viewer.png" width="360" alt="Monet Viewer"/></td>
-       <td><img src="assets/iMonet-setting.png" width="360" alt="Monet Settings"/></td>
+       <td><img src="assets/iMonet-viewer.png" width="360" alt="iMonet Viewer"/></td>
+       <td><img src="assets/iMonet-setting.png" width="360" alt="iMonet Settings"/></td>
      </tr>
    </table>
-   <img src="assets/iMonet-app-store.png" width="720" alt="Monet App Store"/>
+   <img src="assets/iMonet-app-store.png" width="720" alt="iMonet App Store"/>
 </div>
 
 ## Features
@@ -56,23 +56,23 @@ https://github.com/user-attachments/assets/f9faccb3-531e-4000-bc7f-e58fb922e6da
 ## Build & Run
 
 ```bash
-git clone https://github.com/wflixu/Monet.git
-cd Monet
+git clone https://github.com/wflixu/iMonet.git
+cd iMonet
 swift run
 ```
 
 For a Release `.app` bundle:
 
 ```bash
-xcodebuild -scheme Monet -configuration Release -derivedDataPath build -destination "platform=macOS,arch=arm64" ARCHS=arm64 ENABLE_HARDENED_RUNTIME=YES build
+xcodebuild -scheme iMonet -configuration Release -derivedDataPath build -destination "platform=macOS,arch=arm64" ARCHS=arm64 ENABLE_HARDENED_RUNTIME=YES build
 ```
 
 ## Project Structure
 
 ```
-Monet/
-├── Sources/Monet/
-│   ├── MonetApp.swift              # App entry point, scenes, AppDelegate
+iMonet/
+├── Sources/iMonet/
+│   ├── iMonetApp.swift              # App entry point, scenes, AppDelegate
 │   ├── AppState.swift              # Global app state
 │   ├── ContentView.swift           # Main layout, chrome auto-hide logic
 │   ├── NavigationIdentifier.swift  # Settings navigation

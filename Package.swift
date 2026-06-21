@@ -4,19 +4,17 @@
 import PackageDescription
 
 let package = Package(
-    name: "Monet",
+    name: "iMonet",
     defaultLocalization: "zh-Hans",
     platforms: [
         .macOS(.v15)
     ],
     dependencies: [
-        .package(url: "https://github.com/quassum/SwiftUI-Tooltip.git", from: "1.3.1"),
     ],
     targets: [
         .executableTarget(
-            name: "Monet",
+            name: "iMonet",
             dependencies: [
-                .product(name: "SwiftUITooltip", package: "SwiftUI-Tooltip"),
             ],
             resources: [
                 .process("Assets.xcassets"),
@@ -24,8 +22,8 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "MonetTests",
-            dependencies: ["Monet"]
+            name: "iMonetTests",
+            dependencies: ["iMonet"]
         ),
     ]
 )

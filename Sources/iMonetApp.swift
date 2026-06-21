@@ -1,6 +1,6 @@
 //
-//  MonetApp.swift
-//  Monet
+//  iMonetApp.swift
+//  iMonet
 //
 //  Created by 李旭 on 2024/9/1.
 //
@@ -21,8 +21,8 @@ struct OpenSettingsButton: View {
 }
 
 @main
-struct MonetApp: App {
-    @AppLog(category: "MonetApp")
+struct iMonetApp: App {
+    @AppLog(category: "iMonetApp")
     private var logger
 
     // 设置 App Delegate 以响应 open file 请求

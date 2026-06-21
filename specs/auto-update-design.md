@@ -95,7 +95,7 @@ Monet 是一款 macOS 图片查看器应用，当前通过 GitHub Actions 自动
 │                         Monet App                           │
 │                                                             │
 │  ┌───────────────────────────────────────────────────────┐ │
-│  │                    MonetApp.swift                     │ │
+│  │                    iiMonetApp.swift                     │ │
 │  │                                                       │ │
 │  │  import Sparkle                                       │ │
 │  │  private let updaterController: SPUStandardUpdaterController │
@@ -277,7 +277,7 @@ let package = Package(
 
 ### 阶段 3：配置 Info.plist
 
-**文件**: `Sources/Monet/Info.plist`
+**文件**: `Sources/iMonet/Info.plist`
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -309,11 +309,11 @@ let package = Package(
 
 ### 阶段 4：初始化 Sparkle
 
-**文件**: `Sources/Monet/MonetApp.swift`
+**文件**: `Sources/iMonet/iiMonetApp.swift`
 
 ```swift
 //
-//  MonetApp.swift
+//  iiMonetApp.swift
 //  Monet
 //
 
@@ -322,8 +322,8 @@ import SwiftUI
 import Sparkle  // 添加导入
 
 @main
-struct MonetApp: App {
-    @AppLog(category: "MonetApp")
+struct iMonetApp: App {
+    @AppLog(category: "iMonetApp")
     private var logger
 
     @Environment(\.openWindow) private var openWindow
@@ -360,7 +360,7 @@ struct MonetApp: App {
 
 ### 阶段 5：创建 UpdatesSettingsPane
 
-**文件**: `Sources/Monet/Settings/UpdatesSettingsPane.swift` (新建)
+**文件**: `Sources/iMonet/Settings/UpdatesSettingsPane.swift` (新建)
 
 ```swift
 //
@@ -470,7 +470,7 @@ struct UpdatesSettingsPane: View {
 
 ### 阶段 6：启用 Updates 设置页
 
-**文件**: `Sources/Monet/SettingsView.swift`
+**文件**: `Sources/iMonet/SettingsView.swift`
 
 ```swift
 @ViewBuilder
@@ -498,7 +498,7 @@ private var detailView: some View {
 
 ### 阶段 7：在 About 页面添加检查更新按钮
 
-**文件**: `Sources/Monet/Settings/AboutSettingsPane.swift`
+**文件**: `Sources/iMonet/Settings/AboutSettingsPane.swift`
 
 ```swift
 var body: some View {
@@ -641,17 +641,17 @@ UserDefaults.standard.removeObject(forKey: "SUSkippedVersion")
 
 | 文件路径 | 说明 |
 |----------|------|
-| `Sources/Monet/Settings/UpdatesSettingsPane.swift` | 更新设置页面 |
+| `Sources/iMonet/Settings/UpdatesSettingsPane.swift` | 更新设置页面 |
 
 ### 需要修改的文件
 
 | 文件路径 | 修改内容 |
 |----------|----------|
 | `Package.swift` | 添加 Sparkle 依赖 |
-| `Sources/Monet/Info.plist` | 添加 Sparkle 配置 (SUFeedURL, SUPublicEDKey 等) |
-| `Sources/Monet/MonetApp.swift` | 导入 Sparkle，初始化 SPUStandardUpdaterController |
-| `Sources/Monet/SettingsView.swift` | 启用 UpdatesSettingsPane |
-| `Sources/Monet/Settings/AboutSettingsPane.swift` | 添加检查更新按钮 |
+| `Sources/iMonet/Info.plist` | 添加 Sparkle 配置 (SUFeedURL, SUPublicEDKey 等) |
+| `Sources/iMonet/iiMonetApp.swift` | 导入 Sparkle，初始化 SPUStandardUpdaterController |
+| `Sources/iMonet/SettingsView.swift` | 启用 UpdatesSettingsPane |
+| `Sources/iMonet/Settings/AboutSettingsPane.swift` | 添加检查更新按钮 |
 | `.github/workflows/release.yml` | 添加 Sparkle 签名和 appcast 生成步骤 |
 
 ---

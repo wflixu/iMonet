@@ -63,11 +63,11 @@
 
 | 文件 | 变更类型 | 说明 |
 |------|----------|------|
-| `Sources/Monet/AppState.swift` | 修改 | 新增状态变量 |
-| `Sources/Monet/MonetApp.swift` | 修改 | `loadImages()` 增加权限检测、后台扫描、bookmark 管理 |
-| `Sources/Monet/ContentView.swift` | 修改 | 增加非模态索引提示栏 |
-| `Sources/Monet/Settings/GeneralSettingsPane.swift` | 修改 | 文案优化、增加全磁盘访问说明 |
-| `Sources/Monet/Shared/Constants.swift` | 修改 | 新增 UserDefaults key |
+| `Sources/iMonet/AppState.swift` | 修改 | 新增状态变量 |
+| `Sources/iMonet/iiMonetApp.swift` | 修改 | `loadImages()` 增加权限检测、后台扫描、bookmark 管理 |
+| `Sources/iMonet/ContentView.swift` | 修改 | 增加非模态索引提示栏 |
+| `Sources/iMonet/Settings/GeneralSettingsPane.swift` | 修改 | 文案优化、增加全磁盘访问说明 |
+| `Sources/iMonet/Shared/Constants.swift` | 修改 | 新增 UserDefaults key |
 
 **不新增文件**。提示栏用简单的 overlay 实现，不单独建文件。
 
@@ -250,7 +250,7 @@ Section {
 ## 6. 关键修复
 
 ### 6.1 startAccessingSecurityScopedResource
-在读取目录前必须调用 `startAccessingSecurityScopedResource()`，读取后调用 `stopAccessingSecurityScopedResource()`。现有代码（`MonetApp.swift:161`）缺少此调用。
+在读取目录前必须调用 `startAccessingSecurityScopedResource()`，读取后调用 `stopAccessingSecurityScopedResource()`。现有代码（`iiMonetApp.swift:161`）缺少此调用。
 
 ### 6.2 后台线程扫描
 对于大文件夹，在后台队列扫描目录，避免阻塞主线程：

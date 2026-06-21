@@ -1,6 +1,6 @@
 //
 //  ImagePreviewView.swift
-//  Monet
+//  iMonet
 //
 
 import AppKit
@@ -13,7 +13,7 @@ struct ImagePreviewView: View {
     @EnvironmentObject var appState: AppState
 
     @Binding var scale: CGSize
-    @Binding var monetImageView: MonetImageView?
+    @Binding var monetImageView: iMonetImageView?
 
     var onClick: (() -> Void)?
     var onDelete: (() -> Void)?

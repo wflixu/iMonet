@@ -1,0 +1,557 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		004470CBBAB00E6A180F02F4 /* ZoomableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97578A55C6542C151BC0425B /* ZoomableImageView.swift */; };
+		03CB3989955C1BD7406CDFED /* PurchasePromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377116EF3B9076356EE31A /* PurchasePromptView.swift */; };
+		06E09E2661AAD35BAE71F7A4 /* AboutSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACFC8784D4CAE9E06800964 /* AboutSettingsPane.swift */; };
+		0A5C70673EFA726277030CA1 /* ImageThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022972598DEF76CB27CE00FE /* ImageThumbnailView.swift */; };
+		0C8964831CE8704E7BCCCEF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4446E2C59A2D9E9B7A85C5C /* ContentView.swift */; };
+		17FE8F1945F82DDED5C09514 /* UsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0663750667B8B95E8200B6 /* UsageTracker.swift */; };
+		1ABAA2A2A32FBE2376D3E03F /* PermissionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C316F8A2BA0C5DCE6E485B8 /* PermissionsManager.swift */; };
+		1AF3925A92DD5E5D7DFB16EB /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BB5EA90B6B0D8AC60E6811 /* AppLogger.swift */; };
+		2B8C87E6E11D7E917A719DFC /* NavigationIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B93396E58E71904D3E2924B /* NavigationIdentifier.swift */; };
+		39011A69E3B8FE74145C8B70 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A40D916846AF2D3BA5E90CA /* AppState.swift */; };
+		3C6C8B5838C4AB2B6231E6BB /* iMonetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1189DD7554344568F479679F /* iMonetApp.swift */; };
+		3D24E9465B823F0FC737AFBD /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819AF6D090A31982BC9D496B /* StoreManager.swift */; };
+		5629075073E698F246D7C533 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69FF78F45B3EA5FC304A76B /* ToolbarView.swift */; };
+		59F8BBF8205D995C96BBFD36 /* SettingsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C1F4D1359C2CB5DF96FC81 /* SettingsWindow.swift */; };
+		5DD819A6D57A29EF2C6A2829 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44720D706961DCEE5B1001F0 /* SettingsView.swift */; };
+		71B1A859025E9E50DB580209 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF372128F0DD67BCE0921DA /* Constants.swift */; };
+		77EAF2B878BB95FB66F079E8 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483750EB91596B83A0426BA2 /* Util.swift */; };
+		8E69FB869C92C7720C05484F /* ImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6319D85B5768D1A60B1AB168 /* ImagePreviewView.swift */; };
+		93A1379BCD566D8343C24FF7 /* GeneralSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB7BF4E678F028AAF3B32E /* GeneralSettingsPane.swift */; };
+		9D985FB2B474A866623B7F5D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F7E6A6C3F4C44A51626E6946 /* Localizable.xcstrings */; };
+		C9138238C686A15BEDA8DAB0 /* ThumbnailSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0CDDC442969FF354A26C95 /* ThumbnailSidebar.swift */; };
+		D67BA868BE770C33DF4451C9 /* iMonetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF6B78C1AFDEC2785546F6F /* iMonetTests.swift */; };
+		E40C49D15A7D969A3095DD64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8DF7FB5C8B81FCDFFD3D1EA /* Assets.xcassets */; };
+		F131C819AB8F9CD242B606C5 /* ImageInfoPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9DACE6BC21DE66EB3879E8 /* ImageInfoPanel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A69234E93E2D44A9E757F46C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B46B9A50047C09D19D0C159 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 313D2AC476916C59E570BCD1;
+			remoteInfo = iMonet;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		022972598DEF76CB27CE00FE /* ImageThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageThumbnailView.swift; sourceTree = "<group>"; };
+		1189DD7554344568F479679F /* iMonetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMonetApp.swift; sourceTree = "<group>"; };
+		1A40D916846AF2D3BA5E90CA /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		1ACFC8784D4CAE9E06800964 /* AboutSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSettingsPane.swift; sourceTree = "<group>"; };
+		1E6048A0A99DAD220E0AE0B7 /* iMonet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iMonet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A377116EF3B9076356EE31A /* PurchasePromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchasePromptView.swift; sourceTree = "<group>"; };
+		2AF31CEB3D8E880287B884A7 /* iMonetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iMonetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CF372128F0DD67BCE0921DA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		44720D706961DCEE5B1001F0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		483750EB91596B83A0426BA2 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		4C316F8A2BA0C5DCE6E485B8 /* PermissionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsManager.swift; sourceTree = "<group>"; };
+		54BB5EA90B6B0D8AC60E6811 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
+		566389527660232418F6140C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6319D85B5768D1A60B1AB168 /* ImagePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewView.swift; sourceTree = "<group>"; };
+		6B93396E58E71904D3E2924B /* NavigationIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationIdentifier.swift; sourceTree = "<group>"; };
+		73C1F4D1359C2CB5DF96FC81 /* SettingsWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindow.swift; sourceTree = "<group>"; };
+		819AF6D090A31982BC9D496B /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		97578A55C6542C151BC0425B /* ZoomableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableImageView.swift; sourceTree = "<group>"; };
+		A8DF7FB5C8B81FCDFFD3D1EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA4C75C0EFCFE625F75841EB /* iMonet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iMonet.entitlements; sourceTree = "<group>"; };
+		AC9DACE6BC21DE66EB3879E8 /* ImageInfoPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageInfoPanel.swift; sourceTree = "<group>"; };
+		BD0663750667B8B95E8200B6 /* UsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTracker.swift; sourceTree = "<group>"; };
+		D5DB7BF4E678F028AAF3B32E /* GeneralSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsPane.swift; sourceTree = "<group>"; };
+		DA0CDDC442969FF354A26C95 /* ThumbnailSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailSidebar.swift; sourceTree = "<group>"; };
+		DCF6B78C1AFDEC2785546F6F /* iMonetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iMonetTests.swift; sourceTree = "<group>"; };
+		E4446E2C59A2D9E9B7A85C5C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E69FF78F45B3EA5FC304A76B /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
+		F7E6A6C3F4C44A51626E6946 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		02C23534732C11D10799F48E /* iMonetTests */ = {
+			isa = PBXGroup;
+			children = (
+				DCF6B78C1AFDEC2785546F6F /* iMonetTests.swift */,
+			);
+			path = iMonetTests;
+			sourceTree = "<group>";
+		};
+		2C86096E655964E8D8541139 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				2A377116EF3B9076356EE31A /* PurchasePromptView.swift */,
+				819AF6D090A31982BC9D496B /* StoreManager.swift */,
+				BD0663750667B8B95E8200B6 /* UsageTracker.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		923D18000581138057EB7CCF /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				1A40D916846AF2D3BA5E90CA /* AppState.swift */,
+				A8DF7FB5C8B81FCDFFD3D1EA /* Assets.xcassets */,
+				E4446E2C59A2D9E9B7A85C5C /* ContentView.swift */,
+				AA4C75C0EFCFE625F75841EB /* iMonet.entitlements */,
+				1189DD7554344568F479679F /* iMonetApp.swift */,
+				566389527660232418F6140C /* Info.plist */,
+				6B93396E58E71904D3E2924B /* NavigationIdentifier.swift */,
+				E784F83A41FE316D66CA60AD /* Permission */,
+				F9F43D7CBA5BCA1C4DB27FC5 /* Resources */,
+				C9D964F48798C3CF040C8BD7 /* Settings */,
+				B3D5961DF83CAB7CF2050C5A /* Shared */,
+				2C86096E655964E8D8541139 /* Store */,
+				D30C7DD2880DFB65175C4C5A /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		A00E15EA16988AA6F4D9C0A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1E6048A0A99DAD220E0AE0B7 /* iMonet.app */,
+				2AF31CEB3D8E880287B884A7 /* iMonetTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B3D5961DF83CAB7CF2050C5A /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				54BB5EA90B6B0D8AC60E6811 /* AppLogger.swift */,
+				2CF372128F0DD67BCE0921DA /* Constants.swift */,
+				483750EB91596B83A0426BA2 /* Util.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C1186D22F9C7B15723C1445B = {
+			isa = PBXGroup;
+			children = (
+				923D18000581138057EB7CCF /* Sources */,
+				D35EA77673D4B09CE158F5E1 /* Tests */,
+				A00E15EA16988AA6F4D9C0A2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C9D964F48798C3CF040C8BD7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1ACFC8784D4CAE9E06800964 /* AboutSettingsPane.swift */,
+				D5DB7BF4E678F028AAF3B32E /* GeneralSettingsPane.swift */,
+				44720D706961DCEE5B1001F0 /* SettingsView.swift */,
+				73C1F4D1359C2CB5DF96FC81 /* SettingsWindow.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		D30C7DD2880DFB65175C4C5A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AC9DACE6BC21DE66EB3879E8 /* ImageInfoPanel.swift */,
+				6319D85B5768D1A60B1AB168 /* ImagePreviewView.swift */,
+				022972598DEF76CB27CE00FE /* ImageThumbnailView.swift */,
+				DA0CDDC442969FF354A26C95 /* ThumbnailSidebar.swift */,
+				E69FF78F45B3EA5FC304A76B /* ToolbarView.swift */,
+				97578A55C6542C151BC0425B /* ZoomableImageView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D35EA77673D4B09CE158F5E1 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				02C23534732C11D10799F48E /* iMonetTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		E784F83A41FE316D66CA60AD /* Permission */ = {
+			isa = PBXGroup;
+			children = (
+				4C316F8A2BA0C5DCE6E485B8 /* PermissionsManager.swift */,
+			);
+			path = Permission;
+			sourceTree = "<group>";
+		};
+		F9F43D7CBA5BCA1C4DB27FC5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F7E6A6C3F4C44A51626E6946 /* Localizable.xcstrings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		313D2AC476916C59E570BCD1 /* iMonet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C152093C67D5756887A8F342 /* Build configuration list for PBXNativeTarget "iMonet" */;
+			buildPhases = (
+				22118166655C7B9F31A3E86E /* Sources */,
+				3DE9C20666336CE078D78C65 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iMonet;
+			packageProductDependencies = (
+			);
+			productName = iMonet;
+			productReference = 1E6048A0A99DAD220E0AE0B7 /* iMonet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BACEBCA0D2E3EC17956F2A4F /* iMonetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 193092BD85DE2A5943956B86 /* Build configuration list for PBXNativeTarget "iMonetTests" */;
+			buildPhases = (
+				724F8261929BE185ED4C47B3 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BC290BA52AECA3722C09D2B0 /* PBXTargetDependency */,
+			);
+			name = iMonetTests;
+			packageProductDependencies = (
+			);
+			productName = iMonetTests;
+			productReference = 2AF31CEB3D8E880287B884A7 /* iMonetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7B46B9A50047C09D19D0C159 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = F3F93352FF3DE40770C0C242 /* Build configuration list for PBXProject "iMonet" */;
+			developmentRegion = "zh-Hans";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				"zh-Hans",
+			);
+			mainGroup = C1186D22F9C7B15723C1445B;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A00E15EA16988AA6F4D9C0A2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				313D2AC476916C59E570BCD1 /* iMonet */,
+				BACEBCA0D2E3EC17956F2A4F /* iMonetTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3DE9C20666336CE078D78C65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E40C49D15A7D969A3095DD64 /* Assets.xcassets in Resources */,
+				9D985FB2B474A866623B7F5D /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		22118166655C7B9F31A3E86E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06E09E2661AAD35BAE71F7A4 /* AboutSettingsPane.swift in Sources */,
+				1AF3925A92DD5E5D7DFB16EB /* AppLogger.swift in Sources */,
+				39011A69E3B8FE74145C8B70 /* AppState.swift in Sources */,
+				71B1A859025E9E50DB580209 /* Constants.swift in Sources */,
+				0C8964831CE8704E7BCCCEF3 /* ContentView.swift in Sources */,
+				93A1379BCD566D8343C24FF7 /* GeneralSettingsPane.swift in Sources */,
+				F131C819AB8F9CD242B606C5 /* ImageInfoPanel.swift in Sources */,
+				8E69FB869C92C7720C05484F /* ImagePreviewView.swift in Sources */,
+				0A5C70673EFA726277030CA1 /* ImageThumbnailView.swift in Sources */,
+				2B8C87E6E11D7E917A719DFC /* NavigationIdentifier.swift in Sources */,
+				1ABAA2A2A32FBE2376D3E03F /* PermissionsManager.swift in Sources */,
+				03CB3989955C1BD7406CDFED /* PurchasePromptView.swift in Sources */,
+				5DD819A6D57A29EF2C6A2829 /* SettingsView.swift in Sources */,
+				59F8BBF8205D995C96BBFD36 /* SettingsWindow.swift in Sources */,
+				3D24E9465B823F0FC737AFBD /* StoreManager.swift in Sources */,
+				C9138238C686A15BEDA8DAB0 /* ThumbnailSidebar.swift in Sources */,
+				5629075073E698F246D7C533 /* ToolbarView.swift in Sources */,
+				17FE8F1945F82DDED5C09514 /* UsageTracker.swift in Sources */,
+				77EAF2B878BB95FB66F079E8 /* Util.swift in Sources */,
+				004470CBBAB00E6A180F02F4 /* ZoomableImageView.swift in Sources */,
+				3C6C8B5838C4AB2B6231E6BB /* iMonetApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		724F8261929BE185ED4C47B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D67BA868BE770C33DF4451C9 /* iMonetTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BC290BA52AECA3722C09D2B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 313D2AC476916C59E570BCD1 /* iMonet */;
+			targetProxy = A69234E93E2D44A9E757F46C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		09D35CFA69C0E38FFA44C140 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iMonet.app/Contents/MacOS/iMonet";
+			};
+			name = Release;
+		};
+		3329DA18F972CC53D74BA489 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 20260604001;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = iMonet;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 2.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.wflixu.Monet;
+				PRODUCT_NAME = iMonet;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		B1D3291E9E885487C1B2E121 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iMonet.app/Contents/MacOS/iMonet";
+			};
+			name = Debug;
+		};
+		D3C351985D28F104FBB77741 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 20260604001;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = iMonet;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 2.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.wflixu.Monet;
+				PRODUCT_NAME = iMonet;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		ED2DD815A11A7EB6A61C5A74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Sources/iMonet.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F8B1DF15C4BC06F8A5ECD600 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Sources/iMonet.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		193092BD85DE2A5943956B86 /* Build configuration list for PBXNativeTarget "iMonetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1D3291E9E885487C1B2E121 /* Debug */,
+				09D35CFA69C0E38FFA44C140 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C152093C67D5756887A8F342 /* Build configuration list for PBXNativeTarget "iMonet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8B1DF15C4BC06F8A5ECD600 /* Debug */,
+				ED2DD815A11A7EB6A61C5A74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F3F93352FF3DE40770C0C242 /* Build configuration list for PBXProject "iMonet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3C351985D28F104FBB77741 /* Debug */,
+				3329DA18F972CC53D74BA489 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7B46B9A50047C09D19D0C159 /* Project object */;
+}

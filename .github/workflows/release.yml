@@ -65,7 +65,7 @@ jobs:
           # 使用 xcodebuild 构建（Swift Package 不需要 .xcodeproj）
           # CODE_SIGNING_ALLOWED=NO: 依赖项不签名，留给后续手动 codesign
           # ARCHS=arm64 ONLY_ACTIVE_ARCH=NO: 只构建 arm64 架构，减小体积
-          xcodebuild -scheme Monet \
+          xcodebuild -scheme iMonet \
             -configuration Release \
             -derivedDataPath build \
             -destination "generic/platform=macOS" \
@@ -76,7 +76,7 @@ jobs:
             build
 
           # 查找 App 路径（兼容不同 Xcode 版本的输出结构）
-          APP_PATH=$(find build -name "Monet.app" -type d -path "*/Products/Release/*" | head -n 1)
+          APP_PATH=$(find build -name "iMonet.app" -type d -path "*/Products/Release/*" | head -n 1)
 
           if [ -z "$APP_PATH" ]; then
             echo "Error: App not found in build directory"
@@ -88,7 +88,7 @@ jobs:
 
           # 验证架构
           echo "Validating architecture..."
-          lipo -info "$APP_PATH/Contents/MacOS/Monet" || true
+          lipo -info "$APP_PATH/Contents/MacOS/iMonet" || true
 
       # 3. 代码签名 (Signing) - 分层签名（不用 --deep）
       - name: Code Sign App
@@ -106,7 +106,7 @@ jobs:
           echo "Signing with: $CERT_NAME"
 
           # 创建最小化 Distribution entitlements 文件（移除高风险权限）
-          cat > Monet_Distribution.entitlements << EOF
+          cat > iMonet_Distribution.entitlements << EOF
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
@@ -130,7 +130,7 @@ jobs:
 
           echo "Signing main app..."
           codesign --force --options runtime \
-            --entitlements "Monet_Distribution.entitlements" \
+            --entitlements "iMonet_Distribution.entitlements" \
             --sign "$CERT_NAME" "$APP_PATH"
 
           # 验证签名和 Hardened Runtime
@@ -143,7 +143,7 @@ jobs:
       # 4. 打包为 ZIP (公证需要 ZIP 或 DMG)
       - name: Zip App for Notarization
         run: |
-          ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" Monet.zip
+          ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" iMonet.zip
 
       # 5. 公证 (Notarization) - 带失败处理
       - name: Notarize App
@@ -161,7 +161,7 @@ jobs:
           echo "$PRIVATE_KEY" > AuthKey_${KEY_ID}.p8
 
           # 提交公证并等待结果（使用 JSON 输出便于调试）
-          RESULT=$(xcrun notarytool submit Monet.zip \
+          RESULT=$(xcrun notarytool submit iMonet.zip \
             --key-id "$KEY_ID" \
             --issuer "$ISSUER_ID" \
             --key "AuthKey_${KEY_ID}.p8" \
@@ -209,22 +209,22 @@ jobs:
           set -e
 
           VERSION=${{ steps.version.outputs.version }}
-          DMG_NAME="Monet-v${VERSION}.dmg"
+          DMG_NAME="iMonet-v${VERSION}.dmg"
 
-          # 复制 App 到临时目录（保持原名 Monet.app）
-          cp -R "$APP_PATH" ./Monet.app
+          # 复制 App 到临时目录（保持原名 iMonet.app）
+          cp -R "$APP_PATH" ./iMonet.app
 
           # 使用 create-dmg 创建专业 DMG（带拖拽安装界面）
           create-dmg \
-            --volname "Monet" \
+            --volname "iMonet" \
             --window-pos 200 120 \
             --window-size 600 400 \
             --icon-size 100 \
-            --icon "Monet.app" 150 200 \
-            --hide-extension "Monet.app" \
+            --icon "iMonet.app" 150 200 \
+            --hide-extension "iMonet.app" \
             --app-drop-link 450 200 \
             "$DMG_NAME" \
-            "./Monet.app"
+            "./iMonet.app"
 
           # 对 DMG 进行签名（需要重新获取证书名称）
           CERT_NAME=$(security find-identity -v -s "Developer ID Application" | head -n 1 | awk -F'"' '{print $2}')
@@ -247,7 +247,7 @@ jobs:
           set -e
 
           VERSION=${{ steps.version.outputs.version }}
-          DMG_NAME="Monet-v${VERSION}.dmg"
+          DMG_NAME="iMonet-v${VERSION}.dmg"
 
           # 保存 p8 密钥文件
           echo "$PRIVATE_KEY" > AuthKey_${KEY_ID}.p8
@@ -289,13 +289,13 @@ jobs:
           set -e
 
           VERSION=${{ steps.version.outputs.version }}
-          ZIP_NAME="Monet-v${VERSION}.app.zip"
+          ZIP_NAME="iMonet-v${VERSION}.app.zip"
 
-          # 复制 App 到临时目录（保持原名 Monet.app）
-          cp -R "$APP_PATH" ./Monet.app
+          # 复制 App 到临时目录（保持原名 iMonet.app）
+          cp -R "$APP_PATH" ./iMonet.app
 
           # 打包为 ZIP
-          ditto -c -k --sequesterRsrc --keepParent "./Monet.app" "$ZIP_NAME"
+          ditto -c -k --sequesterRsrc --keepParent "./iMonet.app" "$ZIP_NAME"
 
           echo "Created ZIP: $ZIP_NAME"
 
@@ -304,8 +304,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            Monet-v${{ steps.version.outputs.version }}.app.zip
-            Monet-v${{ steps.version.outputs.version }}.dmg
+            iMonet-v${{ steps.version.outputs.version }}.app.zip
+            iMonet-v${{ steps.version.outputs.version }}.dmg
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

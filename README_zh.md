@@ -3,10 +3,10 @@
 [![macOS 15](https://img.shields.io/badge/macOS15-Compatible-green)](https://www.apple.com/macos/)
 
 <div align="center">
-   <img src="assets/iMonet-logo.png" width="128" height="128" alt="Monet Logo"/>
+   <img src="assets/iMonet-logo.png" width="128" height="128" alt="iMonet Logo"/>
 </div>
 
-# Monet
+# iMonet
 
 专为鼠标用户优化的 macOS 看图工具。基于 SwiftUI 构建。
 
@@ -23,11 +23,11 @@ https://github.com/user-attachments/assets/f9faccb3-531e-4000-bc7f-e58fb922e6da
 <div align="center">
    <table>
      <tr>
-       <td><img src="assets/iMonet-viewer.png" width="360" alt="Monet 浏览界面"/></td>
-       <td><img src="assets/iMonet-setting.png" width="360" alt="Monet 设置界面"/></td>
+       <td><img src="assets/iMonet-viewer.png" width="360" alt="iMonet 浏览界面"/></td>
+       <td><img src="assets/iMonet-setting.png" width="360" alt="iMonet 设置界面"/></td>
      </tr>
    </table>
-   <img src="assets/iMonet-app-store.png" width="720" alt="Monet App Store"/>
+   <img src="assets/iMonet-app-store.png" width="720" alt="iMonet App Store"/>
 </div>
 
 ## 功能特性
@@ -58,23 +58,23 @@ https://github.com/user-attachments/assets/f9faccb3-531e-4000-bc7f-e58fb922e6da
 ## 构建 & 运行
 
 ```bash
-git clone https://github.com/wflixu/Monet.git
-cd Monet
+git clone https://github.com/wflixu/iMonet.git
+cd iMonet
 swift run
 ```
 
 构建 Release `.app` 包：
 
 ```bash
-xcodebuild -scheme Monet -configuration Release -derivedDataPath build -destination "platform=macOS,arch=arm64" ARCHS=arm64 ENABLE_HARDENED_RUNTIME=YES build
+xcodebuild -scheme iMonet -configuration Release -derivedDataPath build -destination "platform=macOS,arch=arm64" ARCHS=arm64 ENABLE_HARDENED_RUNTIME=YES build
 ```
 
 ## 项目结构
 
 ```
-Monet/
-├── Sources/Monet/
-│   ├── MonetApp.swift              # 入口、场景、AppDelegate
+iMonet/
+├── Sources/iMonet/
+│   ├── iMonetApp.swift              # 入口、场景、AppDelegate
 │   ├── AppState.swift              # 全局应用状态
 │   ├── ContentView.swift           # 主布局，控件自动显隐逻辑
 │   ├── NavigationIdentifier.swift  # 设置导航

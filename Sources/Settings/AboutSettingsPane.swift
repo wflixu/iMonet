@@ -1,6 +1,6 @@
 //
 //  AboutSettingsPane.swift
-//  Monet
+//  iMonet
 //
 //  Created by 李旭 on 2024/9/13.
 //
@@ -12,7 +12,7 @@ struct AboutSettingsPane: View {
 
     private var contributeURL: URL {
         // swiftlint:disable:next force_unwrapping
-        URL(string: "https://github.com/wflixu/Monet")!
+        URL(string: "https://github.com/wflixu/iMonet")!
     }
 
     private var issuesURL: URL {
@@ -23,7 +23,7 @@ struct AboutSettingsPane: View {
         VStack {
             Spacer()
 
-            Image("Monet")
+            Image("iMonet")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 96, height: 96)

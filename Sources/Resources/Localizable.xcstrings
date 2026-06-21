@@ -1,23 +1,6 @@
 {
   "sourceLanguage" : "zh-Hans",
   "strings" : {
-    "¥6/year" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "¥6/year"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "¥6/年"
-          }
-        }
-      }
-    },
     "About" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -48,6 +31,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "确定要将「%@」移到废纸篓吗？"
+          }
+        }
+      }
+    },
+    "Auto-renewing each year" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto-renewing each year"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每年自动续期"
           }
         }
       }
@@ -442,9 +442,6 @@
           }
         }
       }
-    },
-    "Purchase verification failed" : {
-
     },
     "Purchasing..." : {
       "extractionState" : "manual",

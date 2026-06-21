@@ -165,7 +165,7 @@ extension StoreManager.ProductID {
 
     var description: String {
         switch self {
-        case .yearly: String(localized: "¥6/year")
+        case .yearly: String(localized: "Auto-renewing each year")
         case .lifetime: String(localized: "One-time purchase")
         }
     }

@@ -1,6 +1,6 @@
 //
 //  ImageInfoPanel.swift
-//  Monet
+//  iMonet
 //
 
 import SwiftUI

@@ -1,6 +1,6 @@
 //
 //  SettingsView.swift
-//  Monet
+//  iMonet
 //
 //  Created by 李旭 on 2024/9/11.
 //
@@ -43,7 +43,7 @@ struct SettingsView: View {
                 }
             } header: {
                 HStack {
-                    Image("Monet")
+                    Image("iMonet")
                         .resizable()
                         .frame(width: 42, height: 42)
 
