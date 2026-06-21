@@ -56,7 +56,7 @@ LayoutView
 
 ### 修改文件
 
-#### 1. `Sources/Monet/Models/ViewState.swift`
+#### 1. `Sources/iMonet/Models/ViewState.swift`
 
 新增方法：
 ```swift
@@ -68,7 +68,7 @@ func zoomAtMousePosition(factor: Double, mouseLocation: CGPoint, viewSize: CGSiz
 - 应用缩放
 - 调整 offset 使鼠标下的图像点保持固定
 
-#### 2. `Sources/Monet/ZoomableImageView.swift`
+#### 2. `Sources/iMonet/ZoomableImageView.swift`
 
 修改 `ScrollWheelMonitor`：
 - 移除全局事件监听

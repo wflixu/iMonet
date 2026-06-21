@@ -9,11 +9,11 @@
       "WebSearch",
       "Bash(swift run:*)",
       "Bash(xcodegen generate:*)",
-      "Bash(xcodebuild -list -project Monet.xcodeproj)",
-      "Bash(xcodebuild -project Monet.xcodeproj -scheme Monet -configuration Debug clean build)",
+      "Bash(xcodebuild -list -project iMonet.xcodeproj)",
+      "Bash(xcodebuild -project iMonet.xcodeproj -scheme Monet -configuration Debug clean build)",
       "Bash(curl -s https://api.github.com/repos/quassum/SwiftUI-Tooltip/tags)",
       "Bash(curl -s https://raw.githubusercontent.com/quassum/SwiftUI-Tooltip/v1.4/Package.swift)",
-      "Bash(xcodebuild -project Monet.xcodeproj -scheme Monet -configuration Debug build)",
+      "Bash(xcodebuild -project iMonet.xcodeproj -scheme Monet -configuration Debug build)",
       "Bash(git ls-remote:*)",
       "Bash(chmod +x /Users/lixu/code/Monet/scripts/build-test.sh)",
       "Bash(./scripts/build-test.sh)",
@@ -23,9 +23,16 @@
       "Bash(grep -v '/$')",
       "Bash(git rm *)",
       "Bash(git reset *)",
-      "Bash(plutil -p .build/arm64-apple-macosx/debug/Monet.app/Contents/Info.plist)",
-      "Bash(xcodebuild -scheme Monet -configuration Release -derivedDataPath build -destination \"generic/platform=macOS\" ENABLE_HARDENED_RUNTIME=YES build)",
-      "Bash(xcodebuild -scheme Monet -configuration Release -derivedDataPath .build/xcodebuild -destination \"platform=macOS,arch=arm64\" ARCHS=arm64 ENABLE_HARDENED_RUNTIME=YES build)"
+      "Bash(plutil -p .build/arm64-apple-macosx/debug/iMonet.app/Contents/Info.plist)",
+      "Bash(xcodebuild -scheme iMonet -configuration Release -derivedDataPath build -destination \"generic/platform=macOS\" ENABLE_HARDENED_RUNTIME=YES build)",
+      "Bash(xcodebuild -scheme iMonet -configuration Release -derivedDataPath .build/xcodebuild -destination \"platform=macOS,arch=arm64\" ARCHS=arm64 ENABLE_HARDENED_RUNTIME=YES build)",
+      "Bash(xcodebuild -project /Users/lixu/code/Monet/iMonet.xcodeproj -scheme Monet -configuration Debug -derivedDataPath /tmp/imonet-derive -destination \"platform=macOS,arch=arm64\" build)",
+      "Bash(plutil -p /Users/lixu/code/Monet/iMonet.xcodeproj/xcshareddata/xcschemes/iMonet.xcscheme)",
+      "mcp__xcode__XcodeListWindows",
+      "mcp__xcode__XcodeLS",
+      "mcp__xcode__XcodeRead",
+      "mcp__xcode__BuildProject",
+      "mcp__xcode__XcodeGlob"
     ]
   }
 }

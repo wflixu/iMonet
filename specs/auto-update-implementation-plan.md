@@ -103,7 +103,7 @@ let package = Package(
 
 ### 步骤 2: 配置 Info.plist
 
-**文件**: `Sources/Monet/Info.plist`
+**文件**: `Sources/iMonet/Info.plist`
 
 在 `</dict>` 之前添加：
 
@@ -126,7 +126,7 @@ let package = Package(
 
 ### 步骤 3: 初始化 Sparkle
 
-**文件**: `Sources/Monet/MonetApp.swift`
+**文件**: `Sources/iMonet/iiMonetApp.swift`
 
 **修改 1**: 在文件顶部添加导入
 
@@ -138,8 +138,8 @@ import Sparkle
 
 ```swift
 @main
-struct MonetApp: App {
-    @AppLog(category: "MonetApp")
+struct iMonetApp: App {
+    @AppLog(category: "iMonetApp")
     private var logger
 
     @Environment(\.openWindow) private var openWindow
@@ -173,7 +173,7 @@ struct MonetApp: App {
 
 ### 步骤 4: 创建 UpdatesSettingsPane
 
-**文件**: `Sources/Monet/Settings/UpdatesSettingsPane.swift` (新建)
+**文件**: `Sources/iMonet/Settings/UpdatesSettingsPane.swift` (新建)
 
 ```swift
 //
@@ -277,7 +277,7 @@ struct UpdatesSettingsPane: View {
 
 ### 步骤 5: 启用 Updates 设置页
 
-**文件**: `Sources/Monet/SettingsView.swift`
+**文件**: `Sources/iMonet/SettingsView.swift`
 
 找到 `detailView` 的 switch 语句，取消注释 `.updates` 分支：
 
@@ -307,7 +307,7 @@ private var detailView: some View {
 
 ### 步骤 6: 在 About 页面添加检查更新按钮
 
-**文件**: `Sources/Monet/Settings/AboutSettingsPane.swift`
+**文件**: `Sources/iMonet/Settings/AboutSettingsPane.swift`
 
 在版本号下方添加按钮：
 
@@ -398,7 +398,7 @@ Button("Check for Updates...") {
 | 配置 GitHub Secrets | 5 分钟 |
 | 添加 Sparkle 依赖 | 10 分钟 |
 | 配置 Info.plist | 5 分钟 |
-| 初始化 MonetApp.swift | 10 分钟 |
+| 初始化 iiMonetApp.swift | 10 分钟 |
 | 创建 UpdatesSettingsPane | 30 分钟 |
 | 启用设置页 | 5 分钟 |
 | About 页面添加按钮 | 5 分钟 |

@@ -4,21 +4,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Monet is a macOS image viewer application built with SwiftUI, focused on efficient image viewing and navigation with keyboard shortcuts and mouse interactions.
+iMonet is a macOS image viewer application built with SwiftUI, focused on efficient image viewing and navigation with keyboard shortcuts and mouse interactions.
 
 ## Build and Run
 
 ```bash
 swift run                    # Build and run the app (debug, no .app bundle)
 swift test                   # Run tests
-xcodebuild -scheme Monet -configuration Release -derivedDataPath build -destination "platform=macOS,arch=arm64" ARCHS=arm64 ENABLE_HARDENED_RUNTIME=YES build  # Release build with .app bundle (for "Open With" testing)
+xcodebuild -scheme iMonet -configuration Release -derivedDataPath build -destination "platform=macOS,arch=arm64" ARCHS=arm64 ENABLE_HARDENED_RUNTIME=YES build  # Release build with .app bundle (for "Open With" testing)
 ```
 
 ## Project Structure
 
 The codebase follows a modular SwiftUI architecture:
 
-- **MonetApp.swift** - App entry point with `@main`, defines scenes (main window, settings, menu bar extra)
+- **iMonetApp.swift** - App entry point with `@main`, defines scenes (main window, settings, menu bar extra)
 - **AppState.swift** - Global application state (`@MainActor class`), manages image URLs, permissions, settings
 - **AppDelegate** - Handles file opening requests, window styling, and app lifecycle
 - **Views/**:
@@ -54,11 +54,11 @@ The codebase follows a modular SwiftUI architecture:
   ```
 
 ### Resource Handling
-- `Info.plist` and `Monet.entitlements` are NOT declared in Package.swift (SPM limitation)
+- `Info.plist` and `iMonet.entitlements` are NOT declared in Package.swift (SPM limitation)
 - They are handled by Xcode project configuration if using Xcode
 
 ### Dependencies
-- **SwiftUITooltip** - Tooltips (product: `SwiftUITooltip` from `SwiftUI-Tooltip` package)
+The project has no external dependencies.
 
 ### Logging
 Use `@AppLog(category: "Name")` property wrapper:

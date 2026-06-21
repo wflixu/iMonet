@@ -8,7 +8,7 @@ PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$PROJECT_ROOT"
 
 echo "=== 1. 构建 App (使用 xcodebuild) ==="
-xcodebuild -scheme Monet \
+xcodebuild -scheme iMonet \
   -configuration Release \
   -derivedDataPath .build/xcodebuild \
   -destination "platform=macOS,arch=arm64" \
@@ -18,7 +18,7 @@ xcodebuild -scheme Monet \
 
 echo "=== 2. 查找构建产物 ==="
 # 使用 find 查找 App（兼容不同路径结构）
-APP_PATH=$(find .build/xcodebuild -name "Monet.app" -type d -path "*/Products/Release/*" | head -n 1)
+APP_PATH=$(find .build/xcodebuild -name "iMonet.app" -type d -path "*/Products/Release/*" | head -n 1)
 
 if [ -z "$APP_PATH" ]; then
   echo "Error: App 未找到"
